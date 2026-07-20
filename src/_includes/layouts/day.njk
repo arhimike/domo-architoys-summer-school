@@ -116,7 +116,6 @@ bodyClass: article-page
       <div class="section-grid photos-heading">
         <div class="section-label mono">Фотоотчёт / 06</div>
         <div><p class="eyebrow">{{ date | dateRu }} 2026</p><h2 id="photos-title">День в кадрах</h2></div>
-        <p>В админке можно менять порядок, подписи и видимость этих фотографий.</p>
       </div>
       <div class="photo-grid" data-gallery>
         {% for photo in visibleGallery %}
@@ -133,10 +132,6 @@ bodyClass: article-page
   {% endif %}
 
   <footer class="article-footer section-grid">
-    <div class="editorial-note">
-      <span class="mono">Редактирование</span>
-      <p>Материал и фотоотчёт управляются через закрытую редакционную панель сайта.</p>
-    </div>
     {% set dayNav = collections.days | dayNavigation(day_number) %}
     <nav class="day-navigation" aria-label="Навигация по дням">
       {% if dayNav.previous %}
