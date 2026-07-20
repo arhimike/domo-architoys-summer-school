@@ -1,0 +1,167 @@
+backend:
+  name: github
+  repo: arhimike/domo-architoys-summer-school
+  branch: main
+  use_graphql: true
+  commit_messages:
+    create: "Создан {{collection}}: {{slug}}"
+    update: "Обновлён {{collection}}: {{slug}}"
+    delete: "Удалён {{collection}}: {{slug}}"
+    uploadMedia: "Загружено фото: {{path}}"
+    deleteMedia: "Удалено фото: {{path}}"
+
+local_backend: true
+publish_mode: simple
+site_url: https://architoys.korsi.ru
+display_url: https://architoys.korsi.ru
+logo:
+  src: https://architoys.korsi.ru/assets/favicon.svg
+  show_in_header: true
+locale: ru
+search: true
+show_preview_links: true
+
+media_folder: "src/assets/photos/uploads"
+public_folder: "/assets/photos/uploads"
+media_library:
+  config:
+    max_file_size: 4000000
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: "settings"
+    label: "Настройки сайта"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "site"
+        label: "Общие настройки"
+        file: "src/_data/site.json"
+        format: "json"
+        fields:
+          - { label: "Название", name: "name", widget: "string" }
+          - { label: "Подзаголовок", name: "subtitle", widget: "string" }
+          - { label: "Описание сайта", name: "description", widget: "text" }
+          - { label: "Адрес сайта школы", name: "domain", widget: "string" }
+          - { label: "Основной сайт", name: "mainSite", widget: "string" }
+          - { label: "Ссылка на бот регистрации", name: "registrationUrl", widget: "string" }
+          - { label: "Сезон и даты", name: "season", widget: "string" }
+          - { label: "Площадка", name: "location", widget: "string" }
+          - { label: "Адрес", name: "address", widget: "string" }
+          - { label: "Куратор", name: "author", widget: "string" }
+
+  - name: "days"
+    label: "Дни школы"
+    label_singular: "День"
+    description: "Редактирование текста, проектов и фотоотчёта каждого дня. После сохранения Netlify автоматически соберёт новую версию сайта."
+    folder: "src/days"
+    create: true
+    delete: false
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    slug: "{{fields.slug}}"
+    summary: "День {{day_number}} — {{title}}"
+    preview_path: "{{fields.slug}}/"
+    sortable_fields: ["day_number", "date", "title", "published"]
+    editor:
+      preview: false
+    fields:
+      - label: "Опубликован"
+        name: "published"
+        widget: "boolean"
+        default: false
+        hint: "Сначала заполните материал и проверьте фотографии. После включения день появится на главной и получит публичную страницу."
+      - label: "Номер дня"
+        name: "day_number"
+        widget: "string"
+        pattern: ["^[0-9]{2}$", "Введите две цифры: 01, 02, 03…"]
+      - label: "Адрес страницы"
+        name: "slug"
+        widget: "string"
+        pattern: ["^day-[0-9]{2}$", "Формат: day-01, day-02, day-03…"]
+      - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
+      - { label: "Главный заголовок", name: "title", widget: "string" }
+      - { label: "Короткий заголовок для главной", name: "card_title", widget: "string" }
+      - { label: "Лид", name: "deck", widget: "text", required: false }
+      - { label: "Описание для поисковиков", name: "meta_description", widget: "text", required: false }
+
+      - { label: "Город", name: "location", widget: "string", default: "Москва" }
+      - { label: "Площадка", name: "venue", widget: "string", default: "Центральный дом архитектора" }
+      - { label: "Адрес", name: "address", widget: "string", default: "Гранатный пер., 7" }
+      - { label: "Формат", name: "event_format", widget: "string", default: "очно + онлайн" }
+      - { label: "Фотография обложки", name: "cover_image", widget: "image", choose_url: false, required: false }
+      - { label: "Описание обложки для доступности", name: "cover_alt", widget: "string", required: false }
+      - { label: "Подпись к обложке", name: "cover_caption", widget: "string", required: false }
+
+      - label: "Структура дня"
+        name: "summary_steps"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.title}}"
+        fields:
+          - { label: "Заголовок", name: "title", widget: "string" }
+          - { label: "Краткое описание", name: "text", widget: "text" }
+
+      - { label: "Надзаголовок вступления", name: "lecture_eyebrow", widget: "string", default: "Вступление" }
+      - { label: "Заголовок вступления", name: "lecture_title", widget: "string", required: false }
+      - { label: "Текст вступления", name: "lecture_body", widget: "markdown", required: false }
+      - { label: "Заголовок дискуссии", name: "discussion_title", widget: "string", required: false }
+      - { label: "Лид дискуссии", name: "discussion_lead", widget: "text", required: false }
+      - { label: "Текст дискуссии", name: "discussion_body", widget: "markdown", required: false }
+
+      - { label: "Заголовок блока проектов", name: "projects_title", widget: "string", default: "Проектные направления" }
+      - { label: "Введение к проектам", name: "projects_intro", widget: "text", required: false }
+      - label: "Проекты"
+        name: "projects"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.title}} — {{fields.author}}"
+        fields:
+          - { label: "Автор", name: "author", widget: "string" }
+          - { label: "Название", name: "title", widget: "string" }
+          - { label: "Описание", name: "description", widget: "text" }
+          - label: "Метки"
+            name: "tags"
+            widget: "list"
+            required: false
+            field: { label: "Метка", name: "tag", widget: "string" }
+          - { label: "Примечание", name: "note", widget: "text", required: false }
+          - { label: "Тёмная карточка", name: "dark", widget: "boolean", default: false, required: false }
+
+      - { label: "Заголовок итогов", name: "results_title", widget: "string", default: "Итоги дня" }
+      - { label: "Текст итогов", name: "results_body", widget: "markdown", required: false }
+      - label: "Ключевые итоги"
+        name: "outcomes"
+        widget: "list"
+        required: false
+        field: { label: "Итог", name: "outcome", widget: "string" }
+      - { label: "Короткий пост", name: "short_post", widget: "markdown", required: false }
+
+      - label: "Фотографии"
+        name: "gallery"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.caption}}"
+        hint: "Загружайте новые JPG/PNG, перетаскивайте карточки для изменения порядка, удаляйте или выключайте «Показывать», чтобы временно убрать кадр."
+        fields:
+          - { label: "Файл", name: "image", widget: "image", choose_url: false }
+          - { label: "Описание для доступности", name: "alt", widget: "string" }
+          - { label: "Подпись", name: "caption", widget: "string" }
+          - label: "Размер в сетке"
+            name: "layout"
+            widget: "select"
+            default: "tall"
+            options:
+              - { label: "Обычный", value: "normal" }
+              - { label: "Широкий", value: "wide" }
+              - { label: "Вертикальный", value: "tall" }
+          - { label: "Показывать", name: "visible", widget: "boolean", default: true }

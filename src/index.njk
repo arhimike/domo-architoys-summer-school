@@ -1,0 +1,119 @@
+---
+layout: layouts/base.njk
+permalink: index.html
+title: Летняя школа Михаила Корси для архитекторов
+pageType: home
+bodyClass: home-page
+cover_image: /assets/photos/uploads/day-01-01.jpg
+---
+{% set days = collections.days | sortedDays %}
+{% set firstDay = days[0].data %}
+{% set latestItem = collections.days | latestPublishedDay %}
+{% set latestDay = latestItem.data %}
+{% set publishedDays = collections.days | publishedDays %}
+{% set firstGallery = firstDay.gallery | visiblePhotos %}
+{% set latestGallery = latestDay.gallery | visiblePhotos %}
+{% set featurePhoto = latestGallery[2] or latestGallery[0] %}
+{% set placePhoto = firstGallery[1] or firstGallery[0] %}
+
+  <section class="home-hero section-grid" aria-labelledby="hero-title">
+    <div class="hero-kicker mono">{{ site.name }} — {{ site.subtitle }} · {{ site.season }} · {{ publishedDays.length | pad2 }}/10</div>
+    <h1 id="hero-title">10 дней<br>архитектурных<br><em>экспериментов</em></h1>
+    <p class="hero-lead">Летняя школа, в которой архитектурная идея превращается в цифровую игру, проверяемую механику и первый работающий прототип.</p>
+    <p class="hero-curator mono">Куратор и мастерская — <a href="{{ site.mainSite }}">{{ site.author }}</a></p>
+    <div class="hero-actions">
+      {% if latestDay.published %}<a class="button button-dark" href="/{{ latestDay.slug }}/">Читать День {{ latestDay.day_number }} <span aria-hidden="true">↗</span></a>{% endif %}
+      <a class="button button-orange" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Предзапись на следующий сезон <span aria-hidden="true">↗</span></a>
+      <a class="text-link" href="#diary">Все дни <span aria-hidden="true">↓</span></a>
+    </div>
+
+    <figure class="hero-photo">
+      <img src="{{ latestDay.cover_image or firstDay.cover_image }}" width="800" height="960" alt="{{ latestDay.cover_alt or firstDay.cover_alt }}" fetchpriority="high" decoding="async">
+      <figcaption><span>День {{ latestDay.day_number }}</span> {{ latestDay.cover_caption or firstDay.cover_caption }}</figcaption>
+    </figure>
+
+    <aside class="hero-facts" aria-label="Основная информация">
+      <span class="fact-number">10</span>
+      <p><b>дней</b><br>исследования и прототипирования</p>
+      <dl>
+        <div><dt>Формат</dt><dd>очно + онлайн</dd></div>
+        <div><dt>Площадка</dt><dd>{{ site.location }}</dd></div>
+        <div><dt>Адрес</dt><dd>{{ site.address }}</dd></div>
+        <div><dt>Куратор</dt><dd><a href="{{ site.mainSite }}">{{ site.author }}</a></dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <section class="manifesto section-grid ruled-section" id="about" aria-labelledby="about-title">
+    <div class="section-label mono">О школе / 01</div>
+    <div class="section-heading">
+      <p class="eyebrow">{{ site.name }}</p>
+      <h2 id="about-title">Архитектор проектирует не только здание, но и сам инструмент проектирования.</h2>
+    </div>
+    <div class="manifesto-copy prose">
+      <p>В основе школы — поиск новых способов создавать и воспринимать архитектуру: через голос, движение, музыку, фотографию, рисунок, карту и игровые действия. Профессиональная идея остаётся авторской, а цифровые средства помогают быстро проверить её в работе.</p>
+      <p>Игровой формат снимает страх перед ошибкой. Здесь не требуется сразу делать сложный профессиональный продукт: важнее ясно сформулировать механику, собрать минимальный прототип, показать его группе и перейти к следующей версии.</p>
+    </div>
+    <ol class="principles" aria-label="Четыре принципа школы">
+      <li><span class="mono">01</span><h3>Идея</h3><p>Объяснить замысел одним понятным предложением.</p></li>
+      <li><span class="mono">02</span><h3>Действие</h3><p>Определить, что делает человек и как это меняет архитектуру.</p></li>
+      <li><span class="mono">03</span><h3>Прототип</h3><p>Собрать минимальную рабочую версию вместо долгого описания.</p></li>
+      <li><span class="mono">04</span><h3>Диалог</h3><p>Проверить идею вместе и улучшать её короткими итерациями.</p></li>
+    </ol>
+  </section>
+
+  <section class="diary section-grid" id="diary" aria-labelledby="diary-title">
+    <div class="section-label mono">Дневник / 02</div>
+    <div class="section-heading diary-heading">
+      <p class="eyebrow">Архив пополняется каждый день</p>
+      <h2 id="diary-title">Десять глав одной лаборатории</h2>
+      <p>Каждый отчёт фиксирует не только результат, но и путь: вопросы, споры, гипотезы, первые версии и решения, которые появились в работе.</p>
+    </div>
+    <ul class="days-grid" aria-label="Дни летней школы">
+      {% for item in days %}
+        {% set day = item.data %}
+        <li class="day-card{% if day.published %} day-card-active{% endif %}"{% if not day.published %} aria-disabled="true"{% endif %}>
+          {% if day.published %}<a href="/{{ day.slug }}/">{% endif %}
+            <span class="day-status mono">{{ 'опубликован' if day.published else 'скоро' }}</span>
+            <strong>{{ day.day_number }}</strong>
+            <h3>{{ day.card_title or day.title or 'Следующая глава' }}</h3>
+            <span class="day-date">{{ (day.date | dateRu) if day.published else '—' }}</span>
+            {% if day.published %}<span class="day-arrow" aria-hidden="true">↗</span>{% endif %}
+          {% if day.published %}</a>{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="day-feature section-grid" aria-labelledby="feature-title">
+    <div class="section-label mono">Последняя запись / 03</div>
+    <div class="feature-number" aria-hidden="true">{{ latestDay.day_number }}</div>
+    <div class="feature-copy">
+      <p class="eyebrow">{{ latestDay.date | dateRu }} · {{ latestDay.location }}</p>
+      <h2 id="feature-title">{{ latestDay.title }}</h2>
+      <p>{{ latestDay.deck }}</p>
+      <a class="button button-dark" href="/{{ latestDay.slug }}/">Открыть полный отчёт <span aria-hidden="true">→</span></a>
+    </div>
+    {% if featurePhoto %}
+      <figure class="feature-photo">
+        <img src="{{ featurePhoto.image }}" width="960" height="1280" alt="{{ featurePhoto.alt }}" loading="eager" decoding="async">
+        <figcaption>{{ featurePhoto.caption }}</figcaption>
+      </figure>
+    {% endif %}
+  </section>
+
+  <section class="place-section section-grid" id="place" aria-labelledby="place-title">
+    <div class="section-label mono">Место / 04</div>
+    {% if placePhoto %}
+      <figure class="place-photo">
+        <img src="{{ placePhoto.image }}" width="960" height="1280" alt="{{ placePhoto.alt }}" loading="eager" decoding="async">
+      </figure>
+    {% endif %}
+    <div class="place-copy">
+      <p class="eyebrow">Москва</p>
+      <h2 id="place-title">{{ site.location }}</h2>
+      <address>{{ site.address }}<br>Архитектурный коворкинг</address>
+      <p>Рабочая площадка школы объединяет общие обсуждения, индивидуальную работу и быстрые показы цифровых прототипов.</p>
+      <a class="text-link" href="https://yandex.ru/maps/?text=Москва%2C%20Гранатный%20переулок%2C%207" target="_blank" rel="noopener">Открыть на карте <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>

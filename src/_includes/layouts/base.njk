@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e8">
+  <meta name="description" content="{{ meta_description or site.description }}">
+  {% if published == false %}<meta name="robots" content="noindex,nofollow">{% endif %}
+  <meta property="og:type" content="{{ 'article' if pageType == 'day' else 'website' }}">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="{{ title }} — {{ site.name }}">
+  <meta property="og:description" content="{{ meta_description or deck or site.description }}">
+  <meta property="og:url" content="{{ site.domain }}{{ page.url }}">
+  {% if cover_image %}<meta property="og:image" content="{{ site.domain }}{{ cover_image }}">{% endif %}
+  <meta name="twitter:card" content="summary_large_image">
+  <title>{{ title }} — {{ site.name }}</title>
+  <link rel="canonical" href="{{ site.domain }}{{ page.url }}">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/script.js" defer></script>
+</head>
+<body class="{{ bodyClass or '' }}">
+  <a class="skip-link" href="#main">К содержанию</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="/" aria-label="{{ site.name }} — на главную">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-copy"><b>{{ site.name }}</b><small>{{ site.subtitle }}</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+      <span>Меню</span><i aria-hidden="true"></i>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Основная навигация" data-nav>
+      <a href="/#about">О школе</a>
+      <a href="/#diary">Дневник</a>
+      {% if pageType == 'day' %}
+        {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
+        {% set navPhotos = gallery | visiblePhotos %}
+        {% if navPhotos.length %}<a href="#photos">Фото</a>{% endif %}
+      {% else %}
+        <a href="/day-01/">День 01</a>
+        <a href="#place">Место</a>
+      {% endif %}
+      <a class="nav-registration" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Регистрация <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer section-grid">
+    <a class="footer-brand" href="/">{{ site.name }}</a>
+    <p>{{ site.subtitle }}<br>{{ site.season }}</p>
+    <p>Куратор и мастерская — <a href="{{ site.mainSite }}">{{ site.author }}</a><br><a href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Бот регистрации ↗</a><br><a href="{{ site.mainSite }}">korsi.ru</a><br>© 2026 {{ site.author }} · Все права защищены</p>
+    <a class="back-top" href="#main">Наверх <span aria-hidden="true">↑</span></a>
+  </footer>
+</body>
+</html>
