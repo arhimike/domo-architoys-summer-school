@@ -4,19 +4,14 @@ permalink: index.html
 title: Летняя школа Михаила Корси для архитекторов
 pageType: home
 bodyClass: home-page
-cover_image: /assets/photos/uploads/day-01-01.jpg
 ---
 {% set days = collections.days | sortedDays %}
 {% set firstDay = days[0].data %}
 {% set latestItem = collections.days | latestPublishedDay %}
 {% set latestDay = latestItem.data %}
 {% set publishedDays = collections.days | publishedDays %}
-{% set firstGallery = firstDay.gallery | visiblePhotos %}
-{% set latestGallery = latestDay.gallery | visiblePhotos %}
-{% set featurePhoto = latestGallery[2] or latestGallery[0] %}
-{% set placePhoto = firstGallery[1] or firstGallery[0] %}
 
-  <section class="home-hero section-grid" aria-labelledby="hero-title">
+  <section class="home-hero home-hero-no-media section-grid" aria-labelledby="hero-title">
     <div class="hero-kicker mono">{{ site.name }} — {{ site.subtitle }} · {{ site.season }} · {{ publishedDays.length | pad2 }}/10</div>
     <h1 id="hero-title">10 дней<br>архитектурных<br><em>экспериментов</em></h1>
     <p class="hero-lead">Летняя школа, в которой архитектурная идея превращается в цифровую игру, проверяемую механику и первый работающий прототип.</p>
@@ -26,11 +21,6 @@ cover_image: /assets/photos/uploads/day-01-01.jpg
       <a class="button button-orange" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Предзапись на следующий сезон <span aria-hidden="true">↗</span></a>
       <a class="text-link" href="#diary">Все дни <span aria-hidden="true">↓</span></a>
     </div>
-
-    <figure class="hero-photo">
-      <img src="{{ latestDay.cover_image or firstDay.cover_image }}" width="800" height="960" alt="{{ latestDay.cover_alt or firstDay.cover_alt }}" fetchpriority="high" decoding="async">
-      <figcaption><span>День {{ latestDay.day_number }}</span> {{ latestDay.cover_caption or firstDay.cover_caption }}</figcaption>
-    </figure>
 
     <aside class="hero-facts" aria-label="Основная информация">
       <span class="fact-number">10</span>
@@ -85,7 +75,7 @@ cover_image: /assets/photos/uploads/day-01-01.jpg
     </ul>
   </section>
 
-  <section class="day-feature section-grid" aria-labelledby="feature-title">
+  <section class="day-feature featured-day feature-no-media section-grid" aria-labelledby="feature-title">
     <div class="section-label mono">Последняя запись / 03</div>
     <div class="feature-number" aria-hidden="true">{{ latestDay.day_number }}</div>
     <div class="feature-copy">
@@ -94,21 +84,10 @@ cover_image: /assets/photos/uploads/day-01-01.jpg
       <p>{{ latestDay.deck }}</p>
       <a class="button button-dark" href="/{{ latestDay.slug }}/">Открыть полный отчёт <span aria-hidden="true">→</span></a>
     </div>
-    {% if featurePhoto %}
-      <figure class="feature-photo">
-        <img src="{{ featurePhoto.image }}" width="960" height="1280" alt="{{ featurePhoto.alt }}" loading="eager" decoding="async">
-        <figcaption>{{ featurePhoto.caption }}</figcaption>
-      </figure>
-    {% endif %}
   </section>
 
-  <section class="place-section section-grid" id="place" aria-labelledby="place-title">
+  <section class="place-section place place-no-media section-grid" id="place" aria-labelledby="place-title">
     <div class="section-label mono">Место / 04</div>
-    {% if placePhoto %}
-      <figure class="place-photo">
-        <img src="{{ placePhoto.image }}" width="960" height="1280" alt="{{ placePhoto.alt }}" loading="eager" decoding="async">
-      </figure>
-    {% endif %}
     <div class="place-copy">
       <p class="eyebrow">Москва</p>
       <h2 id="place-title">{{ site.location }}</h2>

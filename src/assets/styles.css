@@ -313,6 +313,7 @@ address { font-style: normal; }
   color: var(--white);
   background: var(--orange);
 }
+.home-hero-no-media .hero-facts { grid-column: 6 / -1; }
 .fact-number { display: block; margin: -10px 0 -18px; font-size: clamp(5.5rem, 10vw, 10rem); font-weight: 700; letter-spacing: -0.035em; line-height: 1; }
 .hero-facts > p { margin: 0 0 38px; font-size: 1.05rem; line-height: 1.25; }
 .hero-facts dl { border-top: 1px solid rgba(255,255,255,.45); }
@@ -391,6 +392,7 @@ address { font-style: normal; }
 .feature-photo { grid-column: 9 / -1; grid-row: 2 / span 2; }
 .feature-photo img { width: auto; max-width: 100%; height: auto; object-fit: contain; }
 .feature-photo figcaption { padding-top: 9px; color: var(--muted); font-size: 0.62rem; }
+.feature-no-media .feature-copy { grid-column: 6 / -1; }
 
 .place { padding-top: clamp(74px, 9vw, 140px); padding-bottom: clamp(80px, 10vw, 160px); border-top: 1px solid var(--line); }
 .place-photo { grid-column: 3 / span 4; }
@@ -399,6 +401,7 @@ address { font-style: normal; }
 .place-copy > p:not(.eyebrow, .source-note) { max-width: 620px; margin: 28px 0; }
 .place-copy address { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--ink); font-size: 1.05rem; font-weight: 650; }
 .place-copy .source-note { margin: 10px 0 0; color: var(--muted); font-size: 0.68rem; }
+.place-no-media .place-copy { grid-column: 3 / span 8; }
 
 /* Day article hero */
 .day-hero { padding-top: clamp(30px, 4vw, 64px); padding-bottom: clamp(76px, 9vw, 140px); }
@@ -682,6 +685,7 @@ address { font-style: normal; }
   .feature-photo { grid-column: 8 / -1; }
   .place-photo { grid-column: 1 / span 5; }
   .place-copy { grid-column: 6 / -1; }
+  .feature-no-media .feature-copy, .place-no-media .place-copy { grid-column: 1 / -1; }
 
   .day-index { grid-column: 1 / span 2; }
   .day-title-block { grid-column: 3 / -1; }
@@ -715,6 +719,7 @@ address { font-style: normal; }
   .hero-photo { margin-top: 52px; }
   .hero-photo img { aspect-ratio: auto; }
   .hero-facts { margin-top: 0; }
+  .home-hero-no-media .hero-facts { grid-column: 1 / -1; margin-top: 52px; }
   .principles { grid-template-columns: 1fr; }
   .principles li { min-height: 190px; border-right: 0; border-bottom: 1px solid var(--ink); }
   .principles li:last-child { border-bottom: 0; }
