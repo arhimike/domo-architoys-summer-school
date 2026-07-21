@@ -39,6 +39,9 @@
         {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
         {% set navPhotos = gallery | visiblePhotos %}
         {% if navPhotos.length %}<a href="#photos">Фото</a>{% endif %}
+      {% elseif pageType == 'longread' %}
+        <a href="{{ return_url }}">День {{ day_number }}</a>
+        <a href="#full-report">Полный текст</a>
       {% else %}
         <a href="/day-01/">День 01</a>
         <a href="#place">Место</a>

@@ -37,6 +37,21 @@ bodyClass: article-page
     </section>
   {% endif %}
 
+  {% if full_report_url %}
+    <section class="longread-callout section-grid" aria-labelledby="full-report-title">
+      <div class="section-label mono">Материал / полный текст</div>
+      <div class="longread-callout-copy">
+        <p class="eyebrow">Подробный отчёт</p>
+        <h2 id="full-report-title">{{ full_report_title or 'Полный текст дня' }}</h2>
+        {% if full_report_description %}<p>{{ full_report_description }}</p>{% endif %}
+        <a class="button longread-callout-button" href="{{ full_report_url }}">
+          <span>{{ full_report_label or 'Читать полностью' }}</span><span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="longread-callout-index" aria-hidden="true"><b>{{ day_number }}</b><span>/ полный</span></div>
+    </section>
+  {% endif %}
+
   {% if lecture_title or lecture_body %}
     <section class="article-section section-grid" aria-labelledby="lecture-title">
       <div class="section-label mono">Вступление / 01</div>

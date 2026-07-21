@@ -109,6 +109,11 @@ collections:
           - { label: "Заголовок", name: "title", widget: "string" }
           - { label: "Краткое описание", name: "text", widget: "text" }
 
+      - { label: "Ссылка на полный текст", name: "full_report_url", widget: "string", required: false }
+      - { label: "Текст кнопки полного отчёта", name: "full_report_label", widget: "string", required: false }
+      - { label: "Заголовок полного отчёта", name: "full_report_title", widget: "string", required: false }
+      - { label: "Описание полного отчёта", name: "full_report_description", widget: "text", required: false }
+
       - { label: "Надзаголовок вступления", name: "lecture_eyebrow", widget: "string", default: "Вступление" }
       - { label: "Заголовок вступления", name: "lecture_title", widget: "string", required: false }
       - { label: "Текст вступления", name: "lecture_body", widget: "markdown", required: false }
@@ -165,3 +170,30 @@ collections:
               - { label: "Широкий", value: "wide" }
               - { label: "Вертикальный", value: "tall" }
           - { label: "Показывать", name: "visible", widget: "boolean", default: true }
+
+  - name: "longreads"
+    label: "Полные тексты"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "day_01_full"
+        label: "День 01 — полный текст"
+        file: "src/longreads/day-01-full.md"
+        format: "frontmatter"
+        preview_path: "day-01/full/"
+        fields:
+          - { label: "Шаблон", name: "layout", widget: "hidden", default: "layouts/longread.njk" }
+          - { label: "Адрес страницы", name: "permalink", widget: "hidden", default: "day-01/full/index.html" }
+          - { label: "Номер дня", name: "day_number", widget: "hidden", default: "01" }
+          - { label: "Главный заголовок", name: "title", widget: "string" }
+          - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+          - { label: "Название события", name: "event_name", widget: "string" }
+          - { label: "Место", name: "venue", widget: "string" }
+          - { label: "Формат", name: "event_format", widget: "string" }
+          - { label: "Лид", name: "deck", widget: "text" }
+          - { label: "Описание для поисковиков", name: "meta_description", widget: "text" }
+          - { label: "Текст в боковой колонке", name: "aside_text", widget: "text" }
+          - { label: "Ссылка назад", name: "return_url", widget: "hidden", default: "/day-01/" }
+          - { label: "Подпись ссылки назад", name: "return_label", widget: "string" }
+          - { label: "Полный текст", name: "body", widget: "markdown" }

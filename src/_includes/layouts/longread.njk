@@ -1,0 +1,42 @@
+---
+layout: layouts/base.njk
+pageType: longread
+bodyClass: longread-page
+---
+<article class="longread-article">
+  <header class="longread-hero section-grid">
+    <nav class="breadcrumbs mono" aria-label="Хлебные крошки">
+      <a href="/">Дневник</a><span>/</span><a href="{{ return_url }}">День {{ day_number }}</a><span>/</span><span>Полный текст</span>
+    </nav>
+    <div class="longread-daymark" aria-hidden="true"><span>День</span><b>{{ day_number }}</b></div>
+    <div class="longread-heading">
+      <p class="eyebrow">Подробный отчёт · <time datetime="{{ date | dateIso }}">{{ date | dateRu }} 2026</time></p>
+      <h1>{{ title }}</h1>
+      <p>{{ deck }}</p>
+    </div>
+    <dl class="longread-meta mono">
+      <div><dt>Событие</dt><dd>{{ event_name }}</dd></div>
+      <div><dt>Место</dt><dd>{{ venue }}</dd></div>
+      <div><dt>Формат</dt><dd>{{ event_format }}</dd></div>
+    </dl>
+  </header>
+
+  <section class="longread-content section-grid ruled-section" id="full-report" aria-label="Полный текст первого дня">
+    <aside class="longread-aside">
+      <p class="mono">День {{ day_number }} / полный текст</p>
+      <p>{{ aside_text }}</p>
+      <a class="text-link" href="{{ return_url }}"><span aria-hidden="true">←</span> {{ return_label }}</a>
+    </aside>
+    <div class="longread-copy prose prose-long">
+      {{ content | safe }}
+    </div>
+  </section>
+
+  <footer class="longread-return section-grid">
+    <div>
+      <p class="eyebrow">Дневник школы</p>
+      <h2>Вернуться к краткому отчёту и пяти проектным направлениям</h2>
+    </div>
+    <a class="button button-dark" href="{{ return_url }}"><span>{{ return_label }}</span><span aria-hidden="true">→</span></a>
+  </footer>
+</article>
