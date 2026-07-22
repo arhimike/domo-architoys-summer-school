@@ -30,8 +30,8 @@ bodyClass: glossary-page
       <h2 id="glossary-intro-title">Каждый термин связан с архитектурной задачей.</h2>
     </div>
     <div class="glossary-intro-copy prose">
-      <p>Введите знакомое слово, английское сокращение или задачу. Откройте карточку, чтобы увидеть пример, связанные понятия, официальный источник или документацию.</p>
-      <p>Определения намеренно короткие: они дают общий язык для разговора архитектора, разработчика и искусственного интеллекта, но не заменяют техническую документацию.</p>
+      <p>Введите знакомое слово, английское сокращение или задачу. В каждой карточке есть короткое определение, перевод на язык архитектуры, пример из проекта и небольшая подсказка для памяти.</p>
+      <p>Это не энциклопедия программиста, а мост между двумя профессиями. Определения дают общий язык архитектору, разработчику и искусственному интеллекту, а ссылки ведут к технической документации.</p>
     </div>
   </section>
 
@@ -59,7 +59,7 @@ bodyClass: glossary-page
 
     <div class="glossary-grid" data-glossary-grid>
       {% for term in terms %}
-        <details class="glossary-card" data-glossary-card data-category="{{ term.data.category }}" data-search="{{ term.data.title }} {{ term.data.english }} {{ term.data.definition }} {{ term.data.architecture_example }} {{ term.data.aliases | join(' ') }}">
+        <details class="glossary-card" data-glossary-card data-category="{{ term.data.category }}" data-search="{{ term.data.title }} {{ term.data.english }} {{ term.data.definition }} {{ term.data.architecture_analogy }} {{ term.data.architecture_example }} {{ term.data.memory_hook }} {{ term.data.aliases | join(' ') }}">
           <summary>
             <span class="glossary-card-number mono">{{ term.data.order | pad2 }}</span>
             <span class="glossary-card-category mono">{{ term.data.category | glossaryCategoryLabel }}</span>
@@ -71,14 +71,21 @@ bodyClass: glossary-page
             <span class="glossary-card-toggle" aria-hidden="true">+</span>
           </summary>
           <div class="glossary-card-body">
-            <div class="glossary-example">
-              <span class="mono">Архитектурный пример</span>
-              <p>{{ term.data.architecture_example }}</p>
+            <div class="glossary-translation">
+              <div class="glossary-analogy">
+                <span class="mono">На языке архитектора</span>
+                <p>{{ term.data.architecture_analogy }}</p>
+              </div>
+              <div class="glossary-example">
+                <span class="mono">В реальном проекте</span>
+                <p>{{ term.data.architecture_example }}</p>
+              </div>
+              <p class="glossary-memory"><span aria-hidden="true">↳</span> {{ term.data.memory_hook }}</p>
             </div>
             <div class="glossary-taxonomy">
               {% if term.data.aliases and term.data.aliases.length %}
                 <div class="glossary-aliases">
-                  <span class="mono">Также ищут</span>
+                  <span class="mono">Поисковые слова</span>
                   <ul>{% for alias in term.data.aliases %}<li>{{ alias }}</li>{% endfor %}</ul>
                 </div>
               {% endif %}
@@ -111,23 +118,23 @@ bodyClass: glossary-page
     <div class="code-symbols-heading">
       <p class="eyebrow">14 знаков, которые встречаются постоянно</p>
       <h2 id="symbols-title">Символы меняют смысл в зависимости от языка и контекста.</h2>
-      <p>Ниже — ориентиры для чтения HTML, CSS и JavaScript, а не универсальные правила для всех языков программирования.</p>
+      <p>Ниже — ориентиры для чтения HTML, CSS и JavaScript. Для каждого знака есть архитектурная аналогия; она помогает запомнить смысл, но не заменяет правило языка.</p>
     </div>
     <ul class="symbol-grid" aria-label="Основные символы кода">
-      <li><code>&lt; &gt;</code><b>Угловые скобки</b><p>Ограничивают запись HTML-тега.</p></li>
-      <li><code>{ }</code><b>Фигурные скобки</b><p>Объединяют блок правил CSS или кода JavaScript.</p></li>
-      <li><code>[ ]</code><b>Квадратные скобки</b><p>Обозначают массив или обращение к элементу.</p></li>
-      <li><code>( )</code><b>Круглые скобки</b><p>Задают порядок вычисления; при вызове функции содержат аргументы.</p></li>
-      <li><code>/</code><b>Косая черта</b><p>Разделяет части пути; в HTML участвует в закрывающем теге.</p></li>
-      <li><code>#</code><b>Решётка</b><p>В CSS указывает id или цвет, а в URL — фрагмент страницы.</p></li>
-      <li><code>@</code><b>Собака</b><p>Начинает специальные CSS-правила, например, медиазапрос.</p></li>
-      <li><code>.</code><b>Точка</b><p>В CSS указывает класс; в JavaScript отделяет объект от его свойства.</p></li>
-      <li><code>:</code><b>Двоеточие</b><p>Разделяет свойство и значение в CSS; участвует в записи псевдокласса.</p></li>
-      <li><code>;</code><b>Точка с запятой</b><p>Завершает декларацию CSS или инструкцию JavaScript.</p></li>
-      <li><code>=</code><b>Равно</b><p>В HTML отделяет атрибут от значения; в JavaScript выполняет присваивание.</p></li>
-      <li><code>=&gt;</code><b>Стрелка</b><p>Кратко записывает функцию в JavaScript.</p></li>
-      <li><code>&amp;&amp;</code><b>Логическое И</b><p>Требует, чтобы выполнялись оба условия.</p></li>
-      <li><code>||</code><b>Логическое ИЛИ</b><p>Достаточно выполнения хотя бы одного условия.</p></li>
+      <li><code>&lt; &gt;</code><b>Угловые скобки</b><p>Ограничивают запись HTML-тега.</p><span>Как рамка вокруг служебной марки на чертеже: выделяют запись элемента, а не сам элемент целиком.</span></li>
+      <li><code>{ }</code><b>Фигурные скобки</b><p>Объединяют блок правил CSS или кода JavaScript.</p><span>Как граница помещения: всё внутри относится к одному блоку.</span></li>
+      <li><code>[ ]</code><b>Квадратные скобки</b><p>Обозначают массив или обращение к элементу.</p><span>Как кассета однотипных модулей, пронумерованных по порядку.</span></li>
+      <li><code>( )</code><b>Круглые скобки</b><p>Задают порядок вычисления; при вызове функции содержат аргументы.</p><span>Как конкретные значения, переданные в расчёт: ширина, этажность или угол.</span></li>
+      <li><code>/</code><b>Косая черта</b><p>Разделяет части пути; в HTML участвует в закрывающем теге.</p><span>Как разделитель корпусов в адресе; в теге ещё и закрывает дверь.</span></li>
+      <li><code>#</code><b>Решётка</b><p>В CSS указывает id или цвет, а в URL — фрагмент страницы.</p><span>Как уникальная марка элемента на чертеже: найти именно этот.</span></li>
+      <li><code>@</code><b>Собака</b><p>Начинает специальные CSS-правила, например медиазапрос.</p><span>Как особое примечание к альбому: дальше действует отдельное правило.</span></li>
+      <li><code>.</code><b>Точка</b><p>В CSS указывает класс; в JavaScript отделяет объект от его свойства.</p><span>Как общая марка: выбирает группу элементов с одним обозначением.</span></li>
+      <li><code>:</code><b>Двоеточие</b><p>Разделяет свойство и значение в CSS; участвует в записи псевдокласса.</p><span>Как строка спецификации: свойство слева, назначенное значение справа.</span></li>
+      <li><code>;</code><b>Точка с запятой</b><p>Завершает декларацию CSS или инструкцию JavaScript.</p><span>Как конец примечания. Забытая точка с запятой иногда устраивает внеплановую перепланировку.</span></li>
+      <li><code>=</code><b>Равно</b><p>В HTML отделяет атрибут от значения; в JavaScript выполняет присваивание.</p><span>Не обмер, а назначение: говорим переменной или свойству, какое значение хранить.</span></li>
+      <li><code>=&gt;</code><b>Стрелка</b><p>Кратко записывает функцию в JavaScript.</p><span>Похожа на функциональную схему: получили вход — выдали действие или результат.</span></li>
+      <li><code>&amp;&amp;</code><b>Логическое И</b><p>Требует, чтобы выполнялись оба условия.</p><span>Как допуск: и ширина достаточна, и высота проходит — тогда решение допустимо.</span></li>
+      <li><code>||</code><b>Логическое ИЛИ</b><p>Достаточно выполнения хотя бы одного условия.</p><span>Как два допустимых входа: сработал любой — пользователь попал внутрь.</span></li>
     </ul>
   </section>
 
@@ -136,7 +143,7 @@ bodyClass: glossary-page
     <div>
       <p class="eyebrow">Живой словарь школы</p>
       <h2>Терминов станет больше по мере развития проектов.</h2>
-      <p>Если в работе появляется новое понятие, сначала зафиксируйте его простое определение, затем архитектурный пример и ссылку на официальный источник или техническую документацию.</p>
+      <p>Если в работе появляется новое понятие, сначала запишите его простыми словами, затем найдите точную архитектурную аналогию, добавьте пример из проекта и ссылку на официальный источник.</p>
       <a class="button button-orange" href="/#diary">Вернуться к дневнику <span aria-hidden="true">→</span></a>
     </div>
   </section>
