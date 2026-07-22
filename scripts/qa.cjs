@@ -47,6 +47,7 @@ assert(daysCollection?.fields?.some((field) => field.name === "gallery"), "В CM
 const longreadsCollection = adminConfig.collections?.find((collection) => collection.name === "longreads");
 assert(Boolean(longreadsCollection), "В CMS отсутствует раздел полных текстов.");
 assert(longreadsCollection?.files?.some((file) => file.name === "day_01_full"), "В CMS отсутствует полный текст первого дня.");
+assert(longreadsCollection?.files?.some((file) => file.name === "day_02_full"), "В CMS отсутствует полный текст второго дня.");
 if (String(adminConfig.backend?.repo || "").includes("REPLACE_WITH_GITHUB_OWNER")) {
   warnings.push("GitHub-репозиторий ещё не указан — это последний шаг перед включением входа в /admin/.");
 }
@@ -71,21 +72,39 @@ assert(dayOne.projects?.[4]?.title === "Метр на метр", "Проект 0
 assert(dayOne.gallery?.length === 0, "В первом дне пока не должно быть фотографий.");
 assert(dayOne.full_report_url === "/day-01/full/", "В первом дне отсутствует ссылка на полный отчёт.");
 
+const dayTwo = dayEntries[1].data;
+assert(dayTwo.published === true, "Второй день должен быть опубликован.");
+assert(dayTwo.date === "2026-07-21", "У второго дня неверная дата.");
+assert(dayTwo.projects?.length === 5, "Во втором дне должно быть пять проектных направлений.");
+assert(dayTwo.projects?.[4]?.author === "Роза", "Автор проекта 05 второго дня должен быть указан как Роза.");
+assert(dayTwo.projects?.[4]?.title === "Archi Helper", "Проект Розы второго дня должен называться Archi Helper.");
+assert(dayTwo.projects?.[4]?.links?.length === 2, "У Archi Helper должны быть ссылки на две опубликованные версии.");
+assert(dayTwo.projects?.[4]?.links?.[1]?.url === "https://6a60b3d192d2f4e27a9f55f2--precious-madeleine-6aa387.netlify.app/#home", "У Archi Helper неверная ссылка на детализируемую версию.");
+assert(dayTwo.gallery?.length === 0, "Во втором дне пока не должно быть фотографий.");
+assert(dayTwo.full_report_url === "/day-02/full/", "Во втором дне отсутствует ссылка на пошаговый разбор.");
+
 const longreadPath = path.join(source, "longreads", "day-01-full.md");
 assert(fs.existsSync(longreadPath), "В исходниках отсутствует полный текст первого дня.");
 const longread = fs.existsSync(longreadPath) ? matter.read(longreadPath) : { data: {}, content: "" };
 assert(longread.data.permalink === "day-01/full/index.html", "У полного текста первого дня неверный адрес.");
 assert(longread.content.includes("## Главный итог"), "Полный текст первого дня выглядит неполным.");
 
+const dayTwoLongreadPath = path.join(source, "longreads", "day-02-full.md");
+assert(fs.existsSync(dayTwoLongreadPath), "В исходниках отсутствует полный текст второго дня.");
+const dayTwoLongread = fs.existsSync(dayTwoLongreadPath) ? matter.read(dayTwoLongreadPath) : { data: {}, content: "" };
+assert(dayTwoLongread.data.permalink === "day-02/full/index.html", "У полного текста второго дня неверный адрес.");
+assert(dayTwoLongread.content.includes("## Пошаговая логика пяти инструментов"), "В полном тексте второго дня отсутствуют пошаговые маршруты.");
+assert(dayTwoLongread.content.includes("### 05. Роза — Archi Helper"), "В полном тексте второго дня неверно назван проект Розы.");
+
 const photoDirectory = path.join(source, "assets", "photos", "uploads");
 const sourcePhotos = fs.readdirSync(photoDirectory).filter((name) => /\.jpe?g$/i.test(name)).sort();
 assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "В исходниках пока не должно быть фотографий.");
 
-const requiredBuildFiles = ["index.html", "day-01/index.html", "day-01/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
+const requiredBuildFiles = ["index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
-assert(!fs.existsSync(path.join(output, "day-02", "index.html")), "Черновик второго дня не должен быть опубликован.");
+assert(!fs.existsSync(path.join(output, "day-03", "index.html")), "Черновик третьего дня не должен быть опубликован.");
 
-const htmlFiles = ["index.html", "day-01/index.html", "day-01/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
+const htmlFiles = ["index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
 let galleryItemCount = 0;
 
@@ -118,6 +137,13 @@ const builtDayOne = fs.readFileSync(path.join(output, "day-01", "index.html"), "
 const builtLongread = fs.readFileSync(path.join(output, "day-01", "full", "index.html"), "utf8");
 assert(builtDayOne.includes('href="/day-01/full/"'), "На странице первого дня отсутствует кнопка полного отчёта.");
 assert(builtLongread.includes("От архитектурной идеи к первой рабочей механике"), "На странице полного отчёта отсутствует заголовок.");
+
+const builtDayTwo = fs.readFileSync(path.join(output, "day-02", "index.html"), "utf8");
+const builtDayTwoLongread = fs.readFileSync(path.join(output, "day-02", "full", "index.html"), "utf8");
+assert(builtDayTwo.includes('href="/day-02/full/"'), "На странице второго дня отсутствует кнопка пошагового разбора.");
+assert(builtDayTwo.includes("Archi Helper"), "На странице второго дня отсутствует новое название проекта Розы.");
+assert(builtDayTwo.includes("https://archihelper.netlify.app/"), "На странице второго дня отсутствует ссылка на первый вариант Archi Helper.");
+assert(builtDayTwoLongread.includes("Самостоятельная работа: от идеи к пользовательскому сценарию"), "На странице полного текста второго дня отсутствует заголовок.");
 
 const builtPhotos = fs.readdirSync(path.join(output, "assets", "photos", "uploads"))
   .filter((name) => /\.jpe?g$/i.test(name))

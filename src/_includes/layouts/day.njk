@@ -8,14 +8,14 @@ bodyClass: article-page
     <nav class="breadcrumbs mono" aria-label="Хлебные крошки"><a href="/">Дневник</a><span>/</span><span>День {{ day_number }}</span></nav>
     <div class="day-index" aria-hidden="true"><b>{{ day_number }}</b><span>/10</span></div>
     <div class="day-title-block">
-      <p class="eyebrow"><time datetime="{{ date | dateIso }}">{{ date | dateRu }} 2026</time> · {{ location }}</p>
+      <p class="eyebrow"><time datetime="{{ date | dateIso }}">{{ date | dateRu }} 2026</time>{% if location %} · {{ location }}{% endif %}</p>
       <h1>{{ title }}</h1>
       <p class="day-deck">{{ deck }}</p>
     </div>
     <dl class="day-meta mono">
-      <div><dt>Площадка</dt><dd>{{ venue }}</dd></div>
-      <div><dt>Адрес</dt><dd>{{ address }}</dd></div>
-      <div><dt>Формат</dt><dd>{{ event_format }}</dd></div>
+      {% if venue %}<div><dt>Площадка</dt><dd>{{ venue }}</dd></div>{% endif %}
+      {% if address %}<div><dt>Адрес</dt><dd>{{ address }}</dd></div>{% endif %}
+      {% if event_format %}<div><dt>Формат</dt><dd>{{ event_format }}</dd></div>{% endif %}
       <div><dt>Куратор</dt><dd><a href="{{ site.mainSite }}">{{ site.author }}</a></dd></div>
     </dl>
     {% if cover_image %}
@@ -89,7 +89,18 @@ bodyClass: article-page
             <div class="project-top"><span class="project-no">{{ loop.index | pad2 }}</span><span class="project-author mono">{{ project.author }}</span></div>
             <h3>{{ project.title }}</h3>
             <p>{{ project.description }}</p>
-            {% if project.tags %}<ul>{% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}</ul>{% endif %}
+            {% if project.tags %}<ul class="project-tags">{% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}</ul>{% endif %}
+            {% if project.links %}
+              <div class="project-links" aria-label="Ссылки проекта">
+                {% for link in project.links %}
+                  <a href="{{ link.url }}" target="_blank" rel="noopener">
+                    <span>{{ link.label }}</span>
+                    {% if link.status %}<em>{{ link.status }}</em>{% endif %}
+                    <b aria-hidden="true">↗</b>
+                  </a>
+                {% endfor %}
+              </div>
+            {% endif %}
             {% if project.note %}<small>{{ project.note }}</small>{% endif %}
           </article>
         {% endfor %}

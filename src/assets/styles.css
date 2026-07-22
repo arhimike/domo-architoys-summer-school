@@ -549,10 +549,16 @@ address { font-style: normal; }
 .project-author { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; }
 .project-card h3 { max-width: 640px; margin: auto 0 22px; font-size: clamp(2rem, 3.2vw, 3.6rem); letter-spacing: 0.002em; line-height: 0.98; }
 .project-card p { max-width: 700px; margin: 0 0 22px; }
-.project-card ul { margin: 0 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
-.project-card li { padding: 6px 9px; border: 1px solid currentColor; font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; }
+.project-tags { margin: 0 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; list-style: none; }
+.project-tags li { padding: 6px 9px; border: 1px solid currentColor; font-family: var(--mono); font-size: 0.58rem; text-transform: uppercase; }
+.project-links { margin: 0 0 28px; display: grid; border-top: 1px solid currentColor; }
+.project-links a { min-height: 54px; padding: 12px 0; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 12px; border-bottom: 1px solid currentColor; color: inherit; text-decoration: none; }
+.project-links a:hover span { text-decoration: underline; text-underline-offset: 4px; }
+.project-links span { font-size: 0.78rem; font-weight: 700; }
+.project-links em { color: var(--muted); font-family: var(--mono); font-size: 0.56rem; font-style: normal; text-transform: uppercase; }
+.project-links b { color: var(--orange); font-size: 1.1rem; }
 .project-card small { margin-top: auto; padding-top: 16px; border-top: 1px solid currentColor; color: var(--muted); font-size: 0.67rem; }
-.project-card-dark small { color: rgba(255,255,255,.56); }
+.project-card-dark small, .project-card-dark .project-links em { color: rgba(255,255,255,.56); }
 .project-card blockquote { margin: 0 0 28px; padding-left: 18px; border-left: 5px solid var(--orange); font-size: 1.1rem; font-weight: 650; }
 
 .outcomes-section { padding-top: clamp(80px, 10vw, 150px); padding-bottom: clamp(82px, 10vw, 150px); }

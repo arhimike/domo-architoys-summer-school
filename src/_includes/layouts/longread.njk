@@ -15,13 +15,13 @@ bodyClass: longread-page
       <p>{{ deck }}</p>
     </div>
     <dl class="longread-meta mono">
-      <div><dt>Событие</dt><dd>{{ event_name }}</dd></div>
-      <div><dt>Место</dt><dd>{{ venue }}</dd></div>
-      <div><dt>Формат</dt><dd>{{ event_format }}</dd></div>
+      {% if event_name %}<div><dt>Событие</dt><dd>{{ event_name }}</dd></div>{% endif %}
+      {% if venue %}<div><dt>Место</dt><dd>{{ venue }}</dd></div>{% endif %}
+      {% if event_format %}<div><dt>Формат</dt><dd>{{ event_format }}</dd></div>{% endif %}
     </dl>
   </header>
 
-  <section class="longread-content section-grid ruled-section" id="full-report" aria-label="Полный текст первого дня">
+  <section class="longread-content section-grid ruled-section" id="full-report" aria-label="Полный текст дня {{ day_number }}">
     <aside class="longread-aside">
       <p class="mono">День {{ day_number }} / полный текст</p>
       <p>{{ aside_text }}</p>

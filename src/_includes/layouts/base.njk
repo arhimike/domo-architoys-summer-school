@@ -43,7 +43,8 @@
         <a href="{{ return_url }}">День {{ day_number }}</a>
         <a href="#full-report">Полный текст</a>
       {% else %}
-        <a href="/day-01/">День 01</a>
+        {% set headerLatestItem = collections.days | latestPublishedDay %}
+        {% if headerLatestItem %}<a href="/{{ headerLatestItem.data.slug }}/">День {{ headerLatestItem.data.day_number }}</a>{% endif %}
         <a href="#place">Место</a>
       {% endif %}
       <a class="nav-registration" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Регистрация <span aria-hidden="true">↗</span></a>
