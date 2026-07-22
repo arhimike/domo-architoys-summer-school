@@ -217,4 +217,64 @@
       if (label) label.textContent = morePhotos.open ? 'Скрыть дополнительные кадры' : 'Показать ещё 6 кадров';
     });
   }
+
+  const glossary = document.querySelector('[data-glossary]');
+  if (glossary) {
+    const search = glossary.querySelector('[data-glossary-search]');
+    const cards = Array.from(glossary.querySelectorAll('[data-glossary-card]'));
+    const filterButtons = Array.from(glossary.querySelectorAll('[data-filter]'));
+    const count = glossary.querySelector('[data-glossary-count]');
+    const empty = glossary.querySelector('[data-glossary-empty]');
+    let activeFilter = 'all';
+
+    const normalize = (value) => String(value || '')
+      .toLocaleLowerCase('ru-RU')
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/ё/g, 'е');
+
+    const applyGlossaryFilters = () => {
+      const query = normalize(search?.value).trim();
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
+        const matchesQuery = !query || normalize(card.textContent).includes(query);
+        const show = matchesCategory && matchesQuery;
+        card.hidden = !show;
+        if (!show) card.open = false;
+        if (show) visible += 1;
+      });
+
+      if (count) count.textContent = `Показано ${visible} из ${cards.length}`;
+      if (empty) empty.hidden = visible !== 0;
+    };
+
+    search?.addEventListener('input', applyGlossaryFilters);
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter || 'all';
+        filterButtons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle('is-active', isActive);
+          item.setAttribute('aria-pressed', String(isActive));
+        });
+        applyGlossaryFilters();
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      const target = event.target;
+      const isTyping = target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target?.isContentEditable;
+      if (event.key === '/' && !isTyping) {
+        event.preventDefault();
+        search?.focus();
+      }
+      if (event.key === 'Escape' && document.activeElement === search && search?.value) {
+        search.value = '';
+        applyGlossaryFilters();
+      }
+    });
+  }
 })();

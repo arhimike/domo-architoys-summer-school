@@ -12,6 +12,14 @@ const monthNames = [
   "июля", "августа", "сентября", "октября", "ноября", "декабря",
 ];
 
+const glossaryCategories = {
+  product: "Продукт и интерфейс",
+  geometry: "Параметры и геометрия",
+  web3d: "3D и веб",
+  "data-ai": "Данные и ИИ",
+  publish: "Публикация и авторство",
+};
+
 const normalizeDate = (value) => {
   if (value instanceof Date) return value;
   const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -34,6 +42,11 @@ export default function (eleventyConfig) {
     const sorted = [...items].sort((a, b) => String(a.data.day_number).localeCompare(String(b.data.day_number), "ru", { numeric: true }));
     return [...sorted].reverse().find((item) => item?.data?.published) || sorted[0] || null;
   });
+  eleventyConfig.addFilter("sortedGlossary", (items = []) => [...items].sort((a, b) => {
+    const orderDifference = Number(a?.data?.order || 0) - Number(b?.data?.order || 0);
+    return orderDifference || String(a?.data?.title || "").localeCompare(String(b?.data?.title || ""), "ru");
+  }));
+  eleventyConfig.addFilter("glossaryCategoryLabel", (value = "") => glossaryCategories[value] || String(value));
   eleventyConfig.addFilter("dayNavigation", (items = [], currentDay = "") => {
     const sorted = [...items]
       .filter((item) => item?.data?.published)
