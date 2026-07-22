@@ -60,6 +60,8 @@ assert(Boolean(glossaryCollection), "В CMS отсутствует IT-слова
 assert(glossaryCollection?.folder === "src/glossary", "В CMS неверно настроена папка IT-словаря.");
 assert(glossaryCollection?.create === true, "В CMS должно быть разрешено добавление терминов.");
 assert(glossaryCollection?.delete === false, "Базовые термины словаря не должны удаляться через CMS.");
+assert(glossaryCollection?.fields?.some((field) => field.name === "architecture_analogy"), "В редакторе IT-словаря отсутствует поле архитектурной аналогии.");
+assert(glossaryCollection?.fields?.some((field) => field.name === "memory_hook"), "В редакторе IT-словаря отсутствует поле подсказки для памяти.");
 assert(glossaryCollection?.fields?.some((field) => field.name === "sources"), "В IT-словаре отсутствует поле источников и документации.");
 if (String(adminConfig.backend?.repo || "").includes("REPLACE_WITH_GITHUB_OWNER")) {
   warnings.push("GitHub-репозиторий ещё не указан — это последний шаг перед включением входа в /admin/.");
@@ -132,7 +134,9 @@ glossaryEntries.forEach(({ file, data }) => {
   glossarySlugs.add(data.slug);
   assert(glossaryCategories.has(data.category), `${file}: неизвестная категория ${data.category}.`);
   assert(typeof data.definition === "string" && data.definition.length >= 40, `${file}: определение слишком короткое.`);
+  assert(typeof data.architecture_analogy === "string" && data.architecture_analogy.length >= 40, `${file}: отсутствует перевод на язык архитектора.`);
   assert(typeof data.architecture_example === "string" && data.architecture_example.length >= 30, `${file}: отсутствует архитектурный пример.`);
+  assert(typeof data.memory_hook === "string" && data.memory_hook.length >= 20, `${file}: отсутствует подсказка для памяти.`);
   assert(Array.isArray(data.sources) && data.sources.length >= 1, `${file}: отсутствует источник или документация.`);
   for (const item of data.sources || []) {
     assert(typeof item.label === "string" && item.label.trim().length > 3, `${file}: источник не подписан.`);
@@ -224,7 +228,10 @@ assert(builtHome.includes("Архитекторы проектируют и со
 assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
 assert(builtGlossary.includes("Авторство и атрибуция"), "IT-словарь выглядит неполным.");
 assert(builtGlossary.includes("Основные символы кода"), "В IT-словаре отсутствует раздел символов кода.");
-assert(builtGlossary.includes("Также ищут"), "В карточках словаря не выводятся поисковые слова и сокращения.");
+assert(builtGlossary.includes("Поисковые слова"), "В карточках словаря не выводятся поисковые слова и сокращения.");
+assert(builtGlossary.includes("На языке архитектора"), "В карточках словаря отсутствуют архитектурные аналогии.");
+assert(builtGlossary.includes("В реальном проекте"), "В карточках словаря отсутствуют практические примеры.");
+assert(builtGlossary.includes("финал_последний_правда"), "В словаре отсутствуют подсказки для памяти с лёгким профессиональным юмором.");
 assert(builtGlossary.includes(">MVP<"), "Поиск словаря не сможет найти распространённое сокращение MVP.");
 
 const builtDayOne = fs.readFileSync(path.join(output, "day-01", "index.html"), "utf8");

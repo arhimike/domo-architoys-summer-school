@@ -724,6 +724,10 @@ address { font-style: normal; }
 .glossary-card-body > * { min-width: 0; }
 .glossary-card-body .mono { display: block; margin-bottom: 11px; color: var(--muted); font-size: .68rem; text-transform: uppercase; }
 .glossary-card-body p { margin: 0; font-size: .92rem; }
+.glossary-translation { display: grid; gap: 24px; align-content: start; }
+.glossary-analogy { padding-left: 16px; border-left: 4px solid var(--orange); }
+.glossary-memory { padding: 13px 15px; color: var(--ink); background: rgba(105,200,195,.28); font-size: .8rem !important; font-weight: 650; line-height: 1.45; }
+.glossary-memory span { margin-right: 5px; color: var(--orange-text); font-family: var(--mono); }
 .glossary-taxonomy { display: grid; gap: 22px; align-content: start; }
 .glossary-aliases ul, .glossary-related ul, .glossary-sources ul { margin: 0; padding: 0; list-style: none; }
 .glossary-aliases ul, .glossary-related ul { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -740,13 +744,14 @@ address { font-style: normal; }
 .code-symbols-heading h2 { max-width: 860px; margin: 0; font-size: clamp(2.25rem, 4vw, 4.2rem); font-weight: 660; letter-spacing: 0; line-height: .98; }
 .code-symbols-heading > p:last-child { max-width: 720px; margin: 24px 0 0; color: var(--muted); }
 .symbol-grid { grid-column: 1 / -1; margin: clamp(44px, 5vw, 68px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); list-style: none; border-top: 1px solid var(--ink); border-left: 1px solid var(--ink); }
-.symbol-grid li { min-height: 210px; padding: 18px; display: flex; flex-direction: column; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.symbol-grid li { min-height: 280px; padding: 18px; display: flex; flex-direction: column; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
 .symbol-grid li:nth-child(5n+2) { background: var(--cyan); }
 .symbol-grid li:nth-child(5n+4) { background: var(--olive); }
 .symbol-grid code { color: var(--orange-text); background: transparent; font-family: var(--mono); font-size: clamp(2rem, 3.4vw, 3.8rem); font-weight: 700; letter-spacing: -.05em; }
 .symbol-grid li:nth-child(5n+2) code, .symbol-grid li:nth-child(5n+4) code { color: var(--ink); }
 .symbol-grid b { margin-top: auto; font-size: 1rem; }
 .symbol-grid p { margin: 8px 0 0; color: var(--muted); font-size: .78rem; }
+.symbol-grid li > span { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(24,23,21,.24); font-size: .7rem; line-height: 1.42; }
 
 .glossary-note { max-width: none; padding-top: clamp(68px, 7vw, 98px); padding-bottom: clamp(72px, 8vw, 108px); color: var(--white); background: var(--ink); }
 .glossary-note .section-label { color: rgba(255,255,255,.62); }
