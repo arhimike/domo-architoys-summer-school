@@ -114,18 +114,6 @@ collections:
       - { label: "Заголовок полного отчёта", name: "full_report_title", widget: "string", required: false }
       - { label: "Описание полного отчёта", name: "full_report_description", widget: "text", required: false }
 
-      - label: "Материалы занятия"
-        name: "materials"
-        widget: "list"
-        required: false
-        collapsed: true
-        summary: "{{fields.title}}"
-        fields:
-          - { label: "Тип", name: "type", widget: "string", default: "PDF" }
-          - { label: "Название", name: "title", widget: "string" }
-          - { label: "Описание", name: "description", widget: "text", required: false }
-          - { label: "Ссылка на файл", name: "url", widget: "string" }
-
       - { label: "Надзаголовок вступления", name: "lecture_eyebrow", widget: "string", default: "Вступление" }
       - { label: "Заголовок вступления", name: "lecture_title", widget: "string", required: false }
       - { label: "Текст вступления", name: "lecture_body", widget: "markdown", required: false }

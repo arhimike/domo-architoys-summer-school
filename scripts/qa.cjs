@@ -35,7 +35,7 @@ const resolveLocalTarget = (htmlFile, rawUrl) => {
 };
 
 const expectedPhotos = [];
-const expectedMaterials = [
+const removedMaterials = [
   "assets/materials/domo-architoys-intro-cards.pdf",
   "assets/materials/architoys-day-01-slides-2026-07-20.pdf",
 ];
@@ -170,7 +170,7 @@ assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "В ис
 
 const requiredBuildFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
-for (const file of expectedMaterials) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует материал ${file}.`);
+for (const file of removedMaterials) assert(!fs.existsSync(path.join(output, file)), `Удалённый материал всё ещё попал в сборку: ${file}.`);
 assert(!fs.existsSync(path.join(output, "day-05", "index.html")), "Черновик пятого дня не должен быть опубликован.");
 
 const htmlFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
@@ -216,8 +216,8 @@ assert(builtGlossary.includes("Основные символы кода"), "В I
 const builtDayOne = fs.readFileSync(path.join(output, "day-01", "index.html"), "utf8");
 const builtLongread = fs.readFileSync(path.join(output, "day-01", "full", "index.html"), "utf8");
 assert(builtDayOne.includes('href="/day-01/full/"'), "На странице первого дня отсутствует кнопка полного отчёта.");
-assert(builtDayOne.includes("domo-architoys-intro-cards.pdf"), "На странице первого дня отсутствует подготовительная презентация.");
-assert(builtDayOne.includes("architoys-day-01-slides-2026-07-20.pdf"), "На странице первого дня отсутствует презентация занятия.");
+assert(!builtDayOne.includes("domo-architoys-intro-cards.pdf"), "На странице первого дня осталась ссылка на подготовительную презентацию.");
+assert(!builtDayOne.includes("architoys-day-01-slides-2026-07-20.pdf"), "На странице первого дня осталась ссылка на презентацию занятия.");
 assert(builtLongread.includes("От архитектурной идеи к первой рабочей механике"), "На странице полного отчёта отсутствует заголовок.");
 
 const builtDayTwo = fs.readFileSync(path.join(output, "day-02", "index.html"), "utf8");
