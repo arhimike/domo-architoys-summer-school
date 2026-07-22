@@ -15,7 +15,7 @@ const monthNames = [
 const glossaryCategories = {
   product: "Продукт и интерфейс",
   geometry: "Параметры и геометрия",
-  web3d: "3D и веб",
+  web3d: "Цифровые модели и веб",
   "data-ai": "Данные и ИИ",
   publish: "Публикация и авторство",
 };

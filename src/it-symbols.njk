@@ -2,7 +2,7 @@
 layout: layouts/base.njk
 permalink: it-symbols/index.html
 title: "IT-символы — словарь цифрового архитектора"
-meta_description: "40 базовых понятий о цифровых инструментах для архитекторов-студентов: интерфейс, параметры, 3D, данные, ИИ, публикация и авторство."
+meta_description: "Базовые понятия о цифровых инструментах для архитекторов-студентов: интерфейс, параметры, цифровые модели, данные, ИИ, публикация и авторство."
 pageType: glossary
 bodyClass: glossary-page
 ---
@@ -12,11 +12,11 @@ bodyClass: glossary-page
     <div class="glossary-hero-kicker mono">DØMO ARCHITOYS · ОТ ИДЕИ К РАБОТАЮЩЕМУ ИНСТРУМЕНТУ</div>
     <div class="glossary-hero-title">
       <p class="eyebrow">Словарь цифрового архитектора</p>
-      <h1 id="glossary-title">IT-<em>СИМВОЛЫ</em></h1>
+      <h1 id="glossary-title"><span>IT-</span><em>СИМВОЛЫ</em></h1>
     </div>
     <div class="glossary-hero-lead">
       <p>Архитекторы проектируют и создают цифровые инструменты.</p>
-      <span class="mono">{{ terms.length }} понятий · 5 тем · русский + English</span>
+      <span class="mono">{{ terms.length }} понятий · 5 тем · на русском и английском</span>
     </div>
     <div class="glossary-hero-signs" aria-hidden="true">
       <span>&lt;/&gt;</span><span>{ }</span><span>[ ]</span><span>#</span>
@@ -26,11 +26,11 @@ bodyClass: glossary-page
   <section class="glossary-intro section-grid ruled-section" aria-labelledby="glossary-intro-title">
     <div class="section-label mono">Как пользоваться / 01</div>
     <div class="glossary-intro-heading">
-      <p class="eyebrow">Не учить, а применять</p>
+      <p class="eyebrow">Не заучивать, а применять</p>
       <h2 id="glossary-intro-title">Каждый термин связан с архитектурной задачей.</h2>
     </div>
     <div class="glossary-intro-copy prose">
-      <p>Введите знакомое слово, английское сокращение или задачу. Откройте карточку, чтобы увидеть пример, связанные понятия и первичный источник.</p>
+      <p>Введите знакомое слово, английское сокращение или задачу. Откройте карточку, чтобы увидеть пример, связанные понятия, официальный источник или документацию.</p>
       <p>Определения намеренно короткие: они дают общий язык для разговора архитектора, разработчика и искусственного интеллекта, но не заменяют техническую документацию.</p>
     </div>
   </section>
@@ -39,17 +39,17 @@ bodyClass: glossary-page
     <div class="glossary-toolbar section-grid">
       <div class="section-label mono">Термины / 02</div>
       <div class="glossary-toolbar-main">
-        <h2 id="terms-title">От параметра до публикации</h2>
+        <h2 id="terms-title">От идеи до публикации</h2>
         <label class="glossary-search">
           <span class="visually-hidden">Поиск по словарю</span>
           <input type="search" inputmode="search" autocomplete="off" placeholder="Поиск: API, фасад, экспорт…" data-glossary-search>
           <kbd aria-hidden="true">/</kbd>
         </label>
-        <div class="glossary-filters" aria-label="Фильтр по темам" data-glossary-filters>
+        <div class="glossary-filters" role="group" aria-label="Фильтр по темам" data-glossary-filters>
           <button type="button" class="is-active" data-filter="all" aria-pressed="true">Все</button>
           <button type="button" data-filter="product" aria-pressed="false">Продукт и интерфейс</button>
           <button type="button" data-filter="geometry" aria-pressed="false">Параметры и геометрия</button>
-          <button type="button" data-filter="web3d" aria-pressed="false">3D и веб</button>
+          <button type="button" data-filter="web3d" aria-pressed="false">Цифровые модели и веб</button>
           <button type="button" data-filter="data-ai" aria-pressed="false">Данные и ИИ</button>
           <button type="button" data-filter="publish" aria-pressed="false">Публикация и авторство</button>
         </div>
@@ -59,9 +59,9 @@ bodyClass: glossary-page
 
     <div class="glossary-grid" data-glossary-grid>
       {% for term in terms %}
-        <details class="glossary-card" data-glossary-card data-category="{{ term.data.category }}">
+        <details class="glossary-card" data-glossary-card data-category="{{ term.data.category }}" data-search="{{ term.data.title }} {{ term.data.english }} {{ term.data.definition }} {{ term.data.architecture_example }} {{ term.data.aliases | join(' ') }}">
           <summary>
-            <span class="glossary-card-number mono">{{ loop.index | pad2 }}</span>
+            <span class="glossary-card-number mono">{{ term.data.order | pad2 }}</span>
             <span class="glossary-card-category mono">{{ term.data.category | glossaryCategoryLabel }}</span>
             <span class="glossary-card-heading">
               <strong>{{ term.data.title }}</strong>
@@ -75,15 +75,23 @@ bodyClass: glossary-page
               <span class="mono">Архитектурный пример</span>
               <p>{{ term.data.architecture_example }}</p>
             </div>
-            {% if term.data.related and term.data.related.length %}
-              <div class="glossary-related">
-                <span class="mono">Связанные понятия</span>
-                <ul>{% for related in term.data.related %}<li>{{ related }}</li>{% endfor %}</ul>
-              </div>
-            {% endif %}
+            <div class="glossary-taxonomy">
+              {% if term.data.aliases and term.data.aliases.length %}
+                <div class="glossary-aliases">
+                  <span class="mono">Также ищут</span>
+                  <ul>{% for alias in term.data.aliases %}<li>{{ alias }}</li>{% endfor %}</ul>
+                </div>
+              {% endif %}
+              {% if term.data.related and term.data.related.length %}
+                <div class="glossary-related">
+                  <span class="mono">Связанные понятия</span>
+                  <ul>{% for related in term.data.related %}<li>{{ related }}</li>{% endfor %}</ul>
+                </div>
+              {% endif %}
+            </div>
             {% if term.data.sources and term.data.sources.length %}
               <div class="glossary-sources">
-                <span class="mono">Проверить по источнику</span>
+                <span class="mono">Источники и документация</span>
                 <ul>
                   {% for source in term.data.sources %}
                     <li><a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.label }} <span aria-hidden="true">↗</span></a></li>
@@ -101,20 +109,22 @@ bodyClass: glossary-page
   <section class="code-symbols section-grid ruled-section" id="symbols" aria-labelledby="symbols-title">
     <div class="section-label mono">Как читать код / 03</div>
     <div class="code-symbols-heading">
-      <p class="eyebrow">12 знаков, которые встречаются постоянно</p>
+      <p class="eyebrow">14 знаков, которые встречаются постоянно</p>
       <h2 id="symbols-title">Символы меняют смысл в зависимости от языка и контекста.</h2>
       <p>Ниже — ориентиры для чтения HTML, CSS и JavaScript, а не универсальные правила для всех языков программирования.</p>
     </div>
     <ul class="symbol-grid" aria-label="Основные символы кода">
-      <li><code>&lt; &gt;</code><b>Угловые скобки</b><p>Открывают и закрывают HTML-теги.</p></li>
+      <li><code>&lt; &gt;</code><b>Угловые скобки</b><p>Ограничивают запись HTML-тега.</p></li>
       <li><code>{ }</code><b>Фигурные скобки</b><p>Объединяют блок правил CSS или кода JavaScript.</p></li>
       <li><code>[ ]</code><b>Квадратные скобки</b><p>Обозначают массив или обращение к элементу.</p></li>
-      <li><code>( )</code><b>Круглые скобки</b><p>Передают параметры функции или задают порядок вычисления.</p></li>
+      <li><code>( )</code><b>Круглые скобки</b><p>Задают порядок вычисления; при вызове функции содержат аргументы.</p></li>
       <li><code>/</code><b>Косая черта</b><p>Разделяет части пути; в HTML участвует в закрывающем теге.</p></li>
-      <li><code>#</code><b>Решётка</b><p>В CSS обращается к id; в URL ведёт к фрагменту страницы.</p></li>
-      <li><code>@</code><b>Собака</b><p>Начинает специальные CSS-правила, например медиазапрос.</p></li>
-      <li><code>_</code><b>Подчёркивание</b><p>Соединяет слова в имени, если пробел использовать нельзя.</p></li>
-      <li><code>=</code><b>Равно</b><p>Присваивает значение; сравнение в JavaScript записывается иначе.</p></li>
+      <li><code>#</code><b>Решётка</b><p>В CSS указывает id или цвет, а в URL — фрагмент страницы.</p></li>
+      <li><code>@</code><b>Собака</b><p>Начинает специальные CSS-правила, например, медиазапрос.</p></li>
+      <li><code>.</code><b>Точка</b><p>В CSS указывает класс; в JavaScript отделяет объект от его свойства.</p></li>
+      <li><code>:</code><b>Двоеточие</b><p>Разделяет свойство и значение в CSS; участвует в записи псевдокласса.</p></li>
+      <li><code>;</code><b>Точка с запятой</b><p>Завершает декларацию CSS или инструкцию JavaScript.</p></li>
+      <li><code>=</code><b>Равно</b><p>В HTML отделяет атрибут от значения; в JavaScript выполняет присваивание.</p></li>
       <li><code>=&gt;</code><b>Стрелка</b><p>Кратко записывает функцию в JavaScript.</p></li>
       <li><code>&amp;&amp;</code><b>Логическое И</b><p>Требует, чтобы выполнялись оба условия.</p></li>
       <li><code>||</code><b>Логическое ИЛИ</b><p>Достаточно выполнения хотя бы одного условия.</p></li>
@@ -126,7 +136,7 @@ bodyClass: glossary-page
     <div>
       <p class="eyebrow">Живой словарь школы</p>
       <h2>Терминов станет больше по мере развития проектов.</h2>
-      <p>Если в работе появляется новое понятие, сначала зафиксируйте его простое определение, затем архитектурный пример и ссылку на первичный источник.</p>
+      <p>Если в работе появляется новое понятие, сначала зафиксируйте его простое определение, затем архитектурный пример и ссылку на официальный источник или техническую документацию.</p>
       <a class="button button-orange" href="/#diary">Вернуться к дневнику <span aria-hidden="true">→</span></a>
     </div>
   </section>

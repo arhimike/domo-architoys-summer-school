@@ -57,7 +57,9 @@ assert(longreadsCollection?.files?.some((file) => file.name === "day_04_full"), 
 const glossaryCollection = adminConfig.collections?.find((collection) => collection.name === "glossary");
 assert(Boolean(glossaryCollection), "В CMS отсутствует IT-словарь.");
 assert(glossaryCollection?.folder === "src/glossary", "В CMS неверно настроена папка IT-словаря.");
-assert(glossaryCollection?.fields?.some((field) => field.name === "sources"), "В IT-словаре отсутствует поле первичных источников.");
+assert(glossaryCollection?.create === true, "В CMS должно быть разрешено добавление терминов.");
+assert(glossaryCollection?.delete === false, "Базовые термины словаря не должны удаляться через CMS.");
+assert(glossaryCollection?.fields?.some((field) => field.name === "sources"), "В IT-словаре отсутствует поле источников и документации.");
 if (String(adminConfig.backend?.repo || "").includes("REPLACE_WITH_GITHUB_OWNER")) {
   warnings.push("GitHub-репозиторий ещё не указан — это последний шаг перед включением входа в /admin/.");
 }
@@ -111,15 +113,15 @@ assert(dayFour.full_report_url === "/day-04/full/", "В четвёртом дн�
 
 const glossaryDirectory = path.join(source, "glossary");
 const glossaryFiles = fs.readdirSync(glossaryDirectory)
-  .filter((name) => /^\d{2}-.+\.md$/.test(name))
+  .filter((name) => name.endsWith(".md"))
   .sort();
-assert(glossaryFiles.length === 40, `В IT-словаре должно быть 40 терминов, найдено ${glossaryFiles.length}.`);
+assert(glossaryFiles.length >= 40, `В IT-словаре должно быть не меньше 40 базовых терминов, найдено ${glossaryFiles.length}.`);
 const glossaryCategories = new Set(["product", "geometry", "web3d", "data-ai", "publish"]);
 const glossaryEntries = glossaryFiles.map((file) => ({ file, data: matter.read(path.join(glossaryDirectory, file)).data }));
 const glossaryOrders = new Set();
 const glossarySlugs = new Set();
 glossaryEntries.forEach(({ file, data }) => {
-  assert(Number.isInteger(data.order) && data.order >= 1 && data.order <= 40, `${file}: неверный порядковый номер.`);
+  assert(Number.isInteger(data.order) && data.order >= 1, `${file}: неверный порядковый номер.`);
   assert(!glossaryOrders.has(data.order), `${file}: порядковый номер ${data.order} повторяется.`);
   glossaryOrders.add(data.order);
   assert(typeof data.title === "string" && data.title.trim().length > 1, `${file}: отсутствует русский термин.`);
@@ -130,7 +132,7 @@ glossaryEntries.forEach(({ file, data }) => {
   assert(glossaryCategories.has(data.category), `${file}: неизвестная категория ${data.category}.`);
   assert(typeof data.definition === "string" && data.definition.length >= 40, `${file}: определение слишком короткое.`);
   assert(typeof data.architecture_example === "string" && data.architecture_example.length >= 30, `${file}: отсутствует архитектурный пример.`);
-  assert(Array.isArray(data.sources) && data.sources.length >= 1, `${file}: отсутствует первичный источник.`);
+  assert(Array.isArray(data.sources) && data.sources.length >= 1, `${file}: отсутствует источник или документация.`);
   for (const item of data.sources || []) {
     assert(typeof item.label === "string" && item.label.trim().length > 3, `${file}: источник не подписан.`);
     assert(/^https:\/\//.test(item.url || ""), `${file}: ссылка на источник должна начинаться с https://.`);
@@ -188,7 +190,10 @@ for (const htmlFile of htmlFiles) {
     const classes = String(attrs.class || "").split(/\s+/).filter(Boolean);
     if (classes.includes("day-card")) dayCardCount += 1;
     if (classes.includes("photo-item")) galleryItemCount += 1;
-    if (classes.includes("glossary-card")) glossaryCardCount += 1;
+    if (classes.includes("glossary-card")) {
+      glossaryCardCount += 1;
+      assert(String(attrs["data-search"] || "").length >= 20, `${path.relative(output, htmlFile)}: у карточки словаря отсутствует управляемый поисковый индекс.`);
+    }
 
     if (node.nodeName === "img") {
       assert(typeof attrs.alt === "string", `${path.relative(output, htmlFile)}: у изображения отсутствует alt.`);
@@ -203,7 +208,7 @@ for (const htmlFile of htmlFiles) {
 
 assert(dayCardCount === 10, `На главной должно быть 10 карточек дней, найдено ${dayCardCount}.`);
 assert(galleryItemCount === 0, `Фотоотчёт должен быть пустым, найдено карточек: ${galleryItemCount}.`);
-assert(glossaryCardCount === 40, `На странице IT-словаря должно быть 40 карточек, найдено ${glossaryCardCount}.`);
+assert(glossaryCardCount === glossaryEntries.length, `Число карточек словаря (${glossaryCardCount}) не совпадает с числом терминов (${glossaryEntries.length}).`);
 
 const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
 const builtGlossary = fs.readFileSync(path.join(output, "it-symbols", "index.html"), "utf8");
@@ -212,6 +217,8 @@ assert(builtHome.includes("Архитекторы проектируют и со
 assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
 assert(builtGlossary.includes("Авторство и атрибуция"), "IT-словарь выглядит неполным.");
 assert(builtGlossary.includes("Основные символы кода"), "В IT-словаре отсутствует раздел символов кода.");
+assert(builtGlossary.includes("Также ищут"), "В карточках словаря не выводятся поисковые слова и сокращения.");
+assert(builtGlossary.includes(">MVP<"), "Поиск словаря не сможет найти распространённое сокращение MVP.");
 
 const builtDayOne = fs.readFileSync(path.join(output, "day-01", "index.html"), "utf8");
 const builtLongread = fs.readFileSync(path.join(output, "day-01", "full", "index.html"), "utf8");

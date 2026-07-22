@@ -235,11 +235,16 @@
 
     const applyGlossaryFilters = () => {
       const query = normalize(search?.value).trim();
+      const queryTokens = query.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
       let visible = 0;
 
       cards.forEach((card) => {
         const matchesCategory = activeFilter === 'all' || card.dataset.category === activeFilter;
-        const matchesQuery = !query || normalize(card.textContent).includes(query);
+        const searchIndex = normalize(card.dataset.search);
+        const searchTokens = new Set(searchIndex.split(/[^\p{L}\p{N}]+/u).filter(Boolean));
+        const matchesQuery = !query || queryTokens.every((token) => (
+          token.length <= 4 ? searchTokens.has(token) : searchIndex.includes(token)
+        ));
         const show = matchesCategory && matchesQuery;
         card.hidden = !show;
         if (!show) card.open = false;

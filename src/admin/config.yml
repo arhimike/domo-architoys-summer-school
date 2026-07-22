@@ -184,10 +184,10 @@ collections:
   - name: "glossary"
     label: "IT-словарь"
     label_singular: "Термин"
-    description: "Понятия цифрового проектирования для архитекторов. Каждая карточка должна содержать простое определение, архитектурный пример и проверяемый первичный источник."
+    description: "Понятия цифрового проектирования для архитекторов. Каждая карточка должна содержать простое определение, архитектурный пример и проверяемый официальный источник или техническую документацию."
     folder: "src/glossary"
     create: true
-    delete: true
+    delete: false
     extension: "md"
     format: "frontmatter"
     identifier_field: "title"
@@ -211,22 +211,23 @@ collections:
         options:
           - { label: "Продукт и интерфейс", value: "product" }
           - { label: "Параметры и геометрия", value: "geometry" }
-          - { label: "3D и веб", value: "web3d" }
+          - { label: "Цифровые модели и веб", value: "web3d" }
           - { label: "Данные и ИИ", value: "data-ai" }
           - { label: "Публикация и авторство", value: "publish" }
       - { label: "Простое определение", name: "definition", widget: "text" }
       - { label: "Архитектурный пример", name: "architecture_example", widget: "text" }
-      - label: "Другие названия и сокращения"
+      - label: "Поисковые слова и сокращения"
         name: "aliases"
         widget: "list"
         required: false
-        field: { label: "Название", name: "alias", widget: "string" }
+        hint: "Слова, по которым термин должны находить: сокращения, профессиональный жаргон и близкие запросы. Это не обязательно точные синонимы."
+        field: { label: "Поисковое слово", name: "alias", widget: "string" }
       - label: "Связанные понятия"
         name: "related"
         widget: "list"
         required: false
         field: { label: "Понятие", name: "term", widget: "string" }
-      - label: "Первичные источники"
+      - label: "Источники и документация"
         name: "sources"
         widget: "list"
         min: 1

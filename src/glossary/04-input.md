@@ -4,11 +4,11 @@ title: "Входные данные"
 english: "Input"
 slug: "input"
 category: "product"
-definition: "Значения, файлы или команды, которые пользователь либо другая программа передаёт инструменту для обработки."
+definition: "Данные, которые поступают в инструмент от пользователя, файла, датчика или другой программы для хранения или обработки."
 architecture_example: "Граница участка, число этажей, ширина секции, ориентация, таблица помещений или фотография фасада."
 aliases: ["input", "ввод"]
 related: ["Выходные данные", "Параметр", "API"]
 sources:
-  - label: "MDN — Function signature"
-    url: "https://developer.mozilla.org/en-US/docs/Glossary/Signature/Function"
+  - label: "ISO/IEC 2382:2015 — input data"
+    url: "https://www.iso.org/standard/63598.html"
 ---
