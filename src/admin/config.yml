@@ -247,3 +247,23 @@ collections:
           - { label: "Ссылка назад", name: "return_url", widget: "hidden", default: "/day-03/" }
           - { label: "Подпись ссылки назад", name: "return_label", widget: "string" }
           - { label: "Полный текст", name: "body", widget: "markdown" }
+      - name: "day_04_full"
+        label: "День 04 — каталог инструментов"
+        file: "src/longreads/day-04-full.md"
+        format: "frontmatter"
+        preview_path: "day-04/full/"
+        fields:
+          - { label: "Шаблон", name: "layout", widget: "hidden", default: "layouts/longread.njk" }
+          - { label: "Адрес страницы", name: "permalink", widget: "hidden", default: "day-04/full/index.html" }
+          - { label: "Номер дня", name: "day_number", widget: "hidden", default: "04" }
+          - { label: "Главный заголовок", name: "title", widget: "string" }
+          - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+          - { label: "Название события", name: "event_name", widget: "string" }
+          - { label: "Место", name: "venue", widget: "string", required: false }
+          - { label: "Формат", name: "event_format", widget: "string" }
+          - { label: "Лид", name: "deck", widget: "text" }
+          - { label: "Описание для поисковиков", name: "meta_description", widget: "text" }
+          - { label: "Текст в боковой колонке", name: "aside_text", widget: "text" }
+          - { label: "Ссылка назад", name: "return_url", widget: "hidden", default: "/day-04/" }
+          - { label: "Подпись ссылки назад", name: "return_label", widget: "string" }
+          - { label: "Полный текст", name: "body", widget: "markdown" }
