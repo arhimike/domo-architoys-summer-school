@@ -40,6 +40,7 @@ const removedMaterials = [
   "assets/materials/architoys-day-01-slides-2026-07-20.pdf",
 ];
 
+const siteData = JSON.parse(fs.readFileSync(path.join(source, "_data", "site.json"), "utf8"));
 const adminConfigPath = path.join(source, "admin", "config.yml");
 const adminConfig = YAML.parse(fs.readFileSync(adminConfigPath, "utf8"));
 assert(adminConfig.backend?.name === "github", "Админка должна использовать прямой GitHub backend.");
@@ -212,6 +213,12 @@ assert(glossaryCardCount === glossaryEntries.length, `Число карточе�
 
 const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
 const builtGlossary = fs.readFileSync(path.join(output, "it-symbols", "index.html"), "utf8");
+const assetVersion = String(siteData.assetVersion || "").trim();
+assert(/^\d{8}-\d+$/.test(assetVersion), "Версия CSS и JavaScript отсутствует или имеет неверный формат.");
+for (const html of [builtHome, builtGlossary]) {
+  assert(html.includes(`/assets/styles.css?v=${assetVersion}`), "CSS подключён без актуальной версии для сброса кэша.");
+  assert(html.includes(`/assets/script.js?v=${assetVersion}`), "JavaScript подключён без актуальной версии для сброса кэша.");
+}
 assert(builtHome.includes('href="/it-symbols/"'), "На главной отсутствует ссылка на IT-словарь.");
 assert(builtHome.includes("Архитекторы проектируют и создают цифровые инструменты"), "На главной отсутствует манифест IT-словаря.");
 assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
