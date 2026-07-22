@@ -54,6 +54,10 @@ assert(longreadsCollection?.files?.some((file) => file.name === "day_01_full"), 
 assert(longreadsCollection?.files?.some((file) => file.name === "day_02_full"), "В CMS отсутствует полный текст второго дня.");
 assert(longreadsCollection?.files?.some((file) => file.name === "day_03_full"), "В CMS отсутствует методический материал третьего дня.");
 assert(longreadsCollection?.files?.some((file) => file.name === "day_04_full"), "В CMS отсутствует каталог инструментов четвёртого дня.");
+const glossaryCollection = adminConfig.collections?.find((collection) => collection.name === "glossary");
+assert(Boolean(glossaryCollection), "В CMS отсутствует IT-словарь.");
+assert(glossaryCollection?.folder === "src/glossary", "В CMS неверно настроена папка IT-словаря.");
+assert(glossaryCollection?.fields?.some((field) => field.name === "sources"), "В IT-словаре отсутствует поле первичных источников.");
 if (String(adminConfig.backend?.repo || "").includes("REPLACE_WITH_GITHUB_OWNER")) {
   warnings.push("GitHub-репозиторий ещё не указан — это последний шаг перед включением входа в /admin/.");
 }
@@ -105,6 +109,34 @@ assert(dayFour.projects?.length === 6, "В четвёртом дне должн�
 assert(dayFour.gallery?.length === 0, "В четвёртом дне пока не должно быть фотографий.");
 assert(dayFour.full_report_url === "/day-04/full/", "В четвёртом дне отсутствует ссылка на каталог инструментов.");
 
+const glossaryDirectory = path.join(source, "glossary");
+const glossaryFiles = fs.readdirSync(glossaryDirectory)
+  .filter((name) => /^\d{2}-.+\.md$/.test(name))
+  .sort();
+assert(glossaryFiles.length === 40, `В IT-словаре должно быть 40 терминов, найдено ${glossaryFiles.length}.`);
+const glossaryCategories = new Set(["product", "geometry", "web3d", "data-ai", "publish"]);
+const glossaryEntries = glossaryFiles.map((file) => ({ file, data: matter.read(path.join(glossaryDirectory, file)).data }));
+const glossaryOrders = new Set();
+const glossarySlugs = new Set();
+glossaryEntries.forEach(({ file, data }) => {
+  assert(Number.isInteger(data.order) && data.order >= 1 && data.order <= 40, `${file}: неверный порядковый номер.`);
+  assert(!glossaryOrders.has(data.order), `${file}: порядковый номер ${data.order} повторяется.`);
+  glossaryOrders.add(data.order);
+  assert(typeof data.title === "string" && data.title.trim().length > 1, `${file}: отсутствует русский термин.`);
+  assert(typeof data.english === "string" && data.english.trim().length > 1, `${file}: отсутствует английский эквивалент.`);
+  assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug || ""), `${file}: неверный slug.`);
+  assert(!glossarySlugs.has(data.slug), `${file}: slug ${data.slug} повторяется.`);
+  glossarySlugs.add(data.slug);
+  assert(glossaryCategories.has(data.category), `${file}: неизвестная категория ${data.category}.`);
+  assert(typeof data.definition === "string" && data.definition.length >= 40, `${file}: определение слишком короткое.`);
+  assert(typeof data.architecture_example === "string" && data.architecture_example.length >= 30, `${file}: отсутствует архитектурный пример.`);
+  assert(Array.isArray(data.sources) && data.sources.length >= 1, `${file}: отсутствует первичный источник.`);
+  for (const item of data.sources || []) {
+    assert(typeof item.label === "string" && item.label.trim().length > 3, `${file}: источник не подписан.`);
+    assert(/^https:\/\//.test(item.url || ""), `${file}: ссылка на источник должна начинаться с https://.`);
+  }
+});
+
 const longreadPath = path.join(source, "longreads", "day-01-full.md");
 assert(fs.existsSync(longreadPath), "В исходниках отсутствует полный текст первого дня.");
 const longread = fs.existsSync(longreadPath) ? matter.read(longreadPath) : { data: {}, content: "" };
@@ -136,14 +168,15 @@ const photoDirectory = path.join(source, "assets", "photos", "uploads");
 const sourcePhotos = fs.readdirSync(photoDirectory).filter((name) => /\.jpe?g$/i.test(name)).sort();
 assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "В исходниках пока не должно быть фотографий.");
 
-const requiredBuildFiles = ["index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
+const requiredBuildFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
 for (const file of expectedMaterials) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует материал ${file}.`);
 assert(!fs.existsSync(path.join(output, "day-05", "index.html")), "Черновик пятого дня не должен быть опубликован.");
 
-const htmlFiles = ["index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
+const htmlFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
 let galleryItemCount = 0;
+let glossaryCardCount = 0;
 
 for (const htmlFile of htmlFiles) {
   const html = fs.readFileSync(htmlFile, "utf8");
@@ -155,6 +188,7 @@ for (const htmlFile of htmlFiles) {
     const classes = String(attrs.class || "").split(/\s+/).filter(Boolean);
     if (classes.includes("day-card")) dayCardCount += 1;
     if (classes.includes("photo-item")) galleryItemCount += 1;
+    if (classes.includes("glossary-card")) glossaryCardCount += 1;
 
     if (node.nodeName === "img") {
       assert(typeof attrs.alt === "string", `${path.relative(output, htmlFile)}: у изображения отсутствует alt.`);
@@ -169,6 +203,15 @@ for (const htmlFile of htmlFiles) {
 
 assert(dayCardCount === 10, `На главной должно быть 10 карточек дней, найдено ${dayCardCount}.`);
 assert(galleryItemCount === 0, `Фотоотчёт должен быть пустым, найдено карточек: ${galleryItemCount}.`);
+assert(glossaryCardCount === 40, `На странице IT-словаря должно быть 40 карточек, найдено ${glossaryCardCount}.`);
+
+const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
+const builtGlossary = fs.readFileSync(path.join(output, "it-symbols", "index.html"), "utf8");
+assert(builtHome.includes('href="/it-symbols/"'), "На главной отсутствует ссылка на IT-словарь.");
+assert(builtHome.includes("Архитекторы проектируют и создают цифровые инструменты"), "На главной отсутствует манифест IT-словаря.");
+assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
+assert(builtGlossary.includes("Авторство и атрибуция"), "IT-словарь выглядит неполным.");
+assert(builtGlossary.includes("Основные символы кода"), "В IT-словаре отсутствует раздел символов кода.");
 
 const builtDayOne = fs.readFileSync(path.join(output, "day-01", "index.html"), "utf8");
 const builtLongread = fs.readFileSync(path.join(output, "day-01", "full", "index.html"), "utf8");

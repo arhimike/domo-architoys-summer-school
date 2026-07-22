@@ -193,6 +193,60 @@ collections:
               - { label: "Вертикальный", value: "tall" }
           - { label: "Показывать", name: "visible", widget: "boolean", default: true }
 
+  - name: "glossary"
+    label: "IT-словарь"
+    label_singular: "Термин"
+    description: "Понятия цифрового проектирования для архитекторов. Каждая карточка должна содержать простое определение, архитектурный пример и проверяемый первичный источник."
+    folder: "src/glossary"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    slug: "{{fields.slug}}"
+    summary: "{{order}} — {{title}} / {{english}}"
+    preview_path: "it-symbols/"
+    sortable_fields: ["order", "title", "category"]
+    editor:
+      preview: false
+    fields:
+      - { label: "Порядковый номер", name: "order", widget: "number", value_type: "int", min: 1 }
+      - { label: "Термин по-русски", name: "title", widget: "string" }
+      - { label: "English", name: "english", widget: "string" }
+      - label: "Имя файла"
+        name: "slug"
+        widget: "string"
+        pattern: ["^[a-z0-9]+(?:-[a-z0-9]+)*$", "Только строчные латинские буквы, цифры и дефисы"]
+      - label: "Тема"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Продукт и интерфейс", value: "product" }
+          - { label: "Параметры и геометрия", value: "geometry" }
+          - { label: "3D и веб", value: "web3d" }
+          - { label: "Данные и ИИ", value: "data-ai" }
+          - { label: "Публикация и авторство", value: "publish" }
+      - { label: "Простое определение", name: "definition", widget: "text" }
+      - { label: "Архитектурный пример", name: "architecture_example", widget: "text" }
+      - label: "Другие названия и сокращения"
+        name: "aliases"
+        widget: "list"
+        required: false
+        field: { label: "Название", name: "alias", widget: "string" }
+      - label: "Связанные понятия"
+        name: "related"
+        widget: "list"
+        required: false
+        field: { label: "Понятие", name: "term", widget: "string" }
+      - label: "Первичные источники"
+        name: "sources"
+        widget: "list"
+        min: 1
+        summary: "{{fields.label}}"
+        fields:
+          - { label: "Название источника", name: "label", widget: "string" }
+          - { label: "Ссылка", name: "url", widget: "string", pattern: ["^https://", "Ссылка должна начинаться с https://"] }
+
   - name: "longreads"
     label: "Полные тексты"
     delete: false

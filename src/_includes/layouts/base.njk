@@ -35,6 +35,7 @@
     <nav class="site-nav" id="site-nav" aria-label="Основная навигация" data-nav>
       <a href="/#about">О школе</a>
       <a href="/#diary">Дневник</a>
+      <a href="/it-symbols/"{% if pageType == 'glossary' %} aria-current="page"{% endif %}>IT-словарь</a>
       {% if pageType == 'day' %}
         {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
         {% set navPhotos = gallery | visiblePhotos %}
@@ -42,6 +43,9 @@
       {% elseif pageType == 'longread' %}
         <a href="{{ return_url }}">День {{ day_number }}</a>
         <a href="#full-report">Полный текст</a>
+      {% elseif pageType == 'glossary' %}
+        <a href="#terms">Термины</a>
+        <a href="#symbols">Символы</a>
       {% else %}
         {% set headerLatestItem = collections.days | latestPublishedDay %}
         {% if headerLatestItem %}<a href="/{{ headerLatestItem.data.slug }}/">День {{ headerLatestItem.data.day_number }}</a>{% endif %}
