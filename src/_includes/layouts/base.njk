@@ -19,6 +19,7 @@
   <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/styles.css?v={{ site.assetVersion }}">
+  {% if pageType == 'home' %}<link rel="stylesheet" href="/assets/program.css?v={{ site.assetVersion }}">{% endif %}
   <script src="/assets/script.js?v={{ site.assetVersion }}" defer></script>
 </head>
 <body class="{{ bodyClass or '' }}">
@@ -34,6 +35,7 @@
     </button>
     <nav class="site-nav" id="site-nav" aria-label="Основная навигация" data-nav>
       <a href="/#about">О школе</a>
+      <a href="/#program">Программа</a>
       <a href="/#diary">Дневник</a>
       <a href="/it-symbols/"{% if pageType == 'glossary' %} aria-current="page"{% endif %}>IT-словарь</a>
       {% if pageType == 'day' %}
