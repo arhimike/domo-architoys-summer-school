@@ -110,6 +110,7 @@ collections:
           - { label: "Краткое описание", name: "text", widget: "text" }
 
       - { label: "Ссылка на полный текст", name: "full_report_url", widget: "string", required: false }
+      - { label: "Надзаголовок полного текста", name: "full_report_eyebrow", widget: "string", required: false }
       - { label: "Текст кнопки полного отчёта", name: "full_report_label", widget: "string", required: false }
       - { label: "Заголовок полного отчёта", name: "full_report_title", widget: "string", required: false }
       - { label: "Описание полного отчёта", name: "full_report_description", widget: "text", required: false }
@@ -122,6 +123,7 @@ collections:
       - { label: "Текст дискуссии", name: "discussion_body", widget: "markdown", required: false }
 
       - { label: "Заголовок блока проектов", name: "projects_title", widget: "string", default: "Проектные направления" }
+      - { label: "Надзаголовок блока проектов", name: "projects_eyebrow", widget: "string", required: false }
       - { label: "Введение к проектам", name: "projects_intro", widget: "text", required: false }
       - label: "Проекты"
         name: "projects"
@@ -152,6 +154,7 @@ collections:
           - { label: "Тёмная карточка", name: "dark", widget: "boolean", default: false, required: false }
 
       - { label: "Заголовок итогов", name: "results_title", widget: "string", default: "Итоги дня" }
+      - { label: "Надзаголовок итогов", name: "results_eyebrow", widget: "string", required: false }
       - { label: "Текст итогов", name: "results_body", widget: "markdown", required: false }
       - label: "Ключевые итоги"
         name: "outcomes"
@@ -322,5 +325,25 @@ collections:
           - { label: "Описание для поисковиков", name: "meta_description", widget: "text" }
           - { label: "Текст в боковой колонке", name: "aside_text", widget: "text" }
           - { label: "Ссылка назад", name: "return_url", widget: "hidden", default: "/day-04/" }
+          - { label: "Подпись ссылки назад", name: "return_label", widget: "string" }
+          - { label: "Полный текст", name: "body", widget: "markdown" }
+      - name: "day_05_full"
+        label: "День 05 — методика MVP"
+        file: "src/longreads/day-05-full.md"
+        format: "frontmatter"
+        preview_path: "day-05/full/"
+        fields:
+          - { label: "Шаблон", name: "layout", widget: "hidden", default: "layouts/longread.njk" }
+          - { label: "Адрес страницы", name: "permalink", widget: "hidden", default: "day-05/full/index.html" }
+          - { label: "Номер дня", name: "day_number", widget: "hidden", default: "05" }
+          - { label: "Главный заголовок", name: "title", widget: "string" }
+          - { label: "Дата", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+          - { label: "Название события", name: "event_name", widget: "string" }
+          - { label: "Место", name: "venue", widget: "string", required: false }
+          - { label: "Формат", name: "event_format", widget: "string" }
+          - { label: "Лид", name: "deck", widget: "text" }
+          - { label: "Описание для поисковиков", name: "meta_description", widget: "text" }
+          - { label: "Текст в боковой колонке", name: "aside_text", widget: "text" }
+          - { label: "Ссылка назад", name: "return_url", widget: "hidden", default: "/day-05/" }
           - { label: "Подпись ссылки назад", name: "return_label", widget: "string" }
           - { label: "Полный текст", name: "body", widget: "markdown" }

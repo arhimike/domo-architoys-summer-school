@@ -41,7 +41,7 @@ bodyClass: article-page
     <section class="longread-callout section-grid" aria-labelledby="full-report-title">
       <div class="section-label mono">Материал / полный текст</div>
       <div class="longread-callout-copy">
-        <p class="eyebrow">Подробный отчёт</p>
+        <p class="eyebrow">{{ full_report_eyebrow or 'Подробный отчёт' }}</p>
         <h2 id="full-report-title">{{ full_report_title or 'Полный текст дня' }}</h2>
         {% if full_report_description %}<p>{{ full_report_description }}</p>{% endif %}
         <a class="button longread-callout-button" href="{{ full_report_url }}">
@@ -79,7 +79,7 @@ bodyClass: article-page
     <section class="projects-section section-grid" id="projects" aria-labelledby="projects-title">
       <div class="section-label mono">Проекты / 03</div>
       <div class="section-heading projects-heading">
-        <p class="eyebrow">Идеи, сформулированные в этот день</p>
+        <p class="eyebrow">{{ projects_eyebrow or 'Идеи, сформулированные в этот день' }}</p>
         <h2 id="projects-title">{{ projects_title or 'Проектные направления' }}</h2>
         {% if projects_intro %}<p>{{ projects_intro }}</p>{% endif %}
       </div>
@@ -112,7 +112,7 @@ bodyClass: article-page
     <section class="outcomes-section section-grid ruled-section" aria-labelledby="outcomes-title">
       <div class="section-label mono">Итоги / 04</div>
       <div class="outcomes-heading">
-        <p class="eyebrow">Что зафиксировали к завершению</p>
+        <p class="eyebrow">{{ results_eyebrow or 'Что зафиксировали к завершению' }}</p>
         <h2 id="outcomes-title">{{ results_title }}</h2>
       </div>
       <div class="results-body prose">{{ results_body | markdown | safe }}</div>
