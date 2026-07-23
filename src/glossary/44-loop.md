@@ -1,0 +1,16 @@
+---
+order: 44
+title: "Цикл / итерация"
+english: "Loop and iteration"
+slug: "loop-and-iteration"
+category: "geometry"
+definition: "Повторение одной операции для набора элементов, заданное число раз или до тех пор, пока не выполнится условие остановки."
+architecture_analogy: "Это раскладка повторяющихся фасадных модулей по осям: правило одно, но применяется последовательно к каждому месту."
+architecture_example: "Инструмент перебирает все помещения, вычисляет их площади и помечает те, которые не проходят заданный минимум."
+memory_hook: "Бесконечный цикл — цифровой авторский надзор без сдачи объекта. Условие остановки обязательно."
+aliases: ["loop", "итерация", "for", "while", "повторение"]
+related: ["Алгоритм", "Диапазон и шаг", "Функция"]
+sources:
+  - label: "MDN Web Docs — Loops and iteration"
+    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration"
+---

@@ -1,0 +1,16 @@
+---
+order: 49
+title: "Баг и отладка"
+english: "Bug and debugging"
+slug: "bug-and-debugging"
+category: "publish"
+definition: "Баг — ошибка, из-за которой программа ведёт себя не так, как задумано; отладка — воспроизводимый поиск причины, исправление и повторная проверка результата."
+architecture_analogy: "Это коллизия или несоответствие в проекте: сначала фиксируют, при каких условиях оно возникает, затем находят источник и проверяют исправленный узел."
+architecture_example: "Экспорт не работает только у файлов с кириллицей. Разработчик повторяет ошибку, читает сообщение консоли, исправляет обработку имени и снова тестирует разные файлы."
+memory_hook: "«У меня работает» — полезное наблюдение, но ещё не акт приёмки."
+aliases: ["bug", "debug", "debugging", "ошибка", "отладка", "консоль"]
+related: ["Прототип", "Контроль версий", "Деплой"]
+sources:
+  - label: "MDN Web Docs — Troubleshooting JavaScript"
+    url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/What_went_wrong"
+---
