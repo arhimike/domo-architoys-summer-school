@@ -11,6 +11,6 @@ memory_hook: "«У меня работает» — полезное наблюд
 aliases: ["bug", "debug", "debugging", "ошибка", "отладка", "консоль"]
 related: ["Прототип", "Контроль версий", "Деплой"]
 sources:
-  - label: "MDN Web Docs — Troubleshooting JavaScript"
-    url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/What_went_wrong"
+  - label: "Дока — инструменты разработчика в браузере"
+    url: "https://doka.guide/tools/devtools/"
 ---
