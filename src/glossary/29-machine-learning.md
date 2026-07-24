@@ -11,6 +11,6 @@ memory_hook: "Если в учебной выборке были только б
 aliases: ["ML", "обучение на данных"]
 related: ["Набор данных", "Генеративный ИИ", "Галлюцинация ИИ"]
 sources:
-  - label: "NIST — Machine Learning"
-    url: "https://csrc.nist.gov/glossary/term/machine_learning"
+  - label: "Яндекс Облако — машинное обучение"
+    url: "https://yandex.cloud/ru/docs/glossary/machine-learning"
 ---
