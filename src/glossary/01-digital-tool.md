@@ -11,6 +11,6 @@ memory_hook: "Линейка обычно не спорит. Цифровой и
 aliases: ["инструмент", "приложение"]
 related: ["Прототип", "Входные данные", "Выходные данные"]
 sources:
-  - label: "W3C — authoring tool (смежное понятие, ATAG 2.0)"
-    url: "https://www.w3.org/TR/ATAG20/#def-authoring-tool"
+  - label: "Яндекс Практикум — продуктовый подход и цифровой продукт"
+    url: "https://practicum.yandex.ru/blog/produktovyi-podhod-v-menedzhmente/"
 ---
