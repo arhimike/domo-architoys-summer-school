@@ -4,7 +4,7 @@ card_title: "Форма как игровая механика"
 slug: "day-07"
 day_number: "07"
 date: "2026-07-27"
-published: true
+published: false
 meta_description: "Седьмой день DØMO ARCHITOYS: как превратить архитектурное формообразование в игру с ясными правилами, действиями, ограничениями и коллективным результатом FORM//GAME."
 location: ""
 venue: ""
