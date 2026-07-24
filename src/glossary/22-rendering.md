@@ -11,6 +11,6 @@ memory_hook: "Закат делает убедительнее почти всё
 aliases: ["render", "визуализация"]
 related: ["Mesh / полигональная сетка", "WebGL", "Выходные данные"]
 sources:
-  - label: "Blender Manual — Rendering"
-    url: "https://docs.blender.org/manual/en/latest/render/introduction.html"
+  - label: "Руководство Blender на русском — введение в рендеринг"
+    url: "https://docs.blender.org/manual/ru/latest/render/introduction.html"
 ---
