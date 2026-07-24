@@ -11,6 +11,6 @@ memory_hook: "Работает без сна и кофе, но иногда оч
 aliases: ["GenAI", "генеративная модель"]
 related: ["Промпт", "Машинное обучение", "Галлюцинация ИИ"]
 sources:
-  - label: "NIST — Generative Artificial Intelligence"
-    url: "https://csrc.nist.gov/glossary/term/generative_artificial_intelligence"
+  - label: "Яндекс Облако — генеративный искусственный интеллект"
+    url: "https://yandex.cloud/ru/docs/glossary/generative-ai"
 ---
