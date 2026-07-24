@@ -11,6 +11,6 @@ memory_hook: "Красивый скриншот — тоже результат,
 aliases: ["output", "вывод", "результат"]
 related: ["Входные данные", "Формат обмена", "API"]
 sources:
-  - label: "MDN — JavaScript functions and return values"
-    url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions"
+  - label: "Дока — функции JavaScript"
+    url: "https://doka.guide/js/function/"
 ---
