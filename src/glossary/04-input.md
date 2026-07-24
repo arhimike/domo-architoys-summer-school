@@ -11,6 +11,6 @@ memory_hook: "Неточные исходные данные дают очень
 aliases: ["input", "ввод"]
 related: ["Выходные данные", "Параметр", "API"]
 sources:
-  - label: "ISO/IEC 2382:2015 — input data"
-    url: "https://www.iso.org/standard/63598.html"
+  - label: "Дока — работа с формами и входными данными"
+    url: "https://doka.guide/js/deal-with-forms/"
 ---
