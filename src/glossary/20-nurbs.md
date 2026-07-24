@@ -11,6 +11,6 @@ memory_hook: "Кривая выглядит свободной, но у кажд
 aliases: ["NURBS-кривая", "NURBS-поверхность"]
 related: ["B-rep / граничное представление", "CAD", "Mesh / полигональная сетка"]
 sources:
-  - label: "McNeel Rhino — NURBS curves"
-    url: "https://docs.mcneel.com/rhino/8/help/en-us/seealso/sak_curve.htm"
+  - label: "NURBS — русскоязычная справочная статья"
+    url: "https://ru.wikipedia.org/wiki/NURBS"
 ---
