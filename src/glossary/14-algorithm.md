@@ -11,6 +11,6 @@ memory_hook: "Алгоритм любит порядок: рендер до по
 aliases: ["процедура", "правила"]
 related: ["Входные данные", "Выходные данные", "Генеративное проектирование"]
 sources:
-  - label: "NIST — Algorithm"
-    url: "https://csrc.nist.gov/glossary/term/algorithm"
+  - label: "Российская электронная школа — алгоритм и исполнитель"
+    url: "https://resh.edu.ru/subject/lesson/7320/"
 ---
