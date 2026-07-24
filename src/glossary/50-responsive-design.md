@@ -11,6 +11,6 @@ memory_hook: "Сжать десктопный экран до 360 пикселе
 aliases: ["responsive", "RWD", "адаптив", "мобильная версия", "mobile first"]
 related: ["Пользовательский интерфейс", "Пользовательский опыт", "Компонент"]
 sources:
-  - label: "MDN Web Docs — Responsive web design"
-    url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Responsive_Design"
+  - label: "Дока — адаптивность и медиавыражения"
+    url: "https://doka.guide/css/media/"
 ---
