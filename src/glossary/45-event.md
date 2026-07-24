@@ -11,6 +11,6 @@ memory_hook: "Кнопка без обработчика события — дв
 aliases: ["event", "клик", "click", "обработчик события", "event listener"]
 related: ["Пользовательский интерфейс", "Сценарий использования", "Функция"]
 sources:
-  - label: "MDN Web Docs — Introduction to events"
-    url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events"
+  - label: "Дока — события в браузере"
+    url: "https://doka.guide/js/events/"
 ---
