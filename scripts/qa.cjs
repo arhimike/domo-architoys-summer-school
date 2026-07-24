@@ -119,8 +119,10 @@ const dayFive = dayEntries[4].data;
 assert(dayFive.published === true, "Пятый день должен быть опубликован.");
 assert(dayFive.date === "2026-07-24", "У пятого дня неверная дата.");
 assert(dayFive.title === "От идеи к MVP", "У пятого дня неверный заголовок.");
-assert(dayFive.projects?.length === 5, "В пятом дне должно быть пять проектных MVP-срезов.");
+assert(dayFive.projects?.length === 6, "В пятом дне должно быть шесть проектных MVP-срезов.");
 assert(dayFive.projects?.[4]?.title === "Archi Helper", "В пятом дне неверно назван проект Розы.");
+assert(dayFive.projects?.[5]?.author === "Татьяна Овчинникова", "В пятом дне отсутствует новый проект Татьяны Овчинниковой.");
+assert(dayFive.projects?.[5]?.title.includes("ОПК Lab"), "В пятом дне неверно назван проект Татьяны.");
 assert(dayFive.gallery?.length === 0, "В пятом дне пока не должно быть фотографий.");
 assert(dayFive.full_report_url === "/day-05/full/", "В пятом дне отсутствует ссылка на методику MVP.");
 assert(dayFive.projects_eyebrow === "Предлагаемое сужение задачи", "В пятом дне не отделено проектное задание от отчёта.");
@@ -186,7 +188,9 @@ const dayFiveLongreadPath = path.join(source, "longreads", "day-05-full.md");
 assert(fs.existsSync(dayFiveLongreadPath), "В исходниках отсутствует методика MVP пятого дня.");
 const dayFiveLongread = fs.existsSync(dayFiveLongreadPath) ? matter.read(dayFiveLongreadPath) : { data: {}, content: "" };
 assert(dayFiveLongread.data.permalink === "day-05/full/index.html", "У методики MVP пятого дня неверный адрес.");
-assert(dayFiveLongread.content.includes("## Пять проектных MVP-срезов"), "В методике пятого дня отсутствуют MVP-срезы проектов.");
+assert(dayFiveLongread.content.includes("## Как запускается проект в DØMO ARCHITOYS"), "В методике пятого дня отсутствует общий маршрут запуска проекта.");
+assert(dayFiveLongread.content.includes("## Шесть проектных MVP-срезов"), "В методике пятого дня отсутствуют MVP-срезы проектов.");
+assert(dayFiveLongread.content.includes("### 06. Татьяна Овчинникова — «ОПК Lab»"), "В методике пятого дня отсутствует кейс Татьяны Овчинниковой.");
 assert(dayFiveLongread.content.includes("## Паспорт MVP"), "В методике пятого дня отсутствует паспорт MVP.");
 assert(dayFiveLongread.content.includes("## Методическая рамка и источники"), "В методике пятого дня отсутствуют проверяемые источники.");
 
@@ -243,6 +247,7 @@ for (const html of [builtHome, builtGlossary]) {
 }
 assert(builtHome.includes('href="/it-symbols/"'), "На главной отсутствует ссылка на IT-словарь.");
 assert(builtHome.includes("Архитекторы проектируют и создают цифровые инструменты"), "На главной отсутствует манифест IT-словаря.");
+assert(builtHome.includes("Восемь этапов разработки проекта в школе"), "На главной отсутствует общий маршрут разработки проекта.");
 assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
 assert(builtGlossary.includes("Авторство и атрибуция"), "IT-словарь выглядит неполным.");
 assert(builtGlossary.includes("Основные символы кода"), "В IT-словаре отсутствует раздел символов кода.");
@@ -285,7 +290,10 @@ const builtDayFiveLongread = fs.readFileSync(path.join(output, "day-05", "full",
 assert(builtDayFive.includes('href="/day-05/full/"'), "На странице пятого дня отсутствует кнопка методики MVP.");
 assert(builtDayFive.includes("Предлагаемое сужение задачи"), "Пятый день выглядит как отчёт о ещё не состоявшихся результатах.");
 assert(builtDayFive.includes("Результат дня"), "В пятом дне отсутствует раздел с результатом занятия.");
+assert(builtDayFive.includes("Татьяна Овчинникова"), "На странице пятого дня отсутствует новый проект Татьяны.");
 assert(builtDayFiveLongread.includes("От идеи к MVP: как остановить разрастание прототипа"), "На странице методики пятого дня отсутствует заголовок.");
+assert(builtDayFiveLongread.includes("Как запускается проект в DØMO ARCHITOYS"), "В методике пятого дня отсутствует общее объяснение процесса школы.");
+assert(builtDayFiveLongread.includes("ОПК Lab"), "В методике пятого дня отсутствует подробный кейс Татьяны.");
 assert(builtDayFiveLongread.includes("Взаимное тестирование"), "В методике пятого дня отсутствует сценарий проверки.");
 
 const builtPhotos = fs.readdirSync(path.join(output, "assets", "photos", "uploads"))

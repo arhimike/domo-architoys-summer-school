@@ -339,7 +339,8 @@ address { font-style: normal; }
   border-bottom: 1px solid var(--ink);
 }
 .principles li { min-height: 240px; padding: 18px; border-right: 1px solid var(--ink); }
-.principles li:last-child { border-right: 0; }
+.principles li:nth-child(-n+4) { border-bottom: 1px solid var(--ink); }
+.principles li:nth-child(4n) { border-right: 0; }
 .principles span { color: var(--orange); font-size: 0.7rem; }
 .principles h3 { margin: 70px 0 10px; font-size: 1.6rem; letter-spacing: -0.04em; }
 .principles p { max-width: 240px; margin: 0; color: var(--muted); font-size: 0.82rem; }
@@ -877,8 +878,9 @@ address { font-style: normal; }
   .longread-return > .button { grid-column: 9 / -1; }
   .manifesto-copy, .article-copy, .inputs-rule, .debate-lead, .debate-body, .debate-conclusion, .results-body, .outcomes-list, .outcomes-note, .post-text { grid-column: 2 / -1; }
   .principles { grid-template-columns: repeat(2, 1fr); }
-  .principles li:nth-child(2) { border-right: 0; }
-  .principles li:nth-child(-n+2) { border-bottom: 1px solid var(--ink); }
+  .principles li { border-right: 1px solid var(--ink); }
+  .principles li:nth-child(even) { border-right: 0; }
+  .principles li:nth-child(-n+6) { border-bottom: 1px solid var(--ink); }
   .feature-number { grid-column: 1 / span 4; }
   .feature-photo { grid-column: 8 / -1; }
   .place-photo { grid-column: 1 / span 5; }
