@@ -11,6 +11,6 @@ memory_hook: "Скриншот — плохой API: выглядит убеди
 aliases: ["программный интерфейс", "API request", "запрос к сервису"]
 related: ["Входные данные", "Выходные данные", "Схема данных"]
 sources:
-  - label: "MDN — API"
-    url: "https://developer.mozilla.org/en-US/docs/Glossary/API"
+  - label: "Яндекс Облако — что такое API"
+    url: "https://yandex.cloud/ru/docs/glossary/api"
 ---
