@@ -1,6 +1,6 @@
 ---
 layout: layouts/longread.njk
-permalink: day-07/full/index.html
+permalink: false
 day_number: "07"
 title: "FORM//GAME: форма как система действий"
 date: "2026-07-27"
