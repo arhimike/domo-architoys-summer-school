@@ -11,6 +11,6 @@ memory_hook: "Если в учебной выборке были только б
 aliases: ["ML", "обучение на данных"]
 related: ["Набор данных", "Генеративный ИИ", "Галлюцинация ИИ"]
 sources:
-  - label: "Яндекс Облако — машинное обучение"
-    url: "https://yandex.cloud/ru/docs/glossary/machine-learning"
+  - label: "Яндекс Практикум — что такое машинное обучение"
+    url: "https://practicum.yandex.ru/blog/chto-takoe-mashinnoe-obuchenie/"
 ---
