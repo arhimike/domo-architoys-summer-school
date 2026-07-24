@@ -11,6 +11,6 @@ memory_hook: "Компьютер не догадывается, что вы им
 aliases: ["if", "else", "условный оператор", "логическое условие", "ветка"]
 related: ["Алгоритм", "Ограничение", "Переменная"]
 sources:
-  - label: "MDN Web Docs — Conditionals"
-    url: "https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Conditionals"
+  - label: "Дока — условная конструкция if…else"
+    url: "https://doka.guide/js/if-else/"
 ---
