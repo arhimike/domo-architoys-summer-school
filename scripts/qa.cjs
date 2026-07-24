@@ -284,7 +284,7 @@ const builtDayFive = fs.readFileSync(path.join(output, "day-05", "index.html"), 
 const builtDayFiveLongread = fs.readFileSync(path.join(output, "day-05", "full", "index.html"), "utf8");
 assert(builtDayFive.includes('href="/day-05/full/"'), "На странице пятого дня отсутствует кнопка методики MVP.");
 assert(builtDayFive.includes("Предлагаемое сужение задачи"), "Пятый день выглядит как отчёт о ещё не состоявшихся результатах.");
-assert(builtDayFive.includes("Планируемый результат"), "В пятом дне не обозначен планируемый характер итогов.");
+assert(builtDayFive.includes("Результат дня"), "В пятом дне отсутствует раздел с результатом занятия.");
 assert(builtDayFiveLongread.includes("От идеи к MVP: как остановить разрастание прототипа"), "На странице методики пятого дня отсутствует заголовок.");
 assert(builtDayFiveLongread.includes("Взаимное тестирование"), "В методике пятого дня отсутствует сценарий проверки.");
 
