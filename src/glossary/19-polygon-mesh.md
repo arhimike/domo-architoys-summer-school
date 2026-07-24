@@ -11,6 +11,6 @@ memory_hook: "Слишком мало полигонов — башня стан
 aliases: ["mesh", "полисетка"]
 related: ["B-rep / граничное представление", "Рендеринг", "WebGL"]
 sources:
-  - label: "Blender Manual — Mesh Structure"
-    url: "https://docs.blender.org/manual/en/latest/modeling/meshes/structure.html"
+  - label: "Руководство Blender на русском — структура полигональной сетки"
+    url: "https://docs.blender.org/manual/ru/latest/modeling/meshes/structure.html"
 ---
