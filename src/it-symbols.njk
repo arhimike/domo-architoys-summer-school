@@ -98,7 +98,7 @@ bodyClass: glossary-page
             </div>
             {% if term.data.sources and term.data.sources.length %}
               <div class="glossary-sources">
-                <span class="mono">Источники и документация</span>
+                <span class="mono">Русскоязычные материалы и официальная документация</span>
                 <ul>
                   {% for source in term.data.sources %}
                     <li><a href="{{ source.url }}" target="_blank" rel="noopener">{{ source.label }} <span aria-hidden="true">↗</span></a></li>
