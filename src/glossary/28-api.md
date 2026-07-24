@@ -11,6 +11,6 @@ memory_hook: "Скриншот — плохой API: выглядит убеди
 aliases: ["программный интерфейс", "API request", "запрос к сервису"]
 related: ["Входные данные", "Выходные данные", "Схема данных"]
 sources:
-  - label: "Яндекс Облако — что такое API"
-    url: "https://yandex.cloud/ru/docs/glossary/api"
+  - label: "Яндекс Практикум — что такое API"
+    url: "https://practicum.yandex.ru/blog/chto-takoe-api/"
 ---
