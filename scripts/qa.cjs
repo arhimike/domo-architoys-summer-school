@@ -56,6 +56,7 @@ assert(longreadsCollection?.files?.some((file) => file.name === "day_02_full"), 
 assert(longreadsCollection?.files?.some((file) => file.name === "day_03_full"), "В CMS отсутствует методический материал третьего дня.");
 assert(longreadsCollection?.files?.some((file) => file.name === "day_04_full"), "В CMS отсутствует каталог инструментов четвёртого дня.");
 assert(longreadsCollection?.files?.some((file) => file.name === "day_05_full"), "В CMS отсутствует методика MVP пятого дня.");
+assert(longreadsCollection?.files?.some((file) => file.name === "day_08_full"), "В CMS отсутствует методика SPACE//TIME восьмого дня.");
 const glossaryCollection = adminConfig.collections?.find((collection) => collection.name === "glossary");
 assert(Boolean(glossaryCollection), "В CMS отсутствует IT-словарь.");
 assert(glossaryCollection?.folder === "src/glossary", "В CMS неверно настроена папка IT-словаря.");
@@ -127,6 +128,13 @@ assert(dayFive.gallery?.length === 0, "В пятом дне пока не дол
 assert(dayFive.full_report_url === "/day-05/full/", "В пятом дне отсутствует ссылка на методику MVP.");
 assert(dayFive.projects_eyebrow === "Предлагаемое сужение задачи", "В пятом дне не отделено проектное задание от отчёта.");
 
+const dayEight = dayEntries[7].data;
+assert(dayEight.published === true, "Восьмой день должен быть опубликован.");
+assert(dayEight.date === "2026-07-28", "У восьмого дня неверная дата.");
+assert(dayEight.title === "Пространство во времени", "У восьмого дня неверный заголовок.");
+assert(dayEight.projects?.length === 6, "В восьмом дне должно быть шесть временных моделей.");
+assert(dayEight.full_report_url === "/day-08/full/", "В восьмом дне отсутствует ссылка на методику SPACE//TIME.");
+
 const glossaryDirectory = path.join(source, "glossary");
 const glossaryFiles = fs.readdirSync(glossaryDirectory)
   .filter((name) => name.endsWith(".md"))
@@ -194,15 +202,22 @@ assert(dayFiveLongread.content.includes("### 06. Татьяна Овчинник
 assert(dayFiveLongread.content.includes("## Паспорт MVP"), "В методике пятого дня отсутствует паспорт MVP.");
 assert(dayFiveLongread.content.includes("## Методическая рамка и источники"), "В методике пятого дня отсутствуют проверяемые источники.");
 
+const dayEightLongreadPath = path.join(source, "longreads", "day-08-full.md");
+assert(fs.existsSync(dayEightLongreadPath), "В исходниках отсутствует методика SPACE//TIME восьмого дня.");
+const dayEightLongread = fs.existsSync(dayEightLongreadPath) ? matter.read(dayEightLongreadPath) : { data: {}, content: "" };
+assert(dayEightLongread.data.permalink === "day-08/full/index.html", "У методики SPACE//TIME неверный адрес.");
+assert(dayEightLongread.content.includes("## Паспорт сценария"), "В методике SPACE//TIME отсутствует паспорт сценария.");
+assert(dayEightLongread.content.includes("## Взаимная проверка"), "В методике SPACE//TIME отсутствует взаимная проверка.");
+
 const photoDirectory = path.join(source, "assets", "photos", "uploads");
 const sourcePhotos = fs.readdirSync(photoDirectory).filter((name) => /\.jpe?g$/i.test(name)).sort();
 assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "В исходниках пока не должно быть фотографий.");
 
-const requiredBuildFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
+const requiredBuildFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
 for (const file of removedMaterials) assert(!fs.existsSync(path.join(output, file)), `Удалённый материал всё ещё попал в сборку: ${file}.`);
 
-const htmlFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
+const htmlFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
 let galleryItemCount = 0;
 let glossaryCardCount = 0;
@@ -295,6 +310,13 @@ assert(builtDayFiveLongread.includes("От идеи к MVP: как остано�
 assert(builtDayFiveLongread.includes("Как запускается проект в DØMO ARCHITOYS"), "В методике пятого дня отсутствует общее объяснение процесса школы.");
 assert(builtDayFiveLongread.includes("ОПК Lab"), "В методике пятого дня отсутствует подробный кейс Татьяны.");
 assert(builtDayFiveLongread.includes("Взаимное тестирование"), "В методике пятого дня отсутствует сценарий проверки.");
+
+const builtDayEight = fs.readFileSync(path.join(output, "day-08", "index.html"), "utf8");
+const builtDayEightLongread = fs.readFileSync(path.join(output, "day-08", "full", "index.html"), "utf8");
+assert(builtDayEight.includes('href="/day-08/full/"'), "На странице восьмого дня отсутствует кнопка методики SPACE//TIME.");
+assert(builtDayEight.includes("Шесть временных моделей"), "На странице восьмого дня отсутствует конструктор времени.");
+assert(builtDayEightLongread.includes("SPACE//TIME: пространство как последовательность состояний"), "На странице методики восьмого дня отсутствует заголовок.");
+assert(builtDayEightLongread.includes("Паспорт сценария"), "На странице методики восьмого дня отсутствует паспорт сценария.");
 
 const builtPhotos = fs.readdirSync(path.join(output, "assets", "photos", "uploads"))
   .filter((name) => /\.jpe?g$/i.test(name))
