@@ -53,7 +53,31 @@ meta_description: "Проекты первого набора летней шк�
             <span>{{ project.order }} / {{ studentProjects.projects.length | pad2 }}</span>
             <span>публичный прототип</span>
           </div>
-          <p class="student-project-author">{{ project.author }}</p>
+          <div class="student-project-author-row">
+            {% if project.portrait %}
+              <img
+                class="student-project-portrait"
+                src="{{ project.portrait }}"
+                alt="{{ project.portraitAlt }}"
+                width="96"
+                height="96"
+                loading="lazy"
+                decoding="async"
+              >
+            {% else %}
+              <span class="student-project-portrait student-project-portrait-placeholder" aria-hidden="true">
+                <span>Фото</span>
+              </span>
+            {% endif %}
+            <div>
+              <p class="student-project-author">{{ project.author }}</p>
+              <p class="student-project-level mono">
+                <span>{{ project.level }}</span>
+                <strong>{{ project.levelCode }}</strong>
+                <small>{{ project.levelName }}</small>
+              </p>
+            </div>
+          </div>
           <h2>{{ project.title }}</h2>
           <p class="student-project-subtitle">{{ project.subtitle }}</p>
           <p class="student-project-description">{{ project.description }}</p>
@@ -65,6 +89,9 @@ meta_description: "Проекты первого набора летней шк�
             {% if project.secondaryUrl %}
               <a class="text-link" href="{{ project.secondaryUrl }}" target="_blank" rel="noopener">{{ project.secondaryLabel }} <span aria-hidden="true">↗</span></a>
             {% endif %}
+            <a class="text-link student-project-diploma" href="{{ project.diploma }}" target="_blank" rel="noopener">
+              Диплом {{ project.levelCode }} · № {{ project.diplomaNumber }} <span aria-hidden="true">↓</span>
+            </a>
           </div>
         </div>
       </article>

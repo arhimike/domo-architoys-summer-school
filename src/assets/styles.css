@@ -954,8 +954,36 @@ address { font-style: normal; }
   letter-spacing: .045em;
   text-transform: uppercase;
 }
+.student-project-author-row {
+  margin: clamp(30px, 4vw, 58px) 0 16px;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+}
+.student-project-portrait {
+  width: 76px;
+  height: 76px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 24%;
+  background: var(--project-accent);
+}
+.student-project-portrait-placeholder {
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+  color: var(--muted);
+}
+.student-project-portrait-placeholder span {
+  font-family: var(--mono);
+  font-size: .54rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
 .student-project-author {
-  margin: clamp(30px, 4vw, 58px) 0 10px;
+  margin: 0 0 7px;
   color: var(--orange-text);
   font-family: var(--mono);
   font-size: .7rem;
@@ -963,6 +991,20 @@ address { font-style: normal; }
   letter-spacing: .06em;
   text-transform: uppercase;
 }
+.student-project-level {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 5px 9px;
+  color: var(--muted);
+  font-size: .56rem;
+  letter-spacing: .045em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.student-project-level strong { color: var(--ink); font-size: .68rem; }
+.student-project-level small { font: inherit; }
 .student-project-copy h2 {
   margin: 0;
   overflow-wrap: anywhere;
@@ -1002,6 +1044,10 @@ address { font-style: normal; }
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 20px;
+}
+.student-project-diploma {
+  color: var(--orange-text);
+  text-decoration-color: var(--orange);
 }
 
 .student-projects-note {
@@ -1211,7 +1257,7 @@ address { font-style: normal; }
   .student-project-card-featured .student-project-shot { border-right: 0; border-bottom: 1px solid var(--ink); }
   .student-project-card-featured .student-project-shot img { height: auto; min-height: 0; aspect-ratio: 1363 / 936; }
   .student-project-meta { align-items: flex-start; flex-direction: column; gap: 5px; }
-  .student-project-author { margin-top: 34px; }
+  .student-project-author-row { margin-top: 34px; }
   .student-project-links { align-items: flex-start; flex-direction: column; }
   .dictionary-teaser-copy, .dictionary-teaser-specimens, .glossary-hero-title, .glossary-hero-lead, .glossary-hero-signs, .glossary-intro-heading, .glossary-intro-copy, .glossary-toolbar-main, .code-symbols-heading, .glossary-note > div:last-child { grid-column: 1 / -1; }
   .dictionary-teaser-specimens, .glossary-hero-signs { margin-top: 32px; }
