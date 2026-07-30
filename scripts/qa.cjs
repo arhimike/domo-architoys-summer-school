@@ -42,7 +42,7 @@ const removedMaterials = [
 
 const siteData = JSON.parse(fs.readFileSync(path.join(source, "_data", "site.json"), "utf8"));
 const studentProjects = JSON.parse(fs.readFileSync(path.join(source, "_data", "studentProjects.json"), "utf8"));
-assert(studentProjects.projects?.length === 6, `В витрине должно быть шесть проектов, найдено ${studentProjects.projects?.length || 0}.`);
+assert(studentProjects.projects?.length === 6, `На странице учеников должно быть шесть проектов, найдено ${studentProjects.projects?.length || 0}.`);
 const studentProjectUrls = new Set();
 for (const [index, project] of (studentProjects.projects || []).entries()) {
   const expectedOrder = String(index + 1).padStart(2, "0");
@@ -51,7 +51,7 @@ for (const [index, project] of (studentProjects.projects || []).entries()) {
   assert(typeof project.title === "string" && project.title.trim().length >= 3, `У проекта ${expectedOrder} отсутствует название.`);
   assert(typeof project.description === "string" && project.description.trim().length >= 80, `У проекта ${project.title || expectedOrder} слишком короткое описание.`);
   assert(/^https:\/\//.test(project.url || ""), `У проекта ${project.title || expectedOrder} отсутствует публичная HTTPS-ссылка.`);
-  assert(!studentProjectUrls.has(project.url), `Ссылка ${project.url} повторяется в витрине.`);
+  assert(!studentProjectUrls.has(project.url), `Ссылка ${project.url} повторяется на странице учеников.`);
   studentProjectUrls.add(project.url);
   const screenshotPath = path.join(source, String(project.screenshot || "").replace(/^\//, ""));
   assert(fs.existsSync(screenshotPath), `У проекта ${project.title || expectedOrder} не найден скриншот ${project.screenshot}.`);
@@ -282,17 +282,17 @@ for (const html of [builtHome, builtProjects, builtGlossary]) {
   assert(html.includes(`/assets/script.js?v=${assetVersion}`), "JavaScript подключён без актуальной версии для сброса кэша.");
 }
 assert(builtHome.includes('href="/it-symbols/"'), "На главной отсутствует ссылка на IT-словарь.");
-assert(builtHome.includes('href="/projects/"'), "На главной отсутствует ссылка на витрину проектов.");
+assert(builtHome.includes('href="/projects/"'), "На главной отсутствует ссылка на страницу учеников.");
 assert(builtHome.includes("Архитекторы проектируют и создают цифровые инструменты"), "На главной отсутствует манифест IT-словаря.");
 assert(builtHome.includes("Восемь этапов разработки проекта в школе"), "На главной отсутствует общий маршрут разработки проекта.");
-assert(builtProjects.includes("Авторы<br><em>собственных</em><br>инструментов"), "На странице проектов отсутствует главный заголовок.");
+assert(builtProjects.includes("Ученики<br><em>и их</em><br>проекты"), "На странице учеников отсутствует главный заголовок.");
 assert(builtProjects.includes("Татьяна Овчинникова"), "На странице проектов отсутствует COM-PLAY Татьяны Овчинниковой.");
 assert(builtProjects.includes("Антон Христов"), "На странице проектов отсутствует RUIN MAKER Антона Христова.");
 assert(builtProjects.includes("Дмитрий Сахаров"), "На странице проектов отсутствует проект Дмитрия Сахарова.");
 assert(builtProjects.includes("Андрей Полушин"), "На странице проектов отсутствует CITY//LENS Андрея Полушина.");
 assert(builtProjects.includes("Варвара Безрукова"), "На странице проектов отсутствует FORMA AI Варвары Безруковой.");
 assert(builtProjects.includes("roza-ai-d0mo.netlify.app"), "На странице проектов отсутствует подробная версия проекта Розы.");
-assert(builtProjects.includes("aria-current=\"page\">Проекты</a>"), "В навигации страницы проектов отсутствует активное состояние.");
+assert(builtProjects.includes("aria-current=\"page\">Ученики</a>"), "В навигации страницы учеников отсутствует активное состояние.");
 assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
 assert(builtGlossary.includes("Авторство и атрибуция"), "IT-словарь выглядит неполным.");
 assert(builtGlossary.includes("Основные символы кода"), "В IT-словаре отсутствует раздел символов кода.");
