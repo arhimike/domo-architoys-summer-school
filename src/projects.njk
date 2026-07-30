@@ -4,7 +4,7 @@ permalink: projects/index.html
 title: Проекты учеников
 pageType: projects
 bodyClass: projects-page
-meta_description: "Проекты первого набора летней школы DØMO ARCHITOYS: шесть авторских цифровых инструментов, их создатели, описания, скриншоты и рабочие ссылки."
+meta_description: "Проекты первого набора летней школы DØMO ARCHITOYS: авторы, краткие описания, уровни, дипломы и рабочие ссылки на шесть цифровых инструментов."
 ---
 
 <header class="student-projects-hero section-grid" aria-labelledby="projects-page-title">
@@ -29,25 +29,14 @@ meta_description: "Проекты первого набора летней шк�
   <div class="student-projects-intro-copy">
     <p class="eyebrow">От идеи к публичной версии</p>
     <h2 id="projects-intro-title">{{ studentProjects.title }}</h2>
-    <p>Каждый проект начинается с одного авторского действия и превращает его в понятную цифровую механику. Скриншоты фиксируют живые версии интерфейсов на {{ studentProjects.snapshotDate }}.</p>
+    <p>Каждый проект начинается с одного авторского действия и превращает его в понятную цифровую механику. Здесь собраны авторы, краткие описания и ссылки на живые версии инструментов.</p>
   </div>
 </section>
 
 <section class="student-projects-section section-grid" id="projects" aria-label="Проекты первого набора">
   <div class="student-projects-grid">
     {% for project in studentProjects.projects %}
-      <article class="student-project-card{% if project.featured %} student-project-card-featured{% endif %}" data-accent="{{ project.accent }}">
-        <a class="student-project-shot" href="{{ project.url }}" target="_blank" rel="noopener" aria-label="{{ project.urlLabel }} — откроется в новой вкладке">
-          <img
-            src="{{ project.screenshot }}"
-            alt="{{ project.screenshotAlt }}"
-            width="1363"
-            height="936"
-            loading="eager"
-            decoding="async"
-          >
-          <span class="student-project-shot-arrow" aria-hidden="true">↗</span>
-        </a>
+      <article class="student-project-card" data-accent="{{ project.accent }}">
         <div class="student-project-copy">
           <div class="student-project-meta mono">
             <span>{{ project.order }} / {{ studentProjects.projects.length | pad2 }}</span>
@@ -79,11 +68,7 @@ meta_description: "Проекты первого набора летней шк�
             </div>
           </div>
           <h2>{{ project.title }}</h2>
-          <p class="student-project-subtitle">{{ project.subtitle }}</p>
           <p class="student-project-description">{{ project.description }}</p>
-          <ul class="student-project-tags" aria-label="Темы проекта">
-            {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
-          </ul>
           <div class="student-project-links">
             <a class="button button-dark" href="{{ project.url }}" target="_blank" rel="noopener">{{ project.urlLabel }} <span aria-hidden="true">↗</span></a>
             {% if project.secondaryUrl %}
