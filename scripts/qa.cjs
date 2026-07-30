@@ -41,6 +41,23 @@ const removedMaterials = [
 ];
 
 const siteData = JSON.parse(fs.readFileSync(path.join(source, "_data", "site.json"), "utf8"));
+const studentProjects = JSON.parse(fs.readFileSync(path.join(source, "_data", "studentProjects.json"), "utf8"));
+assert(studentProjects.projects?.length === 6, `В витрине должно быть шесть проектов, найдено ${studentProjects.projects?.length || 0}.`);
+const studentProjectUrls = new Set();
+for (const [index, project] of (studentProjects.projects || []).entries()) {
+  const expectedOrder = String(index + 1).padStart(2, "0");
+  assert(project.order === expectedOrder, `У проекта ${project.title || expectedOrder} неверный порядковый номер.`);
+  assert(typeof project.author === "string" && project.author.trim().length >= 3, `У проекта ${expectedOrder} не указан автор.`);
+  assert(typeof project.title === "string" && project.title.trim().length >= 3, `У проекта ${expectedOrder} отсутствует название.`);
+  assert(typeof project.description === "string" && project.description.trim().length >= 80, `У проекта ${project.title || expectedOrder} слишком короткое описание.`);
+  assert(/^https:\/\//.test(project.url || ""), `У проекта ${project.title || expectedOrder} отсутствует публичная HTTPS-ссылка.`);
+  assert(!studentProjectUrls.has(project.url), `Ссылка ${project.url} повторяется в витрине.`);
+  studentProjectUrls.add(project.url);
+  const screenshotPath = path.join(source, String(project.screenshot || "").replace(/^\//, ""));
+  assert(fs.existsSync(screenshotPath), `У проекта ${project.title || expectedOrder} не найден скриншот ${project.screenshot}.`);
+  assert(typeof project.screenshotAlt === "string" && project.screenshotAlt.trim().length >= 30, `У проекта ${project.title || expectedOrder} отсутствует описание скриншота.`);
+  assert(Array.isArray(project.tags) && project.tags.length >= 3, `У проекта ${project.title || expectedOrder} должно быть не меньше трёх меток.`);
+}
 const adminConfigPath = path.join(source, "admin", "config.yml");
 const adminConfig = YAML.parse(fs.readFileSync(adminConfigPath, "utf8"));
 assert(adminConfig.backend?.name === "github", "Админка должна использовать прямой GitHub backend.");
@@ -213,14 +230,15 @@ const photoDirectory = path.join(source, "assets", "photos", "uploads");
 const sourcePhotos = fs.readdirSync(photoDirectory).filter((name) => /\.jpe?g$/i.test(name)).sort();
 assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "В исходниках пока не должно быть фотографий.");
 
-const requiredBuildFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
+const requiredBuildFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
 for (const file of removedMaterials) assert(!fs.existsSync(path.join(output, file)), `Удалённый материал всё ещё попал в сборку: ${file}.`);
 
-const htmlFiles = ["index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
+const htmlFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
 let galleryItemCount = 0;
 let glossaryCardCount = 0;
+let studentProjectCardCount = 0;
 
 for (const htmlFile of htmlFiles) {
   const html = fs.readFileSync(htmlFile, "utf8");
@@ -232,6 +250,7 @@ for (const htmlFile of htmlFiles) {
     const classes = String(attrs.class || "").split(/\s+/).filter(Boolean);
     if (classes.includes("day-card")) dayCardCount += 1;
     if (classes.includes("photo-item")) galleryItemCount += 1;
+    if (classes.includes("student-project-card")) studentProjectCardCount += 1;
     if (classes.includes("glossary-card")) {
       glossaryCardCount += 1;
       assert(String(attrs["data-search"] || "").length >= 20, `${path.relative(output, htmlFile)}: у карточки словаря отсутствует управляемый поисковый индекс.`);
@@ -251,18 +270,29 @@ for (const htmlFile of htmlFiles) {
 assert(dayCardCount === 10, `На главной должно быть 10 карточек дней, найдено ${dayCardCount}.`);
 assert(galleryItemCount === 0, `Фотоотчёт должен быть пустым, найдено карточек: ${galleryItemCount}.`);
 assert(glossaryCardCount === glossaryEntries.length, `Число карточек словаря (${glossaryCardCount}) не совпадает с числом терминов (${glossaryEntries.length}).`);
+assert(studentProjectCardCount === studentProjects.projects.length, `Число карточек проектов (${studentProjectCardCount}) не совпадает с данными (${studentProjects.projects.length}).`);
 
 const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
+const builtProjects = fs.readFileSync(path.join(output, "projects", "index.html"), "utf8");
 const builtGlossary = fs.readFileSync(path.join(output, "it-symbols", "index.html"), "utf8");
 const assetVersion = String(siteData.assetVersion || "").trim();
 assert(/^\d{8}-\d+$/.test(assetVersion), "Версия CSS и JavaScript отсутствует или имеет неверный формат.");
-for (const html of [builtHome, builtGlossary]) {
+for (const html of [builtHome, builtProjects, builtGlossary]) {
   assert(html.includes(`/assets/styles.css?v=${assetVersion}`), "CSS подключён без актуальной версии для сброса кэша.");
   assert(html.includes(`/assets/script.js?v=${assetVersion}`), "JavaScript подключён без актуальной версии для сброса кэша.");
 }
 assert(builtHome.includes('href="/it-symbols/"'), "На главной отсутствует ссылка на IT-словарь.");
+assert(builtHome.includes('href="/projects/"'), "На главной отсутствует ссылка на витрину проектов.");
 assert(builtHome.includes("Архитекторы проектируют и создают цифровые инструменты"), "На главной отсутствует манифест IT-словаря.");
 assert(builtHome.includes("Восемь этапов разработки проекта в школе"), "На главной отсутствует общий маршрут разработки проекта.");
+assert(builtProjects.includes("Авторы<br><em>собственных</em><br>инструментов"), "На странице проектов отсутствует главный заголовок.");
+assert(builtProjects.includes("Татьяна Овчинникова"), "На странице проектов отсутствует COM-PLAY Татьяны Овчинниковой.");
+assert(builtProjects.includes("Антон Христов"), "На странице проектов отсутствует RUIN MAKER Антона Христова.");
+assert(builtProjects.includes("Дмитрий Сахаров"), "На странице проектов отсутствует проект Дмитрия Сахарова.");
+assert(builtProjects.includes("Андрей Полушин"), "На странице проектов отсутствует CITY//LENS Андрея Полушина.");
+assert(builtProjects.includes("Варвара Безрукова"), "На странице проектов отсутствует FORMA AI Варвары Безруковой.");
+assert(builtProjects.includes("roza-ai-d0mo.netlify.app"), "На странице проектов отсутствует подробная версия проекта Розы.");
+assert(builtProjects.includes("aria-current=\"page\">Проекты</a>"), "В навигации страницы проектов отсутствует активное состояние.");
 assert(builtGlossary.includes("data-glossary-search"), "В IT-словаре отсутствует поиск.");
 assert(builtGlossary.includes("Авторство и атрибуция"), "IT-словарь выглядит неполным.");
 assert(builtGlossary.includes("Основные символы кода"), "В IT-словаре отсутствует раздел символов кода.");

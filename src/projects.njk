@@ -1,0 +1,83 @@
+---
+layout: layouts/base.njk
+permalink: projects/index.html
+title: Проекты учеников
+pageType: projects
+bodyClass: projects-page
+meta_description: "Проекты первого набора летней школы DØMO ARCHITOYS: шесть авторских цифровых инструментов, их создатели, описания, скриншоты и рабочие ссылки."
+---
+
+<header class="student-projects-hero section-grid" aria-labelledby="projects-page-title">
+  <div class="projects-hero-kicker mono">{{ studentProjects.eyebrow }}</div>
+  <div class="projects-hero-title">
+    <p class="eyebrow">Проекты учеников</p>
+    <h1 id="projects-page-title">Авторы<br><em>собственных</em><br>инструментов</h1>
+  </div>
+  <div class="projects-hero-copy">
+    <p>{{ studentProjects.lead }}</p>
+    <a class="text-link" href="#projects">Смотреть проекты <span aria-hidden="true">↓</span></a>
+  </div>
+  <aside class="projects-hero-stat" aria-label="Количество опубликованных проектов">
+    <strong>{{ studentProjects.projects.length | pad2 }}</strong>
+    <p>работающих<br>веб-прототипов</p>
+    <span class="mono">Первый набор<br>20–30 июля 2026</span>
+  </aside>
+</header>
+
+<section class="student-projects-intro section-grid ruled-section" aria-labelledby="projects-intro-title">
+  <div class="section-label mono">Выставка / 01</div>
+  <div class="student-projects-intro-copy">
+    <p class="eyebrow">От идеи к публичной версии</p>
+    <h2 id="projects-intro-title">{{ studentProjects.title }}</h2>
+    <p>Каждый проект начинается с одного авторского действия и превращает его в понятную цифровую механику. Скриншоты фиксируют живые версии интерфейсов на {{ studentProjects.snapshotDate }}.</p>
+  </div>
+</section>
+
+<section class="student-projects-section section-grid" id="projects" aria-label="Проекты первого набора">
+  <div class="student-projects-grid">
+    {% for project in studentProjects.projects %}
+      <article class="student-project-card{% if project.featured %} student-project-card-featured{% endif %}" data-accent="{{ project.accent }}">
+        <a class="student-project-shot" href="{{ project.url }}" target="_blank" rel="noopener" aria-label="{{ project.urlLabel }} — откроется в новой вкладке">
+          <img
+            src="{{ project.screenshot }}"
+            alt="{{ project.screenshotAlt }}"
+            width="1363"
+            height="936"
+            loading="{{ 'eager' if loop.first else 'lazy' }}"
+            decoding="async"
+          >
+          <span class="student-project-shot-arrow" aria-hidden="true">↗</span>
+        </a>
+        <div class="student-project-copy">
+          <div class="student-project-meta mono">
+            <span>{{ project.order }} / {{ studentProjects.projects.length | pad2 }}</span>
+            <span>публичный прототип</span>
+          </div>
+          <p class="student-project-author">{{ project.author }}</p>
+          <h2>{{ project.title }}</h2>
+          <p class="student-project-subtitle">{{ project.subtitle }}</p>
+          <p class="student-project-description">{{ project.description }}</p>
+          <ul class="student-project-tags" aria-label="Темы проекта">
+            {% for tag in project.tags %}<li>{{ tag }}</li>{% endfor %}
+          </ul>
+          <div class="student-project-links">
+            <a class="button button-dark" href="{{ project.url }}" target="_blank" rel="noopener">{{ project.urlLabel }} <span aria-hidden="true">↗</span></a>
+            {% if project.secondaryUrl %}
+              <a class="text-link" href="{{ project.secondaryUrl }}" target="_blank" rel="noopener">{{ project.secondaryLabel }} <span aria-hidden="true">↗</span></a>
+            {% endif %}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="student-projects-note section-grid ruled-section" aria-labelledby="projects-note-title">
+  <div class="section-label mono">Авторство / 02</div>
+  <div>
+    <p class="eyebrow">DØMO ARCHITOYS</p>
+    <h2 id="projects-note-title">Архитектор проектирует не только объект, но и способ его создания.</h2>
+    <p>Все представленные инструменты разработаны участниками первого набора летней школы. Куратор и автор общей образовательной концепции — архитектор Михаил Корси.</p>
+    <a class="button button-orange" href="/day-10/">Финальный день школы <span aria-hidden="true">→</span></a>
+  </div>
+</section>

@@ -37,6 +37,7 @@
       <a href="/#about">О школе</a>
       <a href="/#program">Программа</a>
       <a href="/#diary">Дневник</a>
+      <a href="/projects/"{% if pageType == 'projects' %} aria-current="page"{% endif %}>Проекты</a>
       <a href="/it-symbols/"{% if pageType == 'glossary' %} aria-current="page"{% endif %}>IT-словарь</a>
       {% if pageType == 'day' %}
         {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
@@ -48,6 +49,8 @@
       {% elseif pageType == 'glossary' %}
         <a href="#terms">Термины</a>
         <a href="#symbols">Символы</a>
+      {% elseif pageType == 'projects' %}
+        <a href="#projects">Витрина</a>
       {% else %}
         {% set headerLatestItem = collections.days | latestPublishedDay %}
         {% if headerLatestItem %}<a href="/{{ headerLatestItem.data.slug }}/">День {{ headerLatestItem.data.day_number }}</a>{% endif %}
