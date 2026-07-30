@@ -49,9 +49,7 @@
       {% elseif pageType == 'glossary' %}
         <a href="#terms">Термины</a>
         <a href="#symbols">Символы</a>
-      {% elseif pageType == 'projects' %}
-        <a href="#projects">Список</a>
-      {% else %}
+      {% elseif pageType != 'projects' %}
         {% set headerLatestItem = collections.days | latestPublishedDay %}
         {% if headerLatestItem %}<a href="/{{ headerLatestItem.data.slug }}/">День {{ headerLatestItem.data.day_number }}</a>{% endif %}
         <a href="#place">Место</a>
