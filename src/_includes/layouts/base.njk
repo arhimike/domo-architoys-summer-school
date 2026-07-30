@@ -43,6 +43,7 @@
         {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
         {% set navPhotos = gallery | visiblePhotos %}
         {% if navPhotos.length %}<a href="#photos">Фото</a>{% endif %}
+        {% if interviews and interviews.length %}<a href="#interviews">Видео</a>{% endif %}
       {% elseif pageType == 'longread' %}
         <a href="{{ return_url }}">День {{ day_number }}</a>
         <a href="#full-report">Полный текст</a>

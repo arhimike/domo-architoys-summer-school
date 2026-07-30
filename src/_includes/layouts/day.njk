@@ -141,7 +141,10 @@ bodyClass: article-page
     <section class="photos-section" id="photos" aria-labelledby="photos-title">
       <div class="section-grid photos-heading">
         <div class="section-label mono">Фотоотчёт / 06</div>
-        <div><p class="eyebrow">{{ date | dateRu }} 2026</p><h2 id="photos-title">День в кадрах</h2></div>
+        <div>
+          <p class="eyebrow">{% if gallery_eyebrow %}{{ gallery_eyebrow }}{% else %}{{ date | dateRu }} 2026{% endif %}</p>
+          <h2 id="photos-title">{{ gallery_title or 'День в кадрах' }}</h2>
+        </div>
       </div>
       <div class="photo-grid" data-gallery>
         {% for photo in visibleGallery %}
@@ -152,6 +155,33 @@ bodyClass: article-page
             </a>
             <figcaption><span class="mono">{{ loop.index | pad2 }}</span> {{ photo.caption }}</figcaption>
           </figure>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
+
+  {% if interviews and interviews.length %}
+    <section class="interviews-section section-grid" id="interviews" aria-labelledby="interviews-title">
+      <div class="section-label mono">Видео / 07</div>
+      <div class="interviews-heading">
+        <p class="eyebrow">{{ interviews_eyebrow or 'Разговор после показа' }}</p>
+        <h2 id="interviews-title">{{ interviews_title or 'Интервью' }}</h2>
+        {% if interviews_intro %}<p>{{ interviews_intro }}</p>{% endif %}
+      </div>
+      <div class="interviews-grid">
+        {% for interview in interviews %}
+          <article class="interview-card">
+            <video controls preload="metadata" playsinline poster="{{ interview.poster }}" aria-label="{{ interview.title }}">
+              <source src="{{ interview.video }}" type="video/mp4">
+              <p>Ваш браузер не воспроизводит видео. <a href="{{ interview.video }}">Открыть файл отдельно</a>.</p>
+            </video>
+            <div class="interview-copy">
+              <div class="interview-meta mono"><span>{{ loop.index | pad2 }}</span>{% if interview.duration %}<time>{{ interview.duration }}</time>{% endif %}</div>
+              <h3>{{ interview.title }}</h3>
+              {% if interview.description %}<p>{{ interview.description }}</p>{% endif %}
+              <a href="{{ interview.video }}" target="_blank" rel="noopener">Открыть видео <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
         {% endfor %}
       </div>
     </section>

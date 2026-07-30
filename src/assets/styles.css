@@ -125,6 +125,7 @@ address { font-style: normal; }
 .outcomes-heading h2,
 .post-heading h2,
 .photos-heading h2,
+.interviews-heading h2,
 .place-copy h2 {
   margin: 0;
   font-size: clamp(2.2rem, 4.6vw, 5rem);
@@ -642,6 +643,80 @@ address { font-style: normal; }
 .lightbox.is-loading .lightbox-status { display: flex; }
 .lightbox.is-error .lightbox-status { display: flex; }
 .lightbox.is-error .lightbox-status a { display: inline; }
+
+/* Interviews */
+.interviews-section {
+  max-width: none;
+  padding-top: clamp(86px, 10vw, 150px);
+  padding-bottom: clamp(86px, 10vw, 150px);
+  color: var(--white);
+  background: var(--ink);
+}
+.interviews-section .section-label { color: rgba(255,255,255,.58); }
+.interviews-heading { grid-column: 3 / span 7; }
+.interviews-heading .eyebrow { color: var(--cyan); }
+.interviews-heading > p:last-child {
+  max-width: 760px;
+  margin: 30px 0 0;
+  color: rgba(255,255,255,.72);
+  font-size: 1.04rem;
+}
+.interviews-grid {
+  grid-column: 3 / -1;
+  margin-top: clamp(48px, 6vw, 82px);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--grid-gap);
+}
+.interview-card {
+  padding-top: 14px;
+  display: grid;
+  grid-template-columns: minmax(170px, .78fr) minmax(0, 1fr);
+  gap: clamp(16px, 2vw, 28px);
+  align-items: start;
+  border-top: 1px solid rgba(255,255,255,.42);
+}
+.interview-card video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  display: block;
+  object-fit: cover;
+  background: #000;
+}
+.interview-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  color: var(--cyan);
+  font-size: .64rem;
+}
+.interview-meta time { color: rgba(255,255,255,.58); }
+.interview-copy h3 {
+  margin: clamp(24px, 3vw, 44px) 0 18px;
+  font-size: clamp(1.45rem, 2.25vw, 2.4rem);
+  font-weight: 650;
+  letter-spacing: -.025em;
+  line-height: 1.02;
+}
+.interview-copy > p {
+  margin: 0;
+  color: rgba(255,255,255,.68);
+  font-size: .82rem;
+}
+.interview-copy > a {
+  min-height: 44px;
+  margin-top: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--cyan);
+  font-family: var(--mono);
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
 
 .article-footer { padding-top: clamp(70px, 8vw, 120px); padding-bottom: clamp(80px, 9vw, 140px); background: var(--white); max-width: none; }
 .editorial-note { grid-column: 3 / span 6; }
@@ -1164,6 +1239,9 @@ address { font-style: normal; }
   .post-text { margin-top: 46px; }
   .photos-heading .section-label, .photos-heading > div, .photos-heading > p { grid-column: 1 / -1; }
   .photos-heading > p { margin-top: 22px; }
+  .interviews-heading, .interviews-grid { grid-column: 1 / -1; }
+  .interview-card { grid-template-columns: 1fr; }
+  .interview-card video { width: min(100%, 300px); }
   .footer-brand { grid-column: 1 / span 4; }
   .site-footer p:nth-of-type(1) { grid-column: 5 / span 4; }
   .site-footer p:nth-of-type(2) { grid-column: 9 / -1; }
@@ -1269,6 +1347,10 @@ address { font-style: normal; }
   .photo-wide .photo-button img, .photo-button img, .photo-tall .photo-button img { aspect-ratio: auto; max-height: none; object-fit: contain; }
   .extra-photo-grid { grid-template-columns: 1fr 1fr; }
   .extra-photo-grid .photo-button img { aspect-ratio: 1 / 1; object-fit: cover; }
+  .interviews-grid { grid-template-columns: 1fr; }
+  .interview-card { grid-template-columns: minmax(128px, .66fr) minmax(0, 1fr); }
+  .interview-card video { width: 100%; }
+  .interview-copy h3 { margin-top: 18px; }
   .lightbox { padding: 56px 12px 18px; }
   .lightbox[open] { grid-template-columns: 1fr 1fr; grid-template-rows: minmax(0, 1fr) 48px; gap: 8px; }
   .lightbox figure { grid-column: 1 / -1; grid-row: 1; height: calc(100vh - 134px); }
@@ -1290,6 +1372,7 @@ address { font-style: normal; }
   .outcomes-heading h2,
   .post-heading h2,
   .photos-heading h2,
+  .interviews-heading h2,
   .place-copy h2 { font-size: clamp(1.9rem, 9.6vw, 3rem); }
   .feature-copy h2 { font-size: clamp(2rem, 10vw, 3.2rem); }
   .day-title-block h1 { font-size: clamp(2.3rem, 10.4vw, 4rem); }
@@ -1301,6 +1384,8 @@ address { font-style: normal; }
   .dictionary-teaser-specimens span { min-height: 88px; }
   .symbol-grid { grid-template-columns: 1fr; }
   .symbol-grid li { min-height: 190px; }
+  .interview-card { grid-template-columns: 1fr; }
+  .interview-card video { width: min(100%, 280px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

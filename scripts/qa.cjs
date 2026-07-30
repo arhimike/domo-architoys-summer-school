@@ -34,7 +34,19 @@ const resolveLocalTarget = (htmlFile, rawUrl) => {
   return target;
 };
 
-const expectedPhotos = [];
+const expectedPhotos = [
+  "day-10-after-defense.jpg",
+  "day-10-andrey-city-lens.jpg",
+  "day-10-dmitry-presentation.jpg",
+  "day-10-roza-archi-helper.jpg",
+  "day-10-tatyana-com-play.jpg",
+];
+const expectedDayTenVideos = [
+  "andrey-polushin-interview.jpg",
+  "andrey-polushin-interview.mp4",
+  "dmitry-sakharov-interview.jpg",
+  "dmitry-sakharov-interview.mp4",
+];
 const removedMaterials = [
   "assets/materials/domo-architoys-intro-cards.pdf",
   "assets/materials/architoys-day-01-slides-2026-07-20.pdf",
@@ -66,6 +78,7 @@ assert(adminConfig.media_folder === "src/assets/photos/uploads", "Папка з�
 const daysCollection = adminConfig.collections?.find((collection) => collection.name === "days");
 assert(Boolean(daysCollection), "В CMS отсутствует коллекция дней.");
 assert(daysCollection?.fields?.some((field) => field.name === "gallery"), "В CMS отсутствует редактор галереи.");
+assert(daysCollection?.fields?.some((field) => field.name === "interviews"), "В CMS отсутствует редактор интервью.");
 const longreadsCollection = adminConfig.collections?.find((collection) => collection.name === "longreads");
 assert(Boolean(longreadsCollection), "В CMS отсутствует раздел полных текстов.");
 assert(longreadsCollection?.files?.some((file) => file.name === "day_01_full"), "В CMS отсутствует полный текст первого дня.");
@@ -152,6 +165,13 @@ assert(dayEight.title === "Пространство во времени", "У в
 assert(dayEight.projects?.length === 6, "В восьмом дне должно быть шесть временных моделей.");
 assert(dayEight.full_report_url === "/day-08/full/", "В восьмом дне отсутствует ссылка на методику SPACE//TIME.");
 
+const dayTen = dayEntries[9].data;
+assert(dayTen.published === true, "Десятый день должен быть опубликован.");
+assert(dayTen.date === "2026-07-30", "У десятого дня неверная дата.");
+assert(dayTen.gallery?.length === 4, "В фотоотчёте десятого дня должно быть четыре фотографии.");
+assert(dayTen.interviews?.length === 2, "В десятом дне должно быть два интервью.");
+assert(dayTen.interviews?.every((item) => item.video && item.poster), "У каждого интервью десятого дня должны быть видео и обложка.");
+
 const glossaryDirectory = path.join(source, "glossary");
 const glossaryFiles = fs.readdirSync(glossaryDirectory)
   .filter((name) => name.endsWith(".md"))
@@ -228,17 +248,19 @@ assert(dayEightLongread.content.includes("## Взаимная проверка")
 
 const photoDirectory = path.join(source, "assets", "photos", "uploads");
 const sourcePhotos = fs.readdirSync(photoDirectory).filter((name) => /\.jpe?g$/i.test(name)).sort();
-assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "В исходниках пока не должно быть фотографий.");
+assert(JSON.stringify(sourcePhotos) === JSON.stringify(expectedPhotos), "Набор фотографий десятого дня в исходниках отличается от утверждённого.");
 
-const requiredBuildFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
+const requiredBuildFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "day-10/index.html", "admin/index.html", "admin/config.yml", "admin/decap-cms.js", "404.html"];
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
 for (const file of removedMaterials) assert(!fs.existsSync(path.join(output, file)), `Удалённый материал всё ещё попал в сборку: ${file}.`);
 
-const htmlFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
+const htmlFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "day-10/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
 let galleryItemCount = 0;
 let glossaryCardCount = 0;
 let studentProjectCardCount = 0;
+let interviewCardCount = 0;
+let videoElementCount = 0;
 
 for (const htmlFile of htmlFiles) {
   const html = fs.readFileSync(htmlFile, "utf8");
@@ -251,6 +273,7 @@ for (const htmlFile of htmlFiles) {
     if (classes.includes("day-card")) dayCardCount += 1;
     if (classes.includes("photo-item")) galleryItemCount += 1;
     if (classes.includes("student-project-card")) studentProjectCardCount += 1;
+    if (classes.includes("interview-card")) interviewCardCount += 1;
     if (classes.includes("glossary-card")) {
       glossaryCardCount += 1;
       assert(String(attrs["data-search"] || "").length >= 20, `${path.relative(output, htmlFile)}: у карточки словаря отсутствует управляемый поисковый индекс.`);
@@ -259,8 +282,14 @@ for (const htmlFile of htmlFiles) {
     if (node.nodeName === "img") {
       assert(typeof attrs.alt === "string", `${path.relative(output, htmlFile)}: у изображения отсутствует alt.`);
     }
+    if (node.nodeName === "video") {
+      videoElementCount += 1;
+      assert(Object.hasOwn(attrs, "controls"), `${path.relative(output, htmlFile)}: у интервью отсутствуют элементы управления.`);
+      assert(attrs.preload === "metadata", `${path.relative(output, htmlFile)}: интервью должно загружать только метаданные до запуска.`);
+      assert(typeof attrs.poster === "string" && attrs.poster.length > 0, `${path.relative(output, htmlFile)}: у интервью отсутствует обложка.`);
+    }
 
-    for (const attribute of ["src", "href", "data-full"]) {
+    for (const attribute of ["src", "href", "data-full", "poster"]) {
       const target = resolveLocalTarget(htmlFile, attrs[attribute]);
       if (target) assert(fs.existsSync(target), `${path.relative(output, htmlFile)}: не найден ресурс ${attrs[attribute]}.`);
     }
@@ -268,9 +297,11 @@ for (const htmlFile of htmlFiles) {
 }
 
 assert(dayCardCount === 10, `На главной должно быть 10 карточек дней, найдено ${dayCardCount}.`);
-assert(galleryItemCount === 0, `Фотоотчёт должен быть пустым, найдено карточек: ${galleryItemCount}.`);
+assert(galleryItemCount === 4, `В фотоотчёте десятого дня должно быть четыре карточки, найдено: ${galleryItemCount}.`);
 assert(glossaryCardCount === glossaryEntries.length, `Число карточек словаря (${glossaryCardCount}) не совпадает с числом терминов (${glossaryEntries.length}).`);
 assert(studentProjectCardCount === studentProjects.projects.length, `Число карточек проектов (${studentProjectCardCount}) не совпадает с данными (${studentProjects.projects.length}).`);
+assert(interviewCardCount === 2, `На странице десятого дня должно быть две карточки интервью, найдено: ${interviewCardCount}.`);
+assert(videoElementCount === 2, `На странице десятого дня должно быть два видеоплеера, найдено: ${videoElementCount}.`);
 
 const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
 const builtProjects = fs.readFileSync(path.join(output, "projects", "index.html"), "utf8");
@@ -348,16 +379,25 @@ assert(builtDayEight.includes("Шесть временных моделей"), "
 assert(builtDayEightLongread.includes("SPACE//TIME: пространство как последовательность состояний"), "На странице методики восьмого дня отсутствует заголовок.");
 assert(builtDayEightLongread.includes("Паспорт сценария"), "На странице методики восьмого дня отсутствует паспорт сценария.");
 
+const builtDayTen = fs.readFileSync(path.join(output, "day-10", "index.html"), "utf8");
+assert(builtDayTen.includes("Защиты проектов первого набора"), "На странице десятого дня отсутствует фотоотчёт о защитах.");
+assert(builtDayTen.includes("Интервью после защиты"), "На странице десятого дня отсутствует раздел интервью.");
+assert(builtDayTen.includes("Андрей Полушин — после защиты CITY//LENS"), "На странице десятого дня отсутствует интервью Андрея Полушина.");
+assert(builtDayTen.includes("Дмитрий Сахаров — после защиты"), "На странице десятого дня отсутствует интервью Дмитрия Сахарова.");
+
 const builtPhotos = fs.readdirSync(path.join(output, "assets", "photos", "uploads"))
   .filter((name) => /\.jpe?g$/i.test(name))
   .sort();
-assert(JSON.stringify(builtPhotos) === JSON.stringify(expectedPhotos), "В публичную сборку не должны попадать фотографии.");
+assert(JSON.stringify(builtPhotos) === JSON.stringify(expectedPhotos), "Набор фотографий в публичной сборке отличается от утверждённого.");
+
+const builtDayTenVideos = fs.readdirSync(path.join(output, "assets", "videos", "day-10")).sort();
+assert(JSON.stringify(builtDayTenVideos) === JSON.stringify(expectedDayTenVideos), "Набор интервью десятого дня в публичной сборке отличается от утверждённого.");
 
 if (errors.length) {
   console.error(`QA: найдено ошибок — ${errors.length}`);
   errors.forEach((message) => console.error(`- ${message}`));
   process.exitCode = 1;
 } else {
-  console.log("QA: сборка, контент, ссылки и отсутствие фотографий проверены.");
+  console.log("QA: сборка, контент, ссылки, фотоотчёт и интервью десятого дня проверены.");
   warnings.forEach((message) => console.log(`Внимание: ${message}`));
 }

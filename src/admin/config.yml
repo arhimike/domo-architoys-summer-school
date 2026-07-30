@@ -163,6 +163,8 @@ collections:
         field: { label: "Итог", name: "outcome", widget: "string" }
       - { label: "Короткий пост", name: "short_post", widget: "markdown", required: false }
 
+      - { label: "Надзаголовок фотоотчёта", name: "gallery_eyebrow", widget: "string", required: false }
+      - { label: "Заголовок фотоотчёта", name: "gallery_title", widget: "string", required: false }
       - label: "Фотографии"
         name: "gallery"
         widget: "list"
@@ -183,6 +185,23 @@ collections:
               - { label: "Широкий", value: "wide" }
               - { label: "Вертикальный", value: "tall" }
           - { label: "Показывать", name: "visible", widget: "boolean", default: true }
+
+      - { label: "Надзаголовок интервью", name: "interviews_eyebrow", widget: "string", required: false }
+      - { label: "Заголовок интервью", name: "interviews_title", widget: "string", required: false }
+      - { label: "Введение к интервью", name: "interviews_intro", widget: "text", required: false }
+      - label: "Интервью"
+        name: "interviews"
+        widget: "list"
+        required: false
+        collapsed: true
+        summary: "{{fields.title}}"
+        hint: "Видео предварительно подготовьте в MP4 H.264 и укажите публичные пути к ролику и постеру."
+        fields:
+          - { label: "Заголовок", name: "title", widget: "string" }
+          - { label: "Описание", name: "description", widget: "text", required: false }
+          - { label: "Путь к MP4", name: "video", widget: "string" }
+          - { label: "Путь к постеру", name: "poster", widget: "string" }
+          - { label: "Продолжительность", name: "duration", widget: "string", required: false }
 
   - name: "glossary"
     label: "IT-словарь"
@@ -407,4 +426,3 @@ collections:
           - { label: "Ссылка назад", name: "return_url", widget: "hidden", default: "/day-10/" }
           - { label: "Подпись ссылки назад", name: "return_label", widget: "string" }
           - { label: "Полный текст", name: "body", widget: "markdown" }
-
