@@ -53,6 +53,8 @@
       {% elseif pageType == 'glossary' %}
         <a href="#terms">Термины</a>
         <a href="#symbols">Символы</a>
+      {% elseif pageType == 'galaxy' %}
+        {# Галактика использует только общую навигацию, чтобы шапка оставалась свободной. #}
       {% elseif pageType != 'projects' %}
         {% set headerLatestItem = collections.days | latestPublishedDay %}
         {% if headerLatestItem %}<a href="/{{ headerLatestItem.data.slug }}/">День {{ headerLatestItem.data.day_number }}</a>{% endif %}
