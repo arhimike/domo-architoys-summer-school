@@ -256,6 +256,10 @@ const requiredBuildFiles = ["index.html", "projects/index.html", "it-symbols/ind
 for (const file of requiredBuildFiles) assert(fs.existsSync(path.join(output, file)), `В сборке отсутствует ${file}.`);
 for (const file of removedMaterials) assert(!fs.existsSync(path.join(output, file)), `Удалённый материал всё ещё попал в сборку: ${file}.`);
 
+const homeHtml = fs.readFileSync(path.join(output, "index.html"), "utf8");
+assert(homeHtml.includes("https://architoys-galaxy.arhimike.chatgpt.site/"), "В навигации отсутствует ссылка на атлас новых инструментов.");
+assert(homeHtml.includes("Новые инструменты"), "В навигации отсутствует пункт «Новые инструменты».");
+
 const htmlFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "day-10/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
 let galleryItemCount = 0;
