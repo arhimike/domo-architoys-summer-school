@@ -328,6 +328,10 @@ assert(builtGalaxy.includes("Вопрос 42"), "В галактике отсу�
 assert(builtGalaxy.includes("data-galaxy-search"), "В галактике отсутствует поиск.");
 assert(builtGalaxy.includes("data-galaxy-random"), "В галактике отсутствует случайный скачок.");
 assert(builtGalaxy.includes("Михаил Корси"), "В галактике отсутствует авторство Михаила Корси.");
+assert(!builtGalaxy.includes("Линия вдохновения"), "В паспортах галактики остался служебный блок источников.");
+const galaxyPassports = builtGalaxy.match(/<div class="galaxy-passport"[\s\S]*?<\/template>/g) || [];
+assert(galaxyPassports.length === 42, `В сборке должно быть 42 паспорта инструментов, найдено: ${galaxyPassports.length}.`);
+assert(galaxyPassports.every((passport) => !/<a\b/i.test(passport)), "В паспортах галактики остались внешние ссылки.");
 assert(builtHome.includes("Архитекторы проектируют и создают цифровые инструменты"), "На главной отсутствует манифест IT-словаря.");
 assert(builtHome.includes("Восемь этапов разработки проекта в школе"), "На главной отсутствует общий маршрут разработки проекта.");
 assert(builtProjects.includes("Ученики<br><em>и их</em><br>проекты"), "На странице учеников отсутствует главный заголовок.");

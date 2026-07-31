@@ -177,10 +177,8 @@
 .galaxy-passport-tag { margin: 18px 0 46px; color: rgba(255,255,255,.62); font-family: var(--mono); font-size: .67rem; }
 .galaxy-passport dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(255,255,255,.34); border-left: 1px solid rgba(255,255,255,.34); }
 .galaxy-passport dl div { min-height: 160px; padding: 16px; border-right: 1px solid rgba(255,255,255,.34); border-bottom: 1px solid rgba(255,255,255,.34); }
-.galaxy-passport dl div:last-child { grid-column: 1 / -1; min-height: auto; }
 .galaxy-passport dt { margin-bottom: 40px; color: var(--signal); font-family: var(--mono); font-size: .58rem; text-transform: uppercase; }
 .galaxy-passport dd { margin: 0; font-size: .83rem; line-height: 1.5; }
-.galaxy-passport a { color: var(--signal-secondary); }
 .galaxy-passport strong { color: var(--signal-secondary); font-family: var(--mono); font-size: .7rem; text-transform: uppercase; }
 .galaxy-dialog-random { margin: 0 clamp(22px, 5vw, 64px) 54px; color: var(--galaxy-black); background: var(--galaxy-pink); }
 .galaxy-dialog-random:hover { background: var(--galaxy-acid); }
@@ -242,7 +240,6 @@
   .galaxy-mission-end { grid-template-columns: 1fr; align-items: start; }
   .galaxy-mission-end strong, .galaxy-mission-end span:last-child { text-align: left; }
   .galaxy-passport dl { grid-template-columns: 1fr; }
-  .galaxy-passport dl div:last-child { grid-column: auto; }
   .galaxy-passport h2 { font-size: clamp(2.8rem, 14vw, 5rem); }
   .galaxy-dialog { box-shadow: 7px 7px 0 var(--galaxy-acid); }
 }

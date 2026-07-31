@@ -39,7 +39,7 @@ bodyClass: galaxy-page
   <header class="galaxy-atlas-heading">
     <p class="galaxy-section-label mono">01 / Карта сигналов</p>
     <h2 id="galaxy-atlas-title">Пять созвездий.<br><em>Сорок две странные возможности.</em></h2>
-    <p>Каждый инструмент построен вокруг одного ясного жеста. Сигналы 22–41 опираются на исследования Bartlett, MIT, Harvard, AA, IAAC и материалы POST RUDN ARCH. Сигнал 42 связывает весь атлас; ссылки открываются в паспортах.</p>
+    <p>Каждый инструмент построен вокруг одного ясного жеста. Выберите созвездие, найдите близкую идею или отправьтесь в случайный скачок.</p>
   </header>
 
   <div class="galaxy-controls">
@@ -94,9 +94,6 @@ bodyClass: galaxy-page
             <div><dt>Гипотеза</dt><dd>{{ tool.pitch }}</dd></div>
             <div><dt>Вопрос к автору</dt><dd>{{ tool.question }}</dd></div>
             <div><dt>Первый прототип</dt><dd>{{ tool.prototype }}</dd></div>
-            {% if tool.inspiration and tool.sourceUrl %}
-              <div><dt>Линия вдохновения</dt><dd><a href="{{ tool.sourceUrl }}" target="_blank" rel="noopener noreferrer">{{ tool.inspiration }} ↗</a></dd></div>
-            {% endif %}
             <div><dt>Механика</dt><dd><strong>{{ tool.formula }}</strong></dd></div>
           </dl>
         </div>

@@ -305,8 +305,6 @@
     "secondary": "#8b5cf6",
     "question": "Что, если геометрия — не результат, а только начальное состояние?",
     "prototype": "Одна полоска дерева или бумаги, один стимул и цифровая калибровка трёх последовательных деформаций.",
-    "inspiration": "MIT Self-Assembly Lab · Active Matter",
-    "sourceUrl": "https://selfassemblylab.mit.edu/active-matter",
     "visual": 8
   },
   {
@@ -321,8 +319,6 @@
     "secondary": "#ffda3e",
     "question": "Может ли эффективность конструкции усиливать образ, а не усреднять его?",
     "prototype": "Один навес с тремя опорами: рукой менять нагрузку и одновременно видеть массу, прогиб и углеродный след.",
-    "inspiration": "MIT Architecture · Digital Structures",
-    "sourceUrl": "https://architecture.mit.edu/people/caitlin-mueller",
     "visual": 9
   },
   {
@@ -337,8 +333,6 @@
     "secondary": "#28d7ff",
     "question": "Что появится, если изготовление станет диалогом, а не исполнением файла?",
     "prototype": "Одна печатная дорожка из условной глины: пользователь деформирует слой, а робот на ходу меняет следующий проход.",
-    "inspiration": "The Bartlett · Robotic Architecture research cluster",
-    "sourceUrl": "https://www.ucl.ac.uk/bartlett/architecture/study/design-units-design-studios-and-research-clusters/architectural-design-march-research-clusters",
     "visual": 11
   },
   {
@@ -353,8 +347,6 @@
     "secondary": "#ff4fb1",
     "question": "Архитектор проектирует объект или условия для чужой жизни?",
     "prototype": "Сетка из 25 фасадных ячеек и четыре ползунка среды; проверить, где возникает устойчивый рисунок заселения.",
-    "inspiration": "The Bartlett · Bio-Integrated Design",
-    "sourceUrl": "https://www.ucl.ac.uk/bartlett/architecture/study/postgraduate-architecture-degrees",
     "visual": 10
   },
   {
@@ -369,8 +361,6 @@
     "secondary": "#ffda3e",
     "question": "Должна ли городская модель быть экраном — или столом, вокруг которого спорят?",
     "prototype": "Двенадцать квартальных фишек, три участника и один показатель, который нельзя улучшить в одиночку.",
-    "inspiration": "MIT Media Lab · CityScope",
-    "sourceUrl": "https://www.media.mit.edu/projects/cityscope/overview/",
     "visual": 12
   },
   {
@@ -385,8 +375,6 @@
     "secondary": "#d9ff43",
     "question": "Какие данные действительно нужны архитектору, если наблюдение не должно становиться надзором?",
     "prototype": "Один вход, тепловые точки и события дверей; собрать карту использования, из которой нельзя восстановить личности.",
-    "inspiration": "MIT Media Lab · Responsive Environments",
-    "sourceUrl": "https://www.media.mit.edu/groups/responsive-environments/overview/",
     "visual": 6
   },
   {
@@ -401,8 +389,6 @@
     "secondary": "#3568ff",
     "question": "Как отличить устойчивую закономерность от одного очень громкого дня?",
     "prototype": "Один перекрёсток и 24 часа синтетических потоков; сравнить до, во время и после минимального вмешательства.",
-    "inspiration": "MIT Senseable City Lab · real-time city research",
-    "sourceUrl": "https://senseable.mit.edu/",
     "visual": 11
   },
   {
@@ -417,8 +403,6 @@
     "secondary": "#27d486",
     "question": "На какой отметке город должен не защищаться, а сменить способ существования?",
     "prototype": "Один речной квартал, три уровня воды и неизменный набор функций, который обязан выжить во всех фазах.",
-    "inspiration": "POST RUDN ARCH · «Гидрополис»",
-    "sourceUrl": "https://t.me/postrudnarch/458",
     "visual": 2
   },
   {
@@ -433,8 +417,6 @@
     "secondary": "#8b5cf6",
     "question": "Можно ли изучать сложный узел не у экрана, а непосредственно руками?",
     "prototype": "Один бумажный узел, AR-стрелки и три вибросигнала: верно, опасно, следующий шаг.",
-    "inspiration": "MIT Architecture · AI, XR and haptic spatial systems",
-    "sourceUrl": "https://architecture.mit.edu/people/rodrigo-gallardo",
     "visual": 9
   },
   {
@@ -449,8 +431,6 @@
     "secondary": "#28d7ff",
     "question": "Тело двигает комнату или комната переучивает тело?",
     "prototype": "Виртуальная сетка из надувных ячеек: три позы тела запускают три степени жёсткости и три функции.",
-    "inspiration": "MIT Self-Assembly Lab · Jamming Bodies",
-    "sourceUrl": "https://selfassemblylab.mit.edu/jamming-bodies",
     "visual": 10
   },
   {
@@ -465,8 +445,6 @@
     "secondary": "#d9ff43",
     "question": "Когда одежда становится первым архитектурным масштабом?",
     "prototype": "Один бумажный костюм и веб-камера: записать три движения и превратить их огибающую в каркас 1:10.",
-    "inspiration": "POST RUDN ARCH · «Мета-Авангард»",
-    "sourceUrl": "https://t.me/postrudnarch/452",
     "visual": 8
   },
   {
@@ -481,8 +459,6 @@
     "secondary": "#ff5b3d",
     "question": "Что исчезает из проекта, если автор всегда проверяет его одним и тем же телом?",
     "prototype": "Один вход и четыре настраиваемых профиля; результаты обязательно сверить с реальными пользователями.",
-    "inspiration": "Harvard GSD · Responsive Environments",
-    "sourceUrl": "https://www.gsd.harvard.edu/course/responsive-environments-spring-2024/",
     "visual": 3
   },
   {
@@ -497,8 +473,6 @@
     "secondary": "#3568ff",
     "question": "Остаётся ли план тем же, если посетитель способен переписать его последовательность?",
     "prototype": "Три комнаты, две двери, одно событие и ветвящийся storyboard, который сразу превращается в проходимый уровень.",
-    "inspiration": "The Bartlett · Cinematic and Videogame Architecture",
-    "sourceUrl": "https://www.ucl.ac.uk/bartlett/architecture/study/postgraduate-architecture-degrees",
     "visual": 12
   },
   {
@@ -513,8 +487,6 @@
     "secondary": "#ff4fb1",
     "question": "Может ли ограниченное время проявить проектный инстинкт яснее долгой полировки?",
     "prototype": "Одна ежедневная цитата, общий холст на десять минут и сравнение процессов без рейтинга красивых картинок.",
-    "inspiration": "POST RUDN ARCH · турнир «Линия мысли»",
-    "sourceUrl": "https://t.me/postrudnarch/431",
     "visual": 11
   },
   {
@@ -529,8 +501,6 @@
     "secondary": "#ff5b3d",
     "question": "Когда перевод ощущения становится архитектурой, а не простой иллюстрацией?",
     "prototype": "Тридцать секунд звука и три разные системы соответствий; пройти каждую партитуру в первом лице.",
-    "inspiration": "POST RUDN ARCH · «Китовое ухо»",
-    "sourceUrl": "https://t.me/postrudnarch/436",
     "visual": 7
   },
   {
@@ -545,8 +515,6 @@
     "secondary": "#27d486",
     "question": "Может ли лучшим проектным действием оказаться намеренно оставленное место?",
     "prototype": "Поле 5×5: убрать один квадрат и получить три сценария, в которых отсутствие работает по-разному.",
-    "inspiration": "POST RUDN ARCH · «Квадрат E5»",
-    "sourceUrl": "https://t.me/postrudnarch/83",
     "visual": 12
   },
   {
@@ -561,8 +529,6 @@
     "secondary": "#d9ff43",
     "question": "Может ли автор проектировать поведение системы, не фиксируя её единственный образ?",
     "prototype": "Сто частиц с тремя типами связей: встряхнуть, затопить и сравнить, какие устойчивые структуры возникают сами.",
-    "inspiration": "MIT Self-Assembly Lab · Fluid Crystallization",
-    "sourceUrl": "https://selfassemblylab.mit.edu/fluid-crystallization",
     "visual": 6
   },
   {
@@ -577,8 +543,6 @@
     "secondary": "#ff4fb1",
     "question": "Может ли постэксплуатационный двойник получить право потребовать переделку?",
     "prototype": "Один школьный коридор: наложить задуманные маршруты на неделю обезличенных наблюдений и предложить три малых изменения.",
-    "inspiration": "MIT City Science · humanized agent-based models",
-    "sourceUrl": "https://www.media.mit.edu/projects/theme-consensus/overview/",
     "visual": 9
   },
   {
@@ -593,8 +557,6 @@
     "secondary": "#28d7ff",
     "question": "Какое сегодняшнее действие делает фантастическую сцену физически возможной?",
     "prototype": "Одна сцена 2050 года и пять обратимых этапов; у каждого — условие, свидетельство и точка отказа.",
-    "inspiration": "The Bartlett · time-based immersive design",
-    "sourceUrl": "https://www.ucl.ac.uk/bartlett/events/2024/jun/bartlett-situ",
     "visual": 5
   },
   {
@@ -609,8 +571,6 @@
     "secondary": "#ffda3e",
     "question": "Что, если проектное задание пишет не заказчик, а куча уже существующих деталей?",
     "prototype": "Сфотографировать двадцать обрезков, распознать контуры и собрать пролёт без подрезки и необратимых соединений.",
-    "inspiration": "IAAC · robotic fabrication with reclaimed timber",
-    "sourceUrl": "https://blog.iaac.net/course/maa02-mrac02-22-23-robotic-fabrication/",
     "visual": 10
   },
   {
@@ -625,8 +585,6 @@
     "secondary": "#8b5cf6",
     "question": "Какой ответ о будущем пространства вы уже считаете верным — и какой вопрос заставил бы вас его доказать?",
     "prototype": "Задать место, участников, конфликт и желаемый эффект. Получить три главных вопроса, выбрать один и пройти экспедицию из четырёх генераторов и двух критиков с итоговой картой гипотез и проверок.",
-    "inspiration": "Дуглас Адамс · «Автостопом по галактике»",
-    "sourceUrl": "https://www.douglasadams.com/creations/hhgg.html",
     "visual": 13
   }
 ]
