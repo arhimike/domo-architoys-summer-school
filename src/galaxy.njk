@@ -1,0 +1,124 @@
+---
+layout: layouts/base.njk
+title: "Галактика инструментов"
+meta_description: "Галактика инструментов DØMO ARCHITOYS — 42 проектные гипотезы о новых цифровых инструментах архитектора."
+permalink: galaxy/index.html
+pageType: galaxy
+bodyClass: galaxy-page
+---
+
+<section class="galaxy-hero" aria-labelledby="galaxy-title">
+  <div class="galaxy-orbit galaxy-orbit-one" aria-hidden="true"></div>
+  <div class="galaxy-orbit galaxy-orbit-two" aria-hidden="true"></div>
+  <div class="galaxy-hero-meta mono">
+    <span>DØMO LAB · ARCHITOYS · FUTURE TOOL MOODBOARD</span>
+    <span>КООРДИНАТЫ: 55°45′ / 37°37′ / ЗАВТРА</span>
+  </div>
+  <div class="galaxy-hero-copy">
+    <p class="galaxy-kicker mono">Неизобретено / 2026</p>
+    <h1 id="galaxy-title">ГАЛАКТИКА<br><em>ИНСТРУМЕНТОВ</em></h1>
+    <p>42 проектные гипотезы о том, чем архитектор сможет думать, играть и проверять реальность завтра.</p>
+    <a class="galaxy-enter" href="#galaxy-atlas">Войти в галактику <span aria-hidden="true">↓</span></a>
+  </div>
+  <div class="galaxy-signal" aria-hidden="true">
+    <span>?</span>
+    <small>Сигнал<br>не опознан</small>
+  </div>
+  <div class="galaxy-manifest mono">
+    <p>Не каталог</p>
+    <p>Карта того, чего ещё нет</p>
+    <p>X–2042 / Y–DØMO / Z–∞</p>
+  </div>
+</section>
+
+<div class="galaxy-ticker" aria-hidden="true">
+  <div>ФОРМА СТАНОВИТСЯ ИГРОЙ · ТЕЛО СТАНОВИТСЯ ЛИНЕЙКОЙ · ПОГОДА СТАНОВИТСЯ СОАВТОРОМ · ГОРОД СТАНОВИТСЯ РАЗГОВОРОМ · ФОРМА СТАНОВИТСЯ ИГРОЙ · ТЕЛО СТАНОВИТСЯ ЛИНЕЙКОЙ ·</div>
+</div>
+
+<section class="galaxy-atlas" id="galaxy-atlas" aria-labelledby="galaxy-atlas-title" data-galaxy>
+  <header class="galaxy-atlas-heading">
+    <p class="galaxy-section-label mono">01 / Карта сигналов</p>
+    <h2 id="galaxy-atlas-title">Пять созвездий.<br><em>Сорок две странные возможности.</em></h2>
+    <p>Каждый инструмент построен вокруг одного ясного жеста. Сигналы 22–41 опираются на исследования Bartlett, MIT, Harvard, AA, IAAC и материалы POST RUDN ARCH. Сигнал 42 связывает весь атлас; ссылки открываются в паспортах.</p>
+  </header>
+
+  <div class="galaxy-controls">
+    <label class="galaxy-search">
+      <span class="mono">Поиск по инструментам</span>
+      <input type="search" placeholder="Название, идея, механика…" autocomplete="off" data-galaxy-search>
+      <b aria-hidden="true">⌕</b>
+    </label>
+    <div class="galaxy-filters" role="group" aria-label="Фильтр созвездий">
+      <button type="button" data-galaxy-filter="ALL" aria-pressed="true">Все</button>
+      <button type="button" data-galaxy-filter="FORM" aria-pressed="false">Форма</button>
+      <button type="button" data-galaxy-filter="CITY" aria-pressed="false">Город</button>
+      <button type="button" data-galaxy-filter="BODY" aria-pressed="false">Тело + XR</button>
+      <button type="button" data-galaxy-filter="PLAY" aria-pressed="false">Игра</button>
+      <button type="button" data-galaxy-filter="AGENT" aria-pressed="false">Агенты</button>
+    </div>
+    <button class="galaxy-random" type="button" data-galaxy-random>Случайный скачок <span aria-hidden="true">↗</span></button>
+    <p class="galaxy-count mono" aria-live="polite"><span data-galaxy-count>{{ galaxyTools.length }}</span> сигналов</p>
+  </div>
+
+  <div class="galaxy-grid" data-galaxy-grid>
+    {% for tool in galaxyTools %}
+      <article class="galaxy-card" data-galaxy-card data-code="{{ tool.code }}" style="--signal: {{ tool.color }}; --signal-secondary: {{ tool.secondary }};">
+        <div class="galaxy-card-visual galaxy-visual-{{ tool.visual }}" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          {% if tool.id == 42 %}<b>4</b><b>2</b><strong>?</strong>{% endif %}
+        </div>
+        <div class="galaxy-card-body">
+          <div class="galaxy-card-meta mono"><span>AT–{{ tool.id | pad2 }}</span><span>Сигнал / {{ tool.code }}</span><span>{{ tool.id | pad2 }} / {{ galaxyTools.length }}</span></div>
+          <p class="galaxy-cluster">{{ tool.cluster }}</p>
+          <h3>{{ tool.title }}</h3>
+          <p class="galaxy-tag">{{ tool.tag }}</p>
+          <p class="galaxy-pitch">{{ tool.pitch }}</p>
+          <div class="galaxy-formula mono">{{ tool.formula }} <span aria-hidden="true">□↗</span></div>
+          <button type="button" class="galaxy-card-open" data-galaxy-open="{{ tool.id }}" aria-label="Открыть паспорт инструмента «{{ tool.title }}»"></button>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  <p class="galaxy-empty" hidden data-galaxy-empty>В этой части галактики сигналов не найдено. Попробуйте другой запрос.</p>
+
+  <div hidden aria-hidden="true">
+    {% for tool in galaxyTools %}
+      <template id="galaxy-passport-{{ tool.id }}">
+        <div class="galaxy-passport" style="--signal: {{ tool.color }}; --signal-secondary: {{ tool.secondary }};">
+          <p class="galaxy-passport-code mono">AT–{{ tool.id | pad2 }} / {{ galaxyTools.length }}</p>
+          <p class="galaxy-passport-cluster">{{ tool.cluster }}</p>
+          <h2>{{ tool.title }}</h2>
+          <p class="galaxy-passport-tag">{{ tool.tag }}</p>
+          <dl>
+            <div><dt>Гипотеза</dt><dd>{{ tool.pitch }}</dd></div>
+            <div><dt>Вопрос к автору</dt><dd>{{ tool.question }}</dd></div>
+            <div><dt>Первый прототип</dt><dd>{{ tool.prototype }}</dd></div>
+            {% if tool.inspiration and tool.sourceUrl %}
+              <div><dt>Линия вдохновения</dt><dd><a href="{{ tool.sourceUrl }}" target="_blank" rel="noopener noreferrer">{{ tool.inspiration }} ↗</a></dd></div>
+            {% endif %}
+            <div><dt>Механика</dt><dd><strong>{{ tool.formula }}</strong></dd></div>
+          </dl>
+        </div>
+      </template>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="galaxy-mission" id="galaxy-manifest" aria-labelledby="galaxy-mission-title">
+  <p class="galaxy-section-label mono">02 / Полётное задание</p>
+  <blockquote id="galaxy-mission-title">«Не предсказывать следующий инструмент. Создать ситуацию, в которой его невозможно не изобрести».</blockquote>
+  <ol>
+    <li><span>01</span><h3>Выбрать сигнал</h3><p>Найти идею, от которой немного не по себе и очень хочется нажать.</p></li>
+    <li><span>02</span><h3>Сформулировать жест</h3><p>Оставить одно действие, которое превращает наблюдение в проект.</p></li>
+    <li><span>03</span><h3>Собрать прототип</h3><p>Не объяснять всё. Сделать одну работающую невозможность.</p></li>
+  </ol>
+  <div class="galaxy-mission-end mono"><span>DØMO LAB / ARCHITOYS / ЛЕТНЯЯ ШКОЛА</span><strong>ПРОЕКТИРУЙ НЕВОЗМОЖНОЕ</strong><span>МИХАИЛ КОРСИ · 2026</span></div>
+</section>
+
+<dialog class="galaxy-dialog" data-galaxy-dialog aria-labelledby="galaxy-dialog-title">
+  <form method="dialog"><button type="submit" class="galaxy-dialog-close" aria-label="Закрыть паспорт инструмента">Закрыть <span aria-hidden="true">×</span></button></form>
+  <div class="galaxy-dialog-label mono">Паспорт сигнала</div>
+  <div data-galaxy-dialog-content></div>
+  <button type="button" class="galaxy-dialog-random" data-galaxy-dialog-random>Другой случайный сигнал <span aria-hidden="true">↗</span></button>
+</dialog>

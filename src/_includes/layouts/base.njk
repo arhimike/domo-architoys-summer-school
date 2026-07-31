@@ -20,7 +20,9 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/styles.css?v={{ site.assetVersion }}">
   {% if pageType == 'home' %}<link rel="stylesheet" href="/assets/program.css?v={{ site.assetVersion }}">{% endif %}
+  {% if pageType == 'galaxy' %}<link rel="stylesheet" href="/assets/galaxy.css?v={{ site.assetVersion }}">{% endif %}
   <script src="/assets/script.js?v={{ site.assetVersion }}" defer></script>
+  {% if pageType == 'galaxy' %}<script src="/assets/galaxy.js?v={{ site.assetVersion }}" defer></script>{% endif %}
 </head>
 <body class="{{ bodyClass or '' }}">
   <a class="skip-link" href="#main">К содержанию</a>
@@ -39,7 +41,7 @@
       <a href="/#diary">Дневник</a>
       <a href="/projects/"{% if pageType == 'projects' %} aria-current="page"{% endif %}>Ученики</a>
       <a href="/it-symbols/"{% if pageType == 'glossary' %} aria-current="page"{% endif %}>IT-словарь</a>
-      <a class="nav-tools" href="{{ site.toolsUrl }}">Новые инструменты <span aria-hidden="true">↗</span></a>
+      <a class="nav-tools" href="{{ site.toolsUrl }}"{% if pageType == 'galaxy' %} aria-current="page"{% endif %}>Галактика инструментов</a>
       {% if pageType == 'day' %}
         {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
         {% set navPhotos = gallery | visiblePhotos %}
@@ -67,7 +69,7 @@
   <footer class="site-footer section-grid">
     <a class="footer-brand" href="/">{{ site.name }}</a>
     <p>{{ site.subtitle }}<br>{{ site.season }}</p>
-    <p>Куратор и мастерская — <a href="{{ site.mainSite }}">{{ site.author }}</a><br><a href="{{ site.toolsUrl }}">Атлас новых инструментов ↗</a><br><a href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Бот регистрации ↗</a><br><a href="{{ site.mainSite }}">korsi.ru</a><br>© 2026 {{ site.author }} · Все права защищены</p>
+    <p>Куратор и мастерская — <a href="{{ site.mainSite }}">{{ site.author }}</a><br><a href="{{ site.toolsUrl }}">Галактика инструментов</a><br><a href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Бот регистрации ↗</a><br><a href="{{ site.mainSite }}">korsi.ru</a><br>© 2026 {{ site.author }} · Все права защищены</p>
     <a class="back-top" href="#main">Наверх <span aria-hidden="true">↑</span></a>
   </footer>
 </body>
