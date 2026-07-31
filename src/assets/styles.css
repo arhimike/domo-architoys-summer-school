@@ -237,7 +237,7 @@ address { font-style: normal; }
 .brand-copy b { font-size: 0.72rem; letter-spacing: 0.025em; }
 .brand-copy small { margin-top: 5px; color: var(--muted); font-family: var(--mono); font-size: 0.53rem; letter-spacing: 0.015em; text-transform: uppercase; }
 
-.site-nav { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 38px); }
+.site-nav { display: flex; align-items: center; gap: clamp(12px, 1.65vw, 28px); }
 .site-nav a {
   position: relative;
   padding: 12px 0;
@@ -262,6 +262,9 @@ address { font-style: normal; }
 }
 .site-nav a:hover::after { transform: scaleX(1); transform-origin: left; }
 .site-nav a[aria-current="page"]::after { transform: scaleX(1); }
+.site-nav a.nav-tools { color: var(--ink); }
+.site-nav a.nav-tools::after { height: 5px; background: var(--acid); transform: scaleX(1); opacity: 0.72; }
+.site-nav a.nav-tools:hover::after { height: 100%; opacity: 1; z-index: -1; }
 .site-nav a.nav-registration { min-height: 44px; padding: 10px 14px; display: inline-flex; align-items: center; color: var(--ink); background: var(--orange); transition: color 180ms ease, background-color 180ms ease; }
 .site-nav a.nav-registration::after { display: none; }
 .site-nav a.nav-registration:hover { color: var(--ink); background: var(--cyan); }
