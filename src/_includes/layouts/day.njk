@@ -150,7 +150,7 @@ bodyClass: article-page
         {% for photo in visibleGallery %}
           <figure class="photo-item{% if photo.layout == 'wide' %} photo-wide{% elseif photo.layout == 'tall' %} photo-tall{% endif %}">
             <a class="photo-button" href="{{ photo.image }}" data-full="{{ photo.image }}" data-caption="{{ photo.caption }}">
-              <img src="{{ photo.image }}" alt="{{ photo.alt }}" loading="eager" decoding="async">
+              <img src="{{ photo.image }}" alt="{{ photo.alt }}" loading="lazy" decoding="async">
               <span class="zoom-hint" aria-hidden="true">↗</span>
             </a>
             <figcaption><span class="mono">{{ loop.index | pad2 }}</span> {{ photo.caption }}</figcaption>
@@ -198,7 +198,10 @@ bodyClass: article-page
       {% if dayNav.next %}
         <a href="/{{ dayNav.next.slug }}/"><span class="mono">День {{ dayNav.next.day_number }} →</span><b>{{ dayNav.next.card_title or dayNav.next.title }}</b></a>
       {% else %}
-        <span aria-disabled="true"><span class="mono">Следующий день</span><b>Скоро</b></span>
+        <a class="day-navigation-registration" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">
+          <span class="mono">Скоро · следующий набор →</span>
+          <b>Зарегистрироваться на следующий набор</b>
+        </a>
       {% endif %}
     </nav>
   </footer>

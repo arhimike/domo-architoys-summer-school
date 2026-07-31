@@ -728,6 +728,9 @@ address { font-style: normal; }
 .day-navigation span[aria-disabled="true"] { color: var(--muted); }
 .day-navigation .mono { font-size: 0.62rem; text-transform: uppercase; }
 .day-navigation b { font-size: 1.5rem; letter-spacing: -0.035em; }
+.day-navigation .day-navigation-registration { background: var(--orange); }
+.day-navigation .day-navigation-registration:hover { background: var(--cyan); }
+.day-navigation .day-navigation-registration b { max-width: 19ch; font-size: clamp(1.35rem, 2.2vw, 2rem); line-height: 1.02; }
 
 /* IT dictionary teaser */
 .dictionary-teaser { padding-top: clamp(76px, 9vw, 138px); padding-bottom: clamp(78px, 9vw, 142px); align-items: end; }

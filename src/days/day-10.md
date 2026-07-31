@@ -117,6 +117,16 @@ gallery:
     caption: "Участники первого набора после финального показа."
     layout: "wide"
     visible: true
+  - image: "/assets/photos/uploads/day-10-tatyana-interview-01.jpg"
+    alt: "Татьяна Овчинникова сидит за столом с ноутбуком и жестами объясняет итоги работы над проектом."
+    caption: "Татьяна Овчинникова обсуждает итоги работы над COM-PLAY после защиты."
+    layout: "wide"
+    visible: true
+  - image: "/assets/photos/uploads/day-10-tatyana-interview-02.jpg"
+    alt: "Татьяна Овчинникова сидит рядом с ноутбуком во время разговора об итогах первого набора."
+    caption: "Разговор после защиты — о первом наборе и следующей версии проекта."
+    layout: "wide"
+    visible: true
 interviews_eyebrow: "Авторы о первом выпуске"
 interviews_title: "Интервью после защиты"
 interviews_intro: "Два коротких разговора сразу после финального показа — о завершённой версии 1.0 и следующем шаге авторского инструмента."
