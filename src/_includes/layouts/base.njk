@@ -38,7 +38,6 @@
     <nav class="site-nav" id="site-nav" aria-label="Основная навигация" data-nav>
       <a href="/#about">О школе</a>
       <a href="/#program">Программа</a>
-      <a href="/#diary">Дневник</a>
       <a href="/projects/"{% if pageType == 'projects' %} aria-current="page"{% endif %}>Ученики</a>
       <a class="nav-media" href="/day-10/#photos">Фотоотчёт</a>
       <a class="nav-media" href="/day-10/#interviews">Интервью участников</a>
@@ -47,17 +46,12 @@
       {% if pageType == 'day' %}
         {% if projects and projects.length %}<a href="#projects">Проекты</a>{% endif %}
       {% elseif pageType == 'longread' %}
-        <a href="{{ return_url }}">День {{ day_number }}</a>
         <a href="#full-report">Полный текст</a>
       {% elseif pageType == 'glossary' %}
         <a href="#terms">Термины</a>
         <a href="#symbols">Символы</a>
       {% elseif pageType == 'galaxy' %}
         {# Галактика использует только общую навигацию, чтобы шапка оставалась свободной. #}
-      {% elseif pageType != 'projects' %}
-        {% set headerLatestItem = collections.days | latestPublishedDay %}
-        {% if headerLatestItem %}<a href="/{{ headerLatestItem.data.slug }}/">День {{ headerLatestItem.data.day_number }}</a>{% endif %}
-        <a href="#place">Место</a>
       {% endif %}
       <a class="nav-registration" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Регистрация <span aria-hidden="true">↗</span></a>
     </nav>
