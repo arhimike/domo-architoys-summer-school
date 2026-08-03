@@ -594,7 +594,7 @@ address { font-style: normal; }
 .copy-button.is-copied { color: var(--ink); background: var(--cyan); }
 
 /* Gallery */
-.photos-section { padding: clamp(86px, 10vw, 160px) 0; background: var(--white); scroll-margin-top: calc(var(--header-height) + 12px); }
+.photos-section { padding: clamp(86px, 10vw, 160px) 0; background: var(--white); }
 .photos-heading .section-label { grid-column: 1 / span 2; }
 .photos-heading > div { grid-column: 3 / span 6; }
 .photos-heading > p { grid-column: 9 / -1; align-self: end; margin: 0; color: var(--muted); }
@@ -656,7 +656,6 @@ address { font-style: normal; }
   max-width: none;
   padding-top: clamp(86px, 10vw, 150px);
   padding-bottom: clamp(86px, 10vw, 150px);
-  scroll-margin-top: calc(var(--header-height) + 12px);
   color: var(--white);
   background: var(--ink);
 }
