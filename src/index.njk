@@ -17,7 +17,6 @@ bodyClass: home-page
     <p class="hero-lead">Летняя школа, в которой архитектурная идея превращается в цифровую игру, проверяемую механику и первый работающий прототип.</p>
     <p class="hero-curator mono">Куратор и мастерская — <a href="{{ site.mainSite }}">{{ site.author }}</a></p>
     <div class="hero-actions">
-      {% if latestDay.published %}<a class="button button-dark" href="/{{ latestDay.slug }}/">Читать День {{ latestDay.day_number }} <span aria-hidden="true">↗</span></a>{% endif %}
       <a class="button button-orange" href="{{ site.registrationUrl }}" target="_blank" rel="noopener">Предзапись на следующий сезон <span aria-hidden="true">↗</span></a>
       <a class="button button-media" href="/day-10/#photos">Фотоотчёт <span aria-hidden="true">↗</span></a>
       <a class="button button-media" href="/day-10/#interviews">Интервью участников <span aria-hidden="true">↗</span></a>

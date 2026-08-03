@@ -1,4 +1,6 @@
 import markdownIt from "markdown-it";
+import fs from "node:fs";
+import path from "node:path";
 
 const markdown = markdownIt({
   html: false,
@@ -20,6 +22,51 @@ const glossaryCategories = {
   publish: "Публикация и авторство",
 };
 
+const imageDimensionCache = new Map();
+const sourceRoot = path.resolve("src");
+
+const readImageDimensions = (value = "") => {
+  const source = String(value).split(/[?#]/, 1)[0];
+  if (!source.startsWith("/assets/")) return null;
+  if (imageDimensionCache.has(source)) return imageDimensionCache.get(source);
+
+  const filePath = path.resolve(sourceRoot, source.replace(/^\/+/, ""));
+  if (!filePath.startsWith(`${sourceRoot}${path.sep}`) || !fs.existsSync(filePath)) return null;
+
+  const buffer = fs.readFileSync(filePath);
+  let dimensions = null;
+
+  if (buffer.length >= 24 && buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+    dimensions = { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+  } else if (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) {
+    const startOfFrameMarkers = new Set([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf]);
+    let offset = 2;
+
+    while (offset + 8 < buffer.length) {
+      if (buffer[offset] !== 0xff) {
+        offset += 1;
+        continue;
+      }
+
+      const marker = buffer[offset + 1];
+      offset += 2;
+      if (marker === 0xd8 || marker === 0xd9) continue;
+      if (offset + 2 > buffer.length) break;
+
+      const segmentLength = buffer.readUInt16BE(offset);
+      if (segmentLength < 2 || offset + segmentLength > buffer.length) break;
+      if (startOfFrameMarkers.has(marker)) {
+        dimensions = { width: buffer.readUInt16BE(offset + 5), height: buffer.readUInt16BE(offset + 3) };
+        break;
+      }
+      offset += segmentLength;
+    }
+  }
+
+  imageDimensionCache.set(source, dimensions);
+  return dimensions;
+};
+
 const normalizeDate = (value) => {
   if (value instanceof Date) return value;
   const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -33,6 +80,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("markdown", (value = "") => markdown.render(String(value)));
   eleventyConfig.addFilter("inlineMarkdown", (value = "") => markdown.renderInline(String(value)));
+  eleventyConfig.addFilter("imageDimensions", readImageDimensions);
   eleventyConfig.addFilter("visiblePhotos", (items = []) => items.filter((item) => item?.visible !== false));
   eleventyConfig.addFilter("sortedDays", (items = []) => [...items].sort((a, b) => String(a.data.day_number).localeCompare(String(b.data.day_number), "ru", { numeric: true })));
   eleventyConfig.addFilter("publishedDays", (items = []) => [...items]

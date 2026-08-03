@@ -271,6 +271,7 @@ assert(homeHtml.includes('class="nav-media" href="/day-10/#photos"'), "В гла
 assert(homeHtml.includes('class="nav-media" href="/day-10/#interviews"'), "В главном меню отсутствует постоянная кнопка интервью.");
 assert(homeHtml.includes('class="button button-media" href="/day-10/#photos"'), "На первом экране главной отсутствует кнопка фотоотчёта.");
 assert(homeHtml.includes('class="button button-media" href="/day-10/#interviews"'), "На первом экране главной отсутствует кнопка интервью участников.");
+assert(!homeHtml.includes("Читать День 10"), "На первом экране главной осталась лишняя кнопка «Читать День 10».");
 for (let day = 1; day <= 10; day += 1) {
   const slug = String(day).padStart(2, "0");
   assert(homeHtml.includes(`class="program-row-link" href="/day-${slug}/"`), `Строка дня ${slug} в программе не ведёт на дневниковый отчёт.`);
@@ -305,6 +306,9 @@ for (const htmlFile of htmlFiles) {
 
     if (node.nodeName === "img") {
       assert(typeof attrs.alt === "string", `${path.relative(output, htmlFile)}: у изображения отсутствует alt.`);
+      if (path.relative(output, htmlFile) === "day-10/index.html" && attrs.loading === "lazy") {
+        assert(/^\d+$/.test(String(attrs.width || "")) && /^\d+$/.test(String(attrs.height || "")), "У фотографии десятого дня отсутствуют размеры, поэтому якорь интервью может смещаться после загрузки.");
+      }
     }
     if (node.nodeName === "video") {
       videoElementCount += 1;
@@ -332,6 +336,7 @@ const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
 const builtProjects = fs.readFileSync(path.join(output, "projects", "index.html"), "utf8");
 const builtGlossary = fs.readFileSync(path.join(output, "it-symbols", "index.html"), "utf8");
 const builtGalaxy = fs.readFileSync(path.join(output, "galaxy", "index.html"), "utf8");
+const galaxyCss = fs.readFileSync(path.join(source, "assets", "galaxy.css"), "utf8");
 const assetVersion = String(siteData.assetVersion || "").trim();
 assert(/^\d{8}-\d+$/.test(assetVersion), "Версия CSS и JavaScript отсутствует или имеет неверный формат.");
 for (const html of [builtHome, builtProjects, builtGlossary, builtGalaxy]) {
@@ -344,6 +349,7 @@ assert(builtGalaxy.includes("Вопрос 42"), "В галактике отсу�
 assert(builtGalaxy.includes("data-galaxy-search"), "В галактике отсутствует поиск.");
 assert(builtGalaxy.includes("data-galaxy-random"), "В галактике отсутствует случайный скачок.");
 assert(builtGalaxy.includes("Михаил Корси"), "В галактике отсутствует авторство Михаила Корси.");
+assert(galaxyCss.includes("font-size: clamp(2rem, 11.5vw, 5rem)"), "Мобильный заголовок галактики снова может выходить за экран.");
 assert(!builtGalaxy.includes("Линия вдохновения"), "В паспортах галактики остался служебный блок источников.");
 const galaxyPassports = builtGalaxy.match(/<div class="galaxy-passport"[\s\S]*?<\/template>/g) || [];
 assert(galaxyPassports.length === 42, `В сборке должно быть 42 паспорта инструментов, найдено: ${galaxyPassports.length}.`);
@@ -415,6 +421,7 @@ assert(builtDayEightLongread.includes("Паспорт сценария"), "На 
 
 const builtDayTen = fs.readFileSync(path.join(output, "day-10", "index.html"), "utf8");
 assert(builtDayTen.includes("Первый набор: процесс и защиты"), "На странице десятого дня отсутствует общий фотоотчёт первого набора.");
+assert(builtDayTen.includes('id="interviews"'), "На странице десятого дня отсутствует якорь видеоинтервью.");
 assert(builtDayTen.includes("Интервью после защиты"), "На странице десятого дня отсутствует раздел интервью.");
 assert(builtDayTen.includes("Андрей Полушин — после защиты CITY//LENS"), "На странице десятого дня отсутствует интервью Андрея Полушина.");
 assert(builtDayTen.includes("Дмитрий Сахаров — после защиты"), "На странице десятого дня отсутствует интервью Дмитрия Сахарова.");

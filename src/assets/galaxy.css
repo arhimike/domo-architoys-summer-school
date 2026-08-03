@@ -216,7 +216,7 @@
   .galaxy-hero { grid-template-columns: 1fr; min-height: auto; padding-top: 20px; }
   .galaxy-hero-meta { grid-column: 1; flex-direction: column; gap: 4px; }
   .galaxy-hero-copy { grid-column: 1; margin-top: 86px; }
-  .galaxy-hero h1 { font-size: clamp(3.45rem, 17vw, 6rem); line-height: .78; }
+  .galaxy-hero h1 { font-size: clamp(2rem, 11.5vw, 5rem); line-height: .78; }
   .galaxy-hero-copy > p:not(.galaxy-kicker) { font-size: 1.08rem; }
   .galaxy-signal { position: absolute; top: 120px; right: 20px; grid-column: 1; opacity: .4; }
   .galaxy-signal span { width: 88px; }

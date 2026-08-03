@@ -19,8 +19,9 @@ bodyClass: article-page
       <div><dt>Куратор</dt><dd><a href="{{ site.mainSite }}">{{ site.author }}</a></dd></div>
     </dl>
     {% if cover_image %}
+      {% set coverDimensions = cover_image | imageDimensions %}
       <figure class="day-cover">
-        <img src="{{ cover_image }}" alt="{{ cover_alt }}" fetchpriority="high" decoding="async">
+        <img src="{{ cover_image }}" alt="{{ cover_alt }}"{% if coverDimensions %} width="{{ coverDimensions.width }}" height="{{ coverDimensions.height }}"{% endif %} fetchpriority="high" decoding="async">
         {% if cover_caption %}<figcaption><span class="mono">Обложка</span> {{ cover_caption }}</figcaption>{% endif %}
       </figure>
     {% endif %}
@@ -148,9 +149,10 @@ bodyClass: article-page
       </div>
       <div class="photo-grid" data-gallery>
         {% for photo in visibleGallery %}
+          {% set photoDimensions = photo.image | imageDimensions %}
           <figure class="photo-item{% if photo.layout == 'wide' %} photo-wide{% elseif photo.layout == 'tall' %} photo-tall{% endif %}">
             <a class="photo-button" href="{{ photo.image }}" data-full="{{ photo.image }}" data-caption="{{ photo.caption }}">
-              <img src="{{ photo.image }}" alt="{{ photo.alt }}" loading="lazy" decoding="async">
+              <img src="{{ photo.image }}" alt="{{ photo.alt }}"{% if photoDimensions %} width="{{ photoDimensions.width }}" height="{{ photoDimensions.height }}"{% endif %} loading="lazy" decoding="async">
               <span class="zoom-hint" aria-hidden="true">↗</span>
             </a>
             <figcaption><span class="mono">{{ loop.index | pad2 }}</span> {{ photo.caption }}</figcaption>
