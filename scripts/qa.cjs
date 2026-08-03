@@ -263,6 +263,10 @@ for (const file of removedMaterials) assert(!fs.existsSync(path.join(output, fil
 const homeHtml = fs.readFileSync(path.join(output, "index.html"), "utf8");
 assert(homeHtml.includes('href="/galaxy/"'), "В навигации отсутствует внутренняя ссылка на галактику инструментов.");
 assert(homeHtml.includes("Галактика инструментов"), "В навигации отсутствует пункт «Галактика инструментов».");
+assert(homeHtml.includes('class="nav-media" href="/day-10/#photos"'), "В главном меню отсутствует постоянная кнопка фотоотчёта.");
+assert(homeHtml.includes('class="nav-media" href="/day-10/#interviews"'), "В главном меню отсутствует постоянная кнопка интервью.");
+assert(homeHtml.includes('class="button button-media" href="/day-10/#photos"'), "На первом экране главной отсутствует кнопка фотоотчёта.");
+assert(homeHtml.includes('class="button button-media" href="/day-10/#interviews"'), "На первом экране главной отсутствует кнопка интервью участников.");
 
 const htmlFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "galaxy/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "day-10/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
