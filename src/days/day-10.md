@@ -122,14 +122,24 @@ gallery:
     caption: "Татьяна Овчинникова обсуждает итоги работы над COM-PLAY после защиты."
     layout: "wide"
     visible: true
+  - image: "/assets/photos/uploads/day-10-tatyana-outdoor-01.jpg"
+    alt: "Татьяна Овчинникова стоит на фоне зелени и архитектурных фасадов после финального показа."
+    caption: "Татьяна Овчинникова после защиты COM-PLAY."
+    layout: "tall"
+    visible: true
   - image: "/assets/photos/uploads/day-10-tatyana-interview-02.jpg"
     alt: "Татьяна Овчинникова сидит рядом с ноутбуком во время разговора об итогах первого набора."
     caption: "Разговор после защиты — о первом наборе и следующей версии проекта."
     layout: "wide"
     visible: true
+  - image: "/assets/photos/uploads/day-10-tatyana-outdoor-02.jpg"
+    alt: "Неформальный портрет Татьяны Овчинниковой на фоне зелени и городских зданий."
+    caption: "Неформальный кадр после финального показа первого набора."
+    layout: "tall"
+    visible: true
 interviews_eyebrow: "Авторы о первом выпуске"
 interviews_title: "Интервью после защиты"
-interviews_intro: "Два коротких разговора сразу после финального показа — о завершённой версии 1.0 и следующем шаге авторского инструмента."
+interviews_intro: "Три коротких разговора после финального показа — о завершённой версии 1.0, впечатлениях от школы и следующем шаге авторского инструмента."
 interviews:
   - title: "Андрей Полушин — после защиты CITY//LENS"
     description: "Короткий комментарий автора после защиты архитектурной веб-ГИС CITY//LENS."
@@ -141,4 +151,9 @@ interviews:
     video: "/assets/videos/day-10/dmitry-sakharov-interview.mp4"
     poster: "/assets/videos/day-10/dmitry-sakharov-interview.jpg"
     duration: "00:38"
+  - title: "Татьяна Овчинникова — после защиты COM-PLAY"
+    description: "Разговор с автором COM-PLAY после финального показа первого набора."
+    video: "/assets/videos/day-10/tatyana-ovchinnikova-interview.mp4"
+    poster: "/assets/videos/day-10/tatyana-ovchinnikova-interview.jpg"
+    duration: "01:34"
 ---
