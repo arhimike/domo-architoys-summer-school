@@ -352,6 +352,7 @@ assert(builtGalaxy.includes("data-galaxy-random"), "В галактике отс
 assert(builtGalaxy.includes("Михаил Корси"), "В галактике отсутствует авторство Михаила Корси.");
 assert(galaxyCss.includes("font-size: clamp(2rem, 11.5vw, 5rem)"), "Мобильный заголовок галактики снова может выходить за экран.");
 assert(stylesCss.includes(".photo-button img { width: 100%;"), "Галерея не резервирует адаптивную высоту фотографий до загрузки.");
+assert(!stylesCss.split(/\r?\n/).some((line) => line.includes("photo-button img") && line.includes("aspect-ratio: auto")), "CSS отменяет заранее известные пропорции фотографий.");
 assert(!builtGalaxy.includes("Линия вдохновения"), "В паспортах галактики остался служебный блок источников.");
 const galaxyPassports = builtGalaxy.match(/<div class="galaxy-passport"[\s\S]*?<\/template>/g) || [];
 assert(galaxyPassports.length === 42, `В сборке должно быть 42 паспорта инструментов, найдено: ${galaxyPassports.length}.`);

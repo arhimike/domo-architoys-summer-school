@@ -612,7 +612,6 @@ address { font-style: normal; }
 .photo-item.photo-tall { grid-column: span 4; }
 .photo-button { position: relative; width: 100%; padding: 0; display: block; overflow: hidden; border: 0; color: inherit; background: transparent; cursor: zoom-in; text-decoration: none; }
 .photo-button img { width: 100%; max-width: 100%; height: auto; margin-inline: auto; object-fit: contain; transition: transform 350ms ease, filter 350ms ease; }
-.photo-wide .photo-button img, .photo-tall .photo-button img { aspect-ratio: auto; }
 .photo-button:hover img { transform: scale(1.025); filter: contrast(1.04); }
 .zoom-hint { position: absolute; right: 10px; bottom: 10px; width: 38px; height: 38px; display: grid; place-items: center; color: var(--white); background: var(--ink); }
 .photo-item figcaption { display: flex; gap: 18px; padding: 9px 0; border-top: 1px solid var(--ink); font-size: 0.68rem; }
@@ -1358,7 +1357,7 @@ address { font-style: normal; }
   .project-card { min-height: 460px; }
   .outcomes-list li { grid-template-columns: 44px 1fr; }
   .photo-item, .photo-item.photo-wide, .photo-item.photo-tall { grid-column: 1 / -1; }
-  .photo-wide .photo-button img, .photo-button img, .photo-tall .photo-button img { aspect-ratio: auto; max-height: none; object-fit: contain; }
+  .photo-wide .photo-button img, .photo-button img, .photo-tall .photo-button img { max-height: none; object-fit: contain; }
   .extra-photo-grid { grid-template-columns: 1fr 1fr; }
   .extra-photo-grid .photo-button img { aspect-ratio: 1 / 1; object-fit: cover; }
   .interviews-grid { grid-template-columns: 1fr; }
