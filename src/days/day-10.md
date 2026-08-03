@@ -94,9 +94,29 @@ short_post: |-
   За десять дней участники прошли путь от идеи к собственному цифровому архитектурному инструменту. Финал не закрывает проект — он фиксирует первую устойчивую версию и открывает маршрут 1.1.
 
   **Идея → правило → инструмент → проверка → авторский проект.**
-gallery_eyebrow: "Финальный показ · 30 июля 2026"
-gallery_title: "Защиты проектов первого набора"
+gallery_eyebrow: "20–30 июля 2026"
+gallery_title: "Первый набор: процесс и защиты"
 gallery:
+  - image: "/assets/photos/uploads/first-cohort-process-01.jpg"
+    alt: "Общий вид мастерской, где два участника работают за круглым столом с открытым ноутбуком."
+    caption: "Работа над проектом в студии летней школы."
+    layout: "normal"
+    visible: true
+  - image: "/assets/photos/uploads/first-cohort-process-02.jpg"
+    alt: "Два участника обсуждают цифровой инструмент за круглым столом, рядом открыт ноутбук."
+    caption: "Рабочее обсуждение цифрового инструмента."
+    layout: "normal"
+    visible: true
+  - image: "/assets/photos/uploads/first-cohort-process-03.jpg"
+    alt: "Два участника рассматривают интерфейс проекта на экране ноутбука во время рабочей сессии."
+    caption: "Разбор интерфейса и логики прототипа."
+    layout: "normal"
+    visible: true
+  - image: "/assets/photos/uploads/first-cohort-process-04.jpg"
+    alt: "Участница сидит со смартфоном в зоне отдыха мастерской рядом с наушниками и пианино."
+    caption: "Пауза между рабочими сессиями."
+    layout: "normal"
+    visible: true
   - image: "/assets/photos/uploads/day-10-roza-archi-helper.jpg"
     alt: "Роза Зардарян стоит перед экраном со слайдом ARCHI HELPER и рассказывает о своём проекте."
     caption: "Роза Зардарян защищает ARCHI HELPER AR — помощник для работы с архитектурной подачей."

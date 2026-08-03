@@ -101,7 +101,21 @@
 }
 
 .program-table tbody tr {
+  position: relative;
   transition: color 160ms ease, background-color 160ms ease;
+}
+
+.program-row-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.program-row-link::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  cursor: pointer;
 }
 
 .program-table tbody tr:hover {
@@ -109,8 +123,17 @@
   background: var(--cyan);
 }
 
+.program-table tbody tr:focus-within {
+  color: var(--ink);
+  background: var(--cyan);
+  outline: 3px solid var(--cyan);
+  outline-offset: -3px;
+}
+
 .program-table tbody tr:hover th,
-.program-table tbody tr:hover td {
+.program-table tbody tr:hover td,
+.program-table tbody tr:focus-within th,
+.program-table tbody tr:focus-within td {
   color: var(--ink);
 }
 

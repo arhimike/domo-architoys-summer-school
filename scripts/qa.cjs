@@ -44,6 +44,10 @@ const expectedPhotos = [
   "day-10-tatyana-interview-02.jpg",
   "day-10-tatyana-outdoor-01.jpg",
   "day-10-tatyana-outdoor-02.jpg",
+  "first-cohort-process-01.jpg",
+  "first-cohort-process-02.jpg",
+  "first-cohort-process-03.jpg",
+  "first-cohort-process-04.jpg",
 ];
 const expectedDayTenVideos = [
   "andrey-polushin-interview.jpg",
@@ -174,7 +178,7 @@ assert(dayEight.full_report_url === "/day-08/full/", "В восьмом дне �
 const dayTen = dayEntries[9].data;
 assert(dayTen.published === true, "Десятый день должен быть опубликован.");
 assert(dayTen.date === "2026-07-30", "У десятого дня неверная дата.");
-assert(dayTen.gallery?.length === 8, "В фотоотчёте десятого дня должно быть восемь фотографий.");
+assert(dayTen.gallery?.length === 12, "В фотоотчёте первого набора должно быть двенадцать фотографий.");
 assert(dayTen.interviews?.length === 3, "В десятом дне должно быть три интервью.");
 assert(dayTen.interviews?.every((item) => item.video && item.poster), "У каждого интервью десятого дня должны быть видео и обложка.");
 
@@ -267,6 +271,10 @@ assert(homeHtml.includes('class="nav-media" href="/day-10/#photos"'), "В гла
 assert(homeHtml.includes('class="nav-media" href="/day-10/#interviews"'), "В главном меню отсутствует постоянная кнопка интервью.");
 assert(homeHtml.includes('class="button button-media" href="/day-10/#photos"'), "На первом экране главной отсутствует кнопка фотоотчёта.");
 assert(homeHtml.includes('class="button button-media" href="/day-10/#interviews"'), "На первом экране главной отсутствует кнопка интервью участников.");
+for (let day = 1; day <= 10; day += 1) {
+  const slug = String(day).padStart(2, "0");
+  assert(homeHtml.includes(`class="program-row-link" href="/day-${slug}/"`), `Строка дня ${slug} в программе не ведёт на дневниковый отчёт.`);
+}
 
 const htmlFiles = ["index.html", "projects/index.html", "it-symbols/index.html", "galaxy/index.html", "day-01/index.html", "day-01/full/index.html", "day-02/index.html", "day-02/full/index.html", "day-03/index.html", "day-03/full/index.html", "day-04/index.html", "day-04/full/index.html", "day-05/index.html", "day-05/full/index.html", "day-08/index.html", "day-08/full/index.html", "day-10/index.html", "admin/index.html", "404.html"].map((file) => path.join(output, file));
 let dayCardCount = 0;
@@ -313,7 +321,7 @@ for (const htmlFile of htmlFiles) {
 }
 
 assert(dayCardCount === 10, `На главной должно быть 10 карточек дней, найдено ${dayCardCount}.`);
-assert(galleryItemCount === 8, `В фотоотчёте десятого дня должно быть восемь карточек, найдено: ${galleryItemCount}.`);
+assert(galleryItemCount === 12, `В фотоотчёте первого набора должно быть двенадцать карточек, найдено: ${galleryItemCount}.`);
 assert(glossaryCardCount === glossaryEntries.length, `Число карточек словаря (${glossaryCardCount}) не совпадает с числом терминов (${glossaryEntries.length}).`);
 assert(studentProjectCardCount === studentProjects.projects.length, `Число карточек проектов (${studentProjectCardCount}) не совпадает с данными (${studentProjects.projects.length}).`);
 assert(interviewCardCount === 3, `На странице десятого дня должно быть три карточки интервью, найдено: ${interviewCardCount}.`);
@@ -406,7 +414,7 @@ assert(builtDayEightLongread.includes("SPACE//TIME: пространство к�
 assert(builtDayEightLongread.includes("Паспорт сценария"), "На странице методики восьмого дня отсутствует паспорт сценария.");
 
 const builtDayTen = fs.readFileSync(path.join(output, "day-10", "index.html"), "utf8");
-assert(builtDayTen.includes("Защиты проектов первого набора"), "На странице десятого дня отсутствует фотоотчёт о защитах.");
+assert(builtDayTen.includes("Первый набор: процесс и защиты"), "На странице десятого дня отсутствует общий фотоотчёт первого набора.");
 assert(builtDayTen.includes("Интервью после защиты"), "На странице десятого дня отсутствует раздел интервью.");
 assert(builtDayTen.includes("Андрей Полушин — после защиты CITY//LENS"), "На странице десятого дня отсутствует интервью Андрея Полушина.");
 assert(builtDayTen.includes("Дмитрий Сахаров — после защиты"), "На странице десятого дня отсутствует интервью Дмитрия Сахарова.");
