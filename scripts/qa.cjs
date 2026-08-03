@@ -337,6 +337,7 @@ const builtProjects = fs.readFileSync(path.join(output, "projects", "index.html"
 const builtGlossary = fs.readFileSync(path.join(output, "it-symbols", "index.html"), "utf8");
 const builtGalaxy = fs.readFileSync(path.join(output, "galaxy", "index.html"), "utf8");
 const galaxyCss = fs.readFileSync(path.join(source, "assets", "galaxy.css"), "utf8");
+const stylesCss = fs.readFileSync(path.join(source, "assets", "styles.css"), "utf8");
 const assetVersion = String(siteData.assetVersion || "").trim();
 assert(/^\d{8}-\d+$/.test(assetVersion), "Версия CSS и JavaScript отсутствует или имеет неверный формат.");
 for (const html of [builtHome, builtProjects, builtGlossary, builtGalaxy]) {
@@ -350,6 +351,7 @@ assert(builtGalaxy.includes("data-galaxy-search"), "В галактике отс
 assert(builtGalaxy.includes("data-galaxy-random"), "В галактике отсутствует случайный скачок.");
 assert(builtGalaxy.includes("Михаил Корси"), "В галактике отсутствует авторство Михаила Корси.");
 assert(galaxyCss.includes("font-size: clamp(2rem, 11.5vw, 5rem)"), "Мобильный заголовок галактики снова может выходить за экран.");
+assert(stylesCss.includes(".photo-button img { width: 100%;"), "Галерея не резервирует адаптивную высоту фотографий до загрузки.");
 assert(!builtGalaxy.includes("Линия вдохновения"), "В паспортах галактики остался служебный блок источников.");
 const galaxyPassports = builtGalaxy.match(/<div class="galaxy-passport"[\s\S]*?<\/template>/g) || [];
 assert(galaxyPassports.length === 42, `В сборке должно быть 42 паспорта инструментов, найдено: ${galaxyPassports.length}.`);

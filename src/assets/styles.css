@@ -611,7 +611,7 @@ address { font-style: normal; }
 .photo-item.photo-wide { grid-column: span 8; }
 .photo-item.photo-tall { grid-column: span 4; }
 .photo-button { position: relative; width: 100%; padding: 0; display: block; overflow: hidden; border: 0; color: inherit; background: transparent; cursor: zoom-in; text-decoration: none; }
-.photo-button img { width: auto; max-width: 100%; height: auto; margin-inline: auto; object-fit: contain; transition: transform 350ms ease, filter 350ms ease; }
+.photo-button img { width: 100%; max-width: 100%; height: auto; margin-inline: auto; object-fit: contain; transition: transform 350ms ease, filter 350ms ease; }
 .photo-wide .photo-button img, .photo-tall .photo-button img { aspect-ratio: auto; }
 .photo-button:hover img { transform: scale(1.025); filter: contrast(1.04); }
 .zoom-hint { position: absolute; right: 10px; bottom: 10px; width: 38px; height: 38px; display: grid; place-items: center; color: var(--white); background: var(--ink); }
