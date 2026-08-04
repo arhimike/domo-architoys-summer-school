@@ -54,6 +54,7 @@ const expectedDayTenVideos = [
   "andrey-polushin-interview.mp4",
   "dmitry-sakharov-interview.jpg",
   "dmitry-sakharov-interview.mp4",
+  "roza-zardaryan-interview-web.mp4",
   "tatyana-ovchinnikova-interview.jpg",
   "tatyana-ovchinnikova-interview.mp4",
 ];
@@ -179,7 +180,7 @@ const dayTen = dayEntries[9].data;
 assert(dayTen.published === true, "Десятый день должен быть опубликован.");
 assert(dayTen.date === "2026-07-30", "У десятого дня неверная дата.");
 assert(dayTen.gallery?.length === 12, "В фотоотчёте первого набора должно быть двенадцать фотографий.");
-assert(dayTen.interviews?.length === 3, "В десятом дне должно быть три интервью.");
+assert(dayTen.interviews?.length === 4, "В десятом дне должно быть четыре интервью.");
 assert(dayTen.interviews?.every((item) => item.video && item.poster), "У каждого интервью десятого дня должны быть видео и обложка.");
 
 const glossaryDirectory = path.join(source, "glossary");
@@ -328,8 +329,8 @@ assert(dayCardCount === 10, `На главной должно быть 10 кар
 assert(galleryItemCount === 12, `В фотоотчёте первого набора должно быть двенадцать карточек, найдено: ${galleryItemCount}.`);
 assert(glossaryCardCount === glossaryEntries.length, `Число карточек словаря (${glossaryCardCount}) не совпадает с числом терминов (${glossaryEntries.length}).`);
 assert(studentProjectCardCount === studentProjects.projects.length, `Число карточек проектов (${studentProjectCardCount}) не совпадает с данными (${studentProjects.projects.length}).`);
-assert(interviewCardCount === 3, `На странице десятого дня должно быть три карточки интервью, найдено: ${interviewCardCount}.`);
-assert(videoElementCount === 3, `На странице десятого дня должно быть три видеоплеера, найдено: ${videoElementCount}.`);
+assert(interviewCardCount === 4, `На странице десятого дня должно быть четыре карточки интервью, найдено: ${interviewCardCount}.`);
+assert(videoElementCount === 4, `На странице десятого дня должно быть четыре видеоплеера, найдено: ${videoElementCount}.`);
 assert(galaxyCardCount === 42, `В галактике должно быть 42 сигнала, найдено: ${galaxyCardCount}.`);
 
 const builtHome = fs.readFileSync(path.join(output, "index.html"), "utf8");
@@ -429,6 +430,7 @@ assert(builtDayTen.includes("Интервью после защиты"), "На �
 assert(builtDayTen.includes("Андрей Полушин — после защиты CITY//LENS"), "На странице десятого дня отсутствует интервью Андрея Полушина.");
 assert(builtDayTen.includes("Дмитрий Сахаров — после защиты"), "На странице десятого дня отсутствует интервью Дмитрия Сахарова.");
 assert(builtDayTen.includes("Татьяна Овчинникова — после защиты COM-PLAY"), "На странице десятого дня отсутствует интервью Татьяны Овчинниковой.");
+assert(builtDayTen.includes("Роза Зардарян — после защиты «АРХИ ХЕЛПЕР»"), "На странице десятого дня отсутствует интервью Розы Зардарян.");
 assert(builtDayTen.includes("Скоро · следующий набор →"), "Внизу десятого дня отсутствует переход к следующему набору.");
 assert(builtDayTen.includes(">Зарегистрироваться на следующий набор</b>"), "Внизу десятого дня отсутствует призыв к регистрации.");
 assert(builtDayTen.includes(`href="${siteData.registrationUrl}"`), "Ссылка на регистрацию внизу десятого дня отличается от общей ссылки сайта.");

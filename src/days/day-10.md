@@ -159,7 +159,7 @@ gallery:
     visible: true
 interviews_eyebrow: "Авторы о первом выпуске"
 interviews_title: "Интервью после защиты"
-interviews_intro: "Три коротких разговора после финального показа — о завершённой версии 1.0, впечатлениях от школы и следующем шаге авторского инструмента."
+interviews_intro: "Четыре коротких разговора после финального показа — о завершённой версии 1.0, впечатлениях от школы и следующем шаге авторского инструмента."
 interviews:
   - title: "Андрей Полушин — после защиты CITY//LENS"
     description: "Короткий комментарий автора после защиты архитектурной веб-ГИС CITY//LENS."
@@ -176,4 +176,9 @@ interviews:
     video: "/assets/videos/day-10/tatyana-ovchinnikova-interview.mp4"
     poster: "/assets/videos/day-10/tatyana-ovchinnikova-interview.jpg"
     duration: "01:34"
+  - title: "Роза Зардарян — после защиты «АРХИ ХЕЛПЕР»"
+    description: "Отчётное интервью с автором «АРХИ ХЕЛПЕР» после завершения летней школы."
+    video: "/assets/videos/day-10/roza-zardaryan-interview-web.mp4"
+    poster: "/assets/photos/uploads/day-10-roza-archi-helper.jpg"
+    duration: "00:32"
 ---
